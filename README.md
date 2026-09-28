@@ -55,16 +55,14 @@ For the Chrome Web Store listing, the privacy policy URL is `https://<your-domai
 
 ## Before you publish: check the privacy policy against the extension
 
-The policy is written from these facts: translation runs on-device with Chrome's built-in Translator and Language Detector APIs; settings and saved words are stored locally; there are no accounts, servers, analytics or Chrome sync. A few sentences depend on details that weren't available when it was written, so please confirm them against the extension:
+The policy is written only from these facts: translation runs on-device with Chrome's built-in Translator and Language Detector APIs; settings and saved words are stored locally; there are no accounts, servers, analytics or Chrome sync. Once you've checked the extension, you may want to say more:
 
-1. **PDFs** (Text you translate): "the file stays in your browser and is not uploaded anywhere."
-2. **No translation history** (Text you translate): "Apart from the words you choose to save, Leggio doesn't keep a record of what you translate."
-3. **Saved words** (What Leggio stores): saved entries include "their translations". Add anything else you store, such as the source sentence or page title.
-4. **Permissions**: the paragraph is deliberately general. Make sure it matches `manifest.json`.
-5. **Deleting your data**: says uninstalling removes everything. If you use `chrome.storage.sync` or IndexedDB outside the extension, update this.
-6. **Effective date**: 28 September 2026. Change it whenever the policy changes.
+1. **Saved words** (What Leggio stores): if you keep more than the word, such as its translation, the source sentence or the page title, list it.
+2. **Permissions**: the paragraph points to the Web Store listing. You can list your `manifest.json` permissions and what each one is for.
+3. **Deleting your data**: this says uninstalling removes everything. If Leggio stores anything outside its own extension storage, update it.
+4. **Effective date**: 28 September 2026. Change it whenever the policy changes.
 
-The landing page's demo shows a "select a word, see a gloss, save it" flow and says Leggio works on web pages and PDFs. If the extension's interaction is different (a side panel, hover, etc.), adjust the copy in `index.html` so the site describes it truthfully.
+The landing page's demo shows a "select a word, see its translation and the sentence's translation, save it" flow and says Leggio works on web pages and PDFs. If the extension's interaction is different (a side panel, hover, etc.), adjust the copy in `index.html` so the site describes it truthfully.
 
 ## The demo
 

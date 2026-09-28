@@ -3,6 +3,7 @@
 
   const cfg = window.LEGGIO_CONFIG || {};
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const narrow = window.matchMedia("(max-width: 639px)");
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -14,7 +15,6 @@
       el.rel = "noopener";
       el.textContent = el.dataset.labelLive || "Add to Chrome";
       el.classList.add("is-live");
-      el.removeAttribute("aria-disabled");
     } else {
       el.removeAttribute("href");
       el.textContent = el.dataset.labelPending || "Coming soon";
@@ -33,13 +33,18 @@
     el.textContent = String(new Date().getFullYear());
   });
 
-  /* ---------- How-it-works illustration: pin the gloss under its word ---------- */
+  /* ---------- How-it-works plate: pin the slip under its word on wide screens ---------- */
 
   const mini = $(".minigloss");
-  const miniWord = $(".viewer__hl");
+  const miniWord = $(".plate__hl");
   const anchorMini = () => {
     if (!mini || !miniWord) return;
-    const page = mini.offsetParent || mini.parentElement;
+    if (narrow.matches) {
+      mini.classList.remove("is-anchored");
+      mini.style.left = mini.style.top = "";
+      return;
+    }
+    const page = mini.parentElement;
     const pr = page.getBoundingClientRect();
     const wr = miniWord.getClientRects();
     const r = wr[wr.length - 1];
@@ -52,6 +57,7 @@
   if (mini) {
     anchorMini();
     if ("ResizeObserver" in window) new ResizeObserver(anchorMini).observe(mini.parentElement);
+    narrow.addEventListener("change", anchorMini);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(anchorMini);
   }
 
@@ -62,18 +68,21 @@
   if (!passages || !spread) return;
 
   const passageEl = $("#passage");
+  const pageOriginal = $("#page-original");
+  const dock = $("#gloss-dock");
   const linenosEl = $("#linenos");
   const notesEl = $("#notes");
   const notesEmpty = $("#notes-empty");
   const spinesEl = $("#spines");
+  const closingSpines = $("#closing-spines");
+  const status = $("#demo-status");
   const gloss = $("#gloss");
   const glossWord = $("#gloss-word");
-  const glossReading = $("#gloss-reading");
-  const glossPos = $("#gloss-pos");
   const glossMeaning = $("#gloss-meaning");
   const glossContext = $("#gloss-context");
   const glossSave = $("#gloss-save");
   const glossSaveLabel = $("#gloss-save-label");
+  const glossSaveHint = $("#gloss-save-hint");
   const glossClose = $("#gloss-close");
   const clothEls = $$("[data-sync-cloth]");
   const themeMeta = $('meta[name="theme-color"]');
@@ -89,31 +98,48 @@
   const savedBy = new Map(); // passage id -> Map(lowercased word -> word index)
 
   const parseToken = (raw) => {
-    const parts = raw.split("|");
-    if (parts.length < 2) return null;
-    return { w: parts[0], gloss: parts[1], pos: parts[2] || "", note: parts[3] || "", reading: parts[4] || "" };
+    const bar = raw.indexOf("|");
+    if (bar < 0) return null;
+    return { w: raw.slice(0, bar), gloss: raw.slice(bar + 1) };
   };
   const keyOf = (i) => words[i].tok.w.toLocaleLowerCase(current.lang);
   const animate = () => !reduceMotion.matches;
+  const docked = () => narrow.matches;
 
-  /* Spines: the language switcher */
-  passages.forEach((p) => {
+  const makeSpine = (p) => {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "spine";
-    b.id = "spine-" + p.id;
     b.dataset.cloth = p.id;
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", "false");
-    b.setAttribute("aria-controls", "spread");
-    b.tabIndex = -1;
     const title = document.createElement("span");
     title.className = "spine__title";
     title.lang = p.lang;
     title.textContent = p.tab;
     b.append(title);
+    return b;
+  };
+
+  /* Spines: the language switcher */
+  passages.forEach((p) => {
+    const b = makeSpine(p);
+    b.id = "spine-" + p.id;
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", "false");
+    b.setAttribute("aria-controls", "spread");
+    b.tabIndex = -1;
     b.addEventListener("click", () => select(p.id));
     spinesEl.append(b);
+
+    // The same shelf at the foot of the page opens a volume in the demo
+    if (closingSpines) {
+      const c = makeSpine(p);
+      c.setAttribute("aria-label", "Open the " + p.tab + " volume in the demo");
+      c.addEventListener("click", () => {
+        select(p.id);
+        spread.scrollIntoView({ behavior: animate() ? "smooth" : "auto", block: "center" });
+      });
+      closingSpines.append(c);
+    }
   });
   spread.setAttribute("role", "tabpanel");
 
@@ -141,6 +167,7 @@
       t.setAttribute("aria-selected", String(on));
       t.tabIndex = on ? 0 : -1;
     });
+    if (closingSpines) $$(".spine", closingSpines).forEach((t) => t.classList.toggle("is-current", t.dataset.cloth === id));
     spread.setAttribute("aria-labelledby", "spine-" + id);
     clothEls.forEach((el) => (el.dataset.cloth = id));
     if (themeMeta) themeMeta.content = THEME[id] || THEME.it;
@@ -251,17 +278,18 @@
     sorted.forEach((k) => {
       if (!lineStarts.length || k - lineStarts[lineStarts.length - 1] > lh * 0.5) lineStarts.push(k);
     });
+    let changed = false;
     words.forEach((w, i) => {
       let line = 1;
       lineStarts.forEach((s, n) => {
         if (keys[i] >= s - lh * 0.5) line = n + 1;
       });
+      if (w.line !== line) changed = true;
       w.line = line;
     });
 
     linenosEl.textContent = "";
-    const page = passageEl.offsetParent || passageEl.parentElement;
-    const pr = page.getBoundingClientRect();
+    const pr = pageOriginal.getBoundingClientRect();
     lineStarts.forEach((s, n) => {
       const num = n + 1;
       if (num % 5 !== 0) return;
@@ -275,7 +303,7 @@
       }
       linenosEl.append(tag);
     });
-    renderNotes();
+    if (changed) renderNotes();
   }
 
   /* The facing page */
@@ -294,20 +322,24 @@
       hw.className = "notes__word";
       hw.lang = current.lang;
       hw.textContent = w.tok.w;
-      const pos = document.createElement("span");
-      pos.className = "notes__pos";
-      pos.textContent = w.tok.pos;
       const mean = document.createElement("span");
       mean.className = "notes__meaning";
       mean.textContent = w.tok.gloss;
-      li.append(ln, hw, " ", pos, " ", mean);
+      li.append(ln, hw, mean);
       notesEl.append(li);
     });
     notesEmpty.hidden = entries.length > 0;
     words.forEach((w, i) => w.el.classList.toggle("is-saved", saved.get(keyOf(i)) !== undefined));
   }
 
-  /* The gloss popover */
+  /* The gloss slip: floats beside the word on wide screens, docks under the passage on phones */
+  function mountGloss() {
+    const host = docked() ? dock : spread;
+    if (gloss.parentElement !== host) host.append(gloss);
+    gloss.classList.toggle("is-docked", docked());
+    if (docked()) gloss.style.left = gloss.style.top = "";
+  }
+
   function openGloss(i, { animated = true } = {}) {
     if (i < 0 || !words[i]) return;
     window.clearTimeout(closeTimer);
@@ -324,14 +356,11 @@
 
     glossWord.textContent = tok.w;
     glossWord.lang = current.lang;
-    glossReading.textContent = tok.reading;
-    glossReading.hidden = !tok.reading;
-    glossPos.textContent = tok.note ? tok.pos + " · " + tok.note : tok.pos;
-    glossPos.lang = current.lang;
     glossMeaning.textContent = tok.gloss;
     glossContext.textContent = sentence.t;
     syncSave();
 
+    mountGloss();
     gloss.hidden = false;
     placeGloss();
     if (wasOpen || !animated || !animate()) {
@@ -352,34 +381,36 @@
     active = -1;
     gloss.classList.remove("is-open");
     window.clearTimeout(closeTimer);
-    if (instant || !animate()) gloss.hidden = true;
+    if (instant || !animate() || docked()) gloss.hidden = true;
     else closeTimer = window.setTimeout(() => (gloss.hidden = true), 140);
   }
 
   function placeGloss() {
-    if (active < 0) return;
+    if (active < 0 || docked()) return;
     const el = words[active].el;
     const sr = spread.getBoundingClientRect();
+    const pr = pageOriginal.getBoundingClientRect();
     const r = el.getBoundingClientRect();
     const gw = gloss.offsetWidth;
     const gh = gloss.offsetHeight;
-    const pad = 8;
+    const pad = 10;
     const gap = 10;
-    const W = sr.width;
-    const H = sr.height;
+    // The slip stays on the original page so the facing page is never covered
+    const minX = pr.left - sr.left + pad;
+    const maxX = pr.right - sr.left - gw - pad;
+    const H = pr.bottom - sr.top;
     const wx = r.left - sr.left;
     const wy = r.top - sr.top;
     const cx = wx + r.width / 2;
     const cy = wy + r.height / 2;
-    const clampX = (x) => Math.min(Math.max(x, pad), Math.max(pad, W - gw - pad));
+    const clampX = (x) => Math.min(Math.max(x, minX), Math.max(minX, maxX));
     const clampY = (y) => Math.min(Math.max(y, pad), Math.max(pad, H - gh - pad));
 
-    // Try each side in the order that suits the writing direction; keep the slip inside the book
     const sides = {
-      below: { left: clampX(cx - gw / 2), top: wy + r.height + gap, fits: wy + r.height + gap + gh <= H + 16 },
+      below: { left: clampX(cx - gw / 2), top: wy + r.height + gap, fits: wy + r.height + gap + gh <= H + 12 },
       above: { left: clampX(cx - gw / 2), top: wy - gap - gh, fits: wy - gap - gh >= pad },
-      left: { left: wx - gap - gw, top: clampY(cy - gh / 2), fits: wx - gap - gw >= pad },
-      right: { left: wx + r.width + gap, top: clampY(cy - gh / 2), fits: wx + r.width + gap + gw <= W - pad }
+      left: { left: wx - gap - gw, top: clampY(cy - gh / 2), fits: wx - gap - gw >= minX },
+      right: { left: wx + r.width + gap, top: clampY(cy - gh / 2), fits: wx + r.width + gap <= maxX }
     };
     const order = current.vertical ? ["left", "right", "below", "above"] : ["below", "above", "right", "left"];
     const side = order.find((k) => sides[k].fits) || "below";
@@ -391,7 +422,6 @@
       right: [0, cy - top]
     }[side];
 
-    gloss.dataset.side = side;
     gloss.style.left = Math.round(left) + "px";
     gloss.style.top = Math.round(top) + "px";
     gloss.style.transformOrigin = Math.round(origin[0]) + "px " + Math.round(origin[1]) + "px";
@@ -399,20 +429,24 @@
 
   function syncSave() {
     const on = savedBy.get(current.id).get(keyOf(active)) !== undefined;
-    glossSave.setAttribute("aria-pressed", String(on));
+    glossSave.classList.toggle("is-saved", on);
     glossSaveLabel.textContent = on ? "Saved" : "Save to facing page";
+    glossSaveHint.textContent = on ? " (select to remove)" : "";
   }
 
   glossSave.addEventListener("click", () => {
     if (active < 0) return;
     const saved = savedBy.get(current.id);
     const key = keyOf(active);
+    const word = words[active].tok.w;
     if (saved.has(key)) {
       saved.delete(key);
       renderNotes();
+      status.textContent = "Removed " + word + " from the facing page.";
     } else {
       saved.set(key, active);
       renderNotes(key);
+      status.textContent = "Saved " + word + " to the facing page, line " + words[active].line + ".";
     }
     syncSave();
   });
@@ -435,7 +469,10 @@
   });
 
   passageEl.addEventListener("keydown", (e) => {
-    const map = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    // In vertical Japanese the next column is to the left
+    const map = current && current.vertical
+      ? { ArrowDown: 1, ArrowLeft: 1, ArrowUp: -1, ArrowRight: -1 }
+      : { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
     let next = -1;
     if (e.key in map) next = Math.min(Math.max(focusIdx + map[e.key], 0), words.length - 1);
     else if (e.key === "Home") next = 0;
@@ -455,7 +492,7 @@
   });
 
   document.addEventListener("pointerdown", (e) => {
-    if (active < 0) return;
+    if (active < 0 || docked()) return;
     if (gloss.contains(e.target) || e.target.closest(".w") || e.target.closest(".spine")) return;
     closeGloss();
   });
@@ -465,11 +502,15 @@
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
       layoutLines();
-      placeGloss();
+      if (active >= 0) {
+        mountGloss();
+        placeGloss();
+      }
     });
   };
   if ("ResizeObserver" in window) new ResizeObserver(relayout).observe(spread);
   else window.addEventListener("resize", relayout);
+  narrow.addEventListener("change", relayout);
 
   select(passages[0].id, { initial: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);

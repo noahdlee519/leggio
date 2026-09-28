@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leggio: read it in the original</title>
-  <meta name="description" content="Leggio is a Chrome extension for language learners. Select a word in any web page or PDF, see what it means, and keep reading in the language you're learning. Translation happens on your device.">
+  <meta name="description" content="Leggio is a Chrome extension for language learners. Select a word on a web page or in a PDF, see what it means, and keep reading in the language you're learning. Translation happens on your device.">
   <meta name="theme-color" content="#1F4E3D">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Leggio: read it in the original">
@@ -22,10 +22,10 @@
   <script src="/assets/js/passages.js" defer></script>
   <script src="/assets/js/site.js" defer></script>
 </head>
-<body>
+<body class="cloth site-cloth" data-cloth="it" data-sync-cloth>
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="cloth site-header" data-cloth="it" data-sync-cloth>
+  <header class="site-header">
     <div class="nav container">
       <a class="wordmark" href="/" aria-label="Leggio home">
         <svg class="wordmark__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.2c3-1 5.8-.6 8.5 1.1 2.7-1.7 5.5-2.1 8.5-1.1v9.4c-3-1-5.8-.6-8.5 1.1-2.7-1.7-5.5-2.1-8.5-1.1z"/><path d="M12 7.3v9.4M12 16.7V21M8.5 21h7"/></svg>
@@ -40,11 +40,11 @@
   </header>
 
   <main id="main">
-    <section class="cloth hero" data-cloth="it" data-sync-cloth aria-labelledby="hero-title">
+    <section class="hero" aria-labelledby="hero-title">
       <div class="container hero__grid">
         <div class="hero__copy">
           <h1 id="hero-title">Read it in the original.</h1>
-          <p class="hero__lede">Leggio is a Chrome extension for language learners. Select a word in any web page or PDF, see what it means, and keep reading in the language you’re learning.</p>
+          <p class="hero__lede">Leggio is a Chrome extension for language learners. Select a word on a web page or in a PDF, see what it means, and keep reading in the language you’re learning.</p>
           <div class="hero__actions">
             <a class="button button--primary" data-store-link data-label-live="Add to Chrome" data-label-pending="Coming soon to the Chrome Web Store">Coming soon to the Chrome Web Store</a>
           </div>
@@ -63,6 +63,7 @@
               </header>
               <p class="chapter" data-chapter>Capitolo primo</p>
               <div class="passage" id="passage" role="group" aria-label="Demo passage. Use the arrow keys to move between words and Enter to see a translation." lang="it">C’era una volta… — Un re! — diranno subito i miei piccoli lettori. No, ragazzi, avete sbagliato. C’era una volta un pezzo di legno. Non era un legno di lusso, ma un semplice pezzo da catasta…</div>
+              <div class="gloss-dock" id="gloss-dock"></div>
               <div class="linenos" id="linenos" aria-hidden="true"></div>
               <p class="attribution" data-attribution>Carlo Collodi, 1883</p>
             </article>
@@ -73,98 +74,99 @@
                 <span class="folio" data-folio="1">4</span>
               </header>
               <p class="chapter">Saved words, by line</p>
-              <ol class="notes" id="notes" aria-live="polite"></ol>
+              <ol class="notes" id="notes"></ol>
               <p class="notes__empty" id="notes-empty">Words you save appear here, next to the line they came from.</p>
             </article>
 
-            <div class="gloss" id="gloss" role="dialog" aria-labelledby="gloss-word" hidden>
+            <div class="gloss" id="gloss" hidden>
               <div class="gloss__head">
                 <span class="gloss__word" id="gloss-word"></span>
-                <span class="gloss__reading" id="gloss-reading" lang="ja"></span>
                 <button class="gloss__close" type="button" aria-label="Close translation" id="gloss-close">
                   <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
                 </button>
               </div>
-              <p class="gloss__pos" id="gloss-pos"></p>
               <p class="gloss__meaning" id="gloss-meaning"></p>
               <p class="gloss__context"><span class="gloss__label">This sentence</span> <span id="gloss-context"></span></p>
               <button class="gloss__save" type="button" id="gloss-save">
                 <svg class="icon icon--save" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10v17l-5-3.6-5 3.6z"/></svg>
                 <svg class="icon icon--saved" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
-                <span id="gloss-save-label">Save to facing page</span>
+                <span id="gloss-save-label">Save to facing page</span><span class="visually-hidden" id="gloss-save-hint"></span>
               </button>
             </div>
           </div>
 
           <div class="shelf">
             <div class="spines" role="tablist" aria-label="Demo language" id="spines"></div>
+            <p class="visually-hidden" role="status" id="demo-status"></p>
             <p class="shelf__note">Pick a book and select any word. The demo’s translations are written by hand for these public-domain passages. Leggio translates on your device.</p>
           </div>
         </div>
       </div>
     </section>
 
-  <section class="preface" aria-labelledby="preface-title">
-    <div class="container preface__grid">
-      <h2 id="preface-title">You learn a language by reading it.</h2>
-      <div class="preface__body">
-        <p>Drills teach you the rules. Reading teaches you the language: how words sit together, which ones keep coming back, what a sentence sounds like when someone meant it. The trouble is that reading in a language you’re still learning is slow, and the moment you open a translation, you stop learning.</p>
-        <p>Leggio keeps you in the original. When a word stops you, its meaning appears right beside it, like the facing page of a bilingual edition, and the page you’re reading never changes. Save the words that matter to you, then carry on with the next line.</p>
-        <p class="preface__coda">A <i lang="it">leggio</i> is the stand that holds what you’re reading. That’s the whole job.</p>
-      </div>
+  <section class="leaf-section" aria-labelledby="preface-title">
+    <div class="container">
+      <article class="leaf">
+        <header class="runhead leaf__runhead"><span>Preface</span><span class="folio">vii</span></header>
+        <div class="preface__grid">
+          <h2 id="preface-title">You learn a language by reading it.</h2>
+          <div class="preface__body">
+            <p>Drills teach you the rules. Reading teaches you the language: how words sit together, which ones keep coming back, what a sentence sounds like when someone meant it. The trouble is that reading in a language you’re still learning is slow, and the moment you open a translation, you stop learning.</p>
+            <p>Leggio keeps you in the original. When a word stops you, its meaning appears right beside it, like the facing page of a bilingual edition, and the page you’re reading never changes. Save the words that matter to you, then carry on with the next line.</p>
+            <p class="preface__coda">A <i lang="it">leggio</i> is the stand that holds what you’re reading. That’s the whole job.</p>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
-  <section class="howto" id="how" aria-labelledby="how-title">
+  <section class="leaf-section" id="how" aria-labelledby="how-title">
     <div class="container">
-      <h2 id="how-title">How to read with Leggio</h2>
-      <div class="howto__grid">
-        <figure class="viewer" aria-label="Illustration: a PDF open in Chrome with Leggio showing a translation">
-          <div class="viewer__bar">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg>
-            <span class="viewer__file">pinocchio_capitolo1.pdf</span>
-            <span class="viewer__count">1 / 36</span>
-            <span class="callout" aria-hidden="true">1</span>
-          </div>
-          <div class="viewer__desk">
-            <div class="viewer__page" lang="it">
-              <p class="viewer__chapter">I.</p>
-              <p>Io non so come andasse, ma il fatto gli è che un bel giorno questo pezzo di legno capitò nella bottega di un vecchio <mark class="viewer__hl">falegname</mark>, il quale aveva nome mastr’Antonio, se non che tutti lo chiamavano maestro Ciliegia, per via della punta del suo naso, che era sempre lustra e paonazza, come una ciliegia matura.</p>
+      <article class="leaf">
+        <header class="runhead leaf__runhead"><span>Notes on use</span><span class="folio">viii</span></header>
+        <h2 id="how-title">How to read with Leggio</h2>
+        <div class="howto__grid">
+          <figure class="plate" aria-label="Illustration: Leggio translating a word in a PDF and saving it">
+            <div class="plate__leaf" lang="it">
+              <header class="plate__runhead">
+                <span class="plate__file"><span class="callout" aria-hidden="true">1</span><span lang="en">PDF</span> · pinocchio_capitolo1.pdf</span>
+                <span class="folio">1</span>
+              </header>
+              <p class="plate__chapter">I.</p>
+              <p class="plate__text">Io non so come andasse, ma il fatto gli è che un bel giorno questo pezzo di legno capitò nella bottega di un vecchio <mark class="plate__hl">falegname</mark>, il quale aveva nome mastr’Antonio, se non che tutti lo chiamavano maestro Ciliegia, per via della punta del suo naso, che era sempre lustra e paonazza, come una ciliegia matura.</p>
               <div class="minigloss" aria-hidden="true">
                 <span class="callout callout--gloss">2</span>
                 <p class="minigloss__word">falegname</p>
-                <p class="minigloss__pos">noun, m.</p>
-                <p class="minigloss__meaning">carpenter</p>
-                <p class="minigloss__save">
+                <p class="minigloss__meaning" lang="en">carpenter</p>
+                <p class="minigloss__save" lang="en">
                   <svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
                   Saved
-                  <span class="callout" aria-hidden="true">3</span>
+                  <span class="callout callout--save">3</span>
                 </p>
               </div>
-              <p>Appena maestro Ciliegia ebbe visto quel pezzo di legno, si rallegrò tutto e dandosi una fregatina di mani per la contentezza, borbottò a mezza voce…</p>
             </div>
-          </div>
-        </figure>
+          </figure>
 
-        <ol class="steps">
-          <li>
-            <h3>Open something worth reading.</h3>
-            <p>A news article, a paper, a novel, a PDF from class. Leggio works on web pages and on PDFs in Chrome.</p>
-          </li>
-          <li>
-            <h3>Select what stops you.</h3>
-            <p>The translation appears next to the words you selected, and the page stays in the original. You read on without switching tabs.</p>
-          </li>
-          <li>
-            <h3>Keep the words worth keeping.</h3>
-            <p>Save a word and it goes to your list, stored in your browser, ready when you come back to it.</p>
-          </li>
-        </ol>
-      </div>
+          <ol class="steps">
+            <li>
+              <h3>Open something worth reading.</h3>
+              <p>A news article, a paper, a novel, a PDF from class. Leggio works on web pages and on PDFs in Chrome.</p>
+            </li>
+            <li>
+              <h3>Select what stops you.</h3>
+              <p>The translation appears next to the words you selected, and the page stays in the original. You read on without switching tabs.</p>
+            </li>
+            <li>
+              <h3>Keep the words worth keeping.</h3>
+              <p>Save a word and it goes to your list, stored in your browser, ready when you come back to it.</p>
+            </li>
+          </ol>
+        </div>
+      </article>
     </div>
   </section>
 
-  <section class="cloth colophon" data-cloth="it" aria-labelledby="colophon-title">
+  <section class="colophon" aria-labelledby="colophon-title">
     <div class="container colophon__grid">
       <div class="colophon__lead">
         <h2 id="colophon-title">Your reading stays on your computer.</h2>
@@ -184,14 +186,18 @@
 
   <section class="closing" aria-labelledby="closing-title">
     <div class="container closing__inner">
+      <svg class="ornament" viewBox="0 0 120 12" aria-hidden="true"><path d="M0 6h50M70 6h50"/><path d="M60 1l5 5-5 5-5-5z"/></svg>
       <h2 id="closing-title">Pick up the book you’ve been putting off.</h2>
       <p>Leggio will keep the translation beside it.</p>
-      <a class="button button--primary button--on-paper" data-store-link data-label-live="Add Leggio to Chrome" data-label-pending="Coming soon to the Chrome Web Store">Coming soon to the Chrome Web Store</a>
+      <a class="button button--primary" data-store-link data-label-live="Add Leggio to Chrome" data-label-pending="Coming soon to the Chrome Web Store">Coming soon to the Chrome Web Store</a>
+      <div class="shelf shelf--closing">
+        <div class="spines" id="closing-spines" role="group" aria-label="Open a demo volume"></div>
+      </div>
     </div>
   </section>
   </main>
 
-  <footer class="footer cloth" data-cloth="it">
+  <footer class="footer">
     <div class="container footer__grid">
       <div class="footer__brand">
         <a class="wordmark" href="/" aria-label="Leggio home">

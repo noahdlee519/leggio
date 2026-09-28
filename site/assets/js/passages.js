@@ -4,9 +4,10 @@
   Every text is in the public domain. Glosses are written by hand for the demo;
   the extension itself translates on the device with Chrome's built-in models.
 
-  Token format inside a sentence:
-    "plain text"                          punctuation and spaces, not selectable
-    "word|gloss|part of speech|note|reading"   a selectable word (note and reading optional)
+  Each sentence has "t", its English translation (shown in the demo under the
+  word's translation), and "w", its tokens:
+    "plain text"         punctuation and spaces, not selectable
+    "word|translation"   a selectable word and its translation in context
 */
 window.LEGGIO_PASSAGES = [
   {
@@ -24,60 +25,60 @@ window.LEGGIO_PASSAGES = [
       {
         t: "Once upon a time there was…",
         w: [
-          "C'era|there was|verb|ci + era, from essere", " ",
-          "una|a, one|article", " ",
-          "volta|time|noun, f.|c'era una volta: once upon a time", "…"
+          "C'era|there was", " ",
+          "una|a, one", " ",
+          "volta|time", "…"
         ]
       },
       {
         t: "“A king!” my little readers will say at once.",
         w: [
-          "— ", "Un|a|article", " ",
-          "re|king|noun, m.|the plural is also re", "! — ",
-          "diranno|they will say|verb|dire, future", " ",
-          "subito|right away|adverb", " ",
-          "i|the|article, m. pl.", " ",
-          "miei|my|possessive, m. pl.", " ",
-          "piccoli|little, young|adjective, m. pl.", " ",
-          "lettori|readers|noun, m. pl.|singular: lettore", "."
+          "— ", "Un|a", " ",
+          "re|king", "! — ",
+          "diranno|they will say", " ",
+          "subito|right away", " ",
+          "i|the", " ",
+          "miei|my", " ",
+          "piccoli|little, young", " ",
+          "lettori|readers", "."
         ]
       },
       {
         t: "No, children, you've got it wrong.",
         w: [
-          "No|no|adverb", ", ",
-          "ragazzi|children, kids|noun, m. pl.|singular: ragazzo", ", ",
-          "avete|you have|verb|avere, voi", " ",
-          "sbagliato|got it wrong|past participle|sbagliare, to make a mistake", "."
+          "No|no", ", ",
+          "ragazzi|children, kids", ", ",
+          "avete|you have", " ",
+          "sbagliato|got it wrong", "."
         ]
       },
       {
         t: "Once upon a time there was a piece of wood.",
         w: [
-          "C'era|there was|verb|ci + era, from essere", " ",
-          "una|a, one|article", " ",
-          "volta|time|noun, f.|c'era una volta: once upon a time", " ",
-          "un|a|article", " ",
-          "pezzo|piece|noun, m.", " ",
-          "di|of|preposition", " ",
-          "legno|wood|noun, m.", "."
+          "C'era|there was", " ",
+          "una|a, one", " ",
+          "volta|time", " ",
+          "un|a", " ",
+          "pezzo|piece", " ",
+          "di|of", " ",
+          "legno|wood", "."
         ]
       },
       {
         t: "It wasn't a fancy piece of wood, just an ordinary log from the woodpile…",
         w: [
-          "Non|not|adverb", " ",
-          "era|it was|verb|essere, imperfect", " ",
-          "un|a|article", " ",
-          "legno|wood|noun, m.", " ",
-          "di|of|preposition", " ",
-          "lusso|luxury|noun, m.|di lusso: fancy, luxurious", ", ",
-          "ma|but|conjunction", " ",
-          "un|a|article", " ",
-          "semplice|plain, ordinary|adjective", " ",
-          "pezzo|piece|noun, m.", " ",
-          "da|for, from|preposition|pezzo da catasta: a log for the pile", " ",
-          "catasta|woodpile|noun, f.", "…"
+          "Non|not", " ",
+          "era|it was", " ",
+          "un|a", " ",
+          "legno|wood", " ",
+          "di|of", " ",
+          "lusso|luxury", ", ",
+          "ma|but", " ",
+          "un|a", " ",
+          "semplice|plain, ordinary", " ",
+          "pezzo|piece", " ",
+          "da|for, from", " ",
+          "catasta|woodpile", "…"
         ]
       }
     ]
@@ -97,39 +98,39 @@ window.LEGGIO_PASSAGES = [
       {
         t: "In a village in La Mancha, whose name I'd rather not recall, there lived not long ago a gentleman of the kind with a lance in the rack, an old shield, a skinny nag and a racing greyhound.",
         w: [
-          "En|in|preposition", " ",
-          "un|a|article", " ",
-          "lugar|place, village|noun, m.", " ",
-          "de|of|preposition", " ",
-          "la|the|article, f.", " ",
-          "Mancha|La Mancha|proper noun|a region of central Spain", ", ",
-          "de|of|preposition", " ",
-          "cuyo|whose|relative", " ",
-          "nombre|name|noun, m.", " ",
-          "no|not|adverb", " ",
-          "quiero|I want|verb|querer, yo", " ",
-          "acordarme|to remember|verb|acordarse, reflexive", ", ",
-          "no|not|adverb", " ",
-          "ha|it has been|verb|haber; no ha mucho tiempo: not long ago", " ",
-          "mucho|much, long|adjective", " ",
-          "tiempo|time|noun, m.", " ",
-          "que|that|conjunction", " ",
-          "vivía|there lived|verb|vivir, imperfect", " ",
-          "un|a|article", " ",
-          "hidalgo|gentleman, minor nobleman|noun, m.|from hijo de algo, “son of somebody”", " ",
-          "de|of|preposition", " ",
-          "los|those|article, m. pl.|de los de: of the kind with", " ",
-          "de|with|preposition", " ",
-          "lanza|lance|noun, f.", " ",
-          "en|in|preposition", " ",
-          "astillero|lance rack|noun, m.", ", ",
-          "adarga|leather shield|noun, f.", " ",
-          "antigua|old|adjective, f.", ", ",
-          "rocín|nag, worn-out horse|noun, m.", " ",
-          "flaco|skinny|adjective", " ",
-          "y|and|conjunction", " ",
-          "galgo|greyhound|noun, m.", " ",
-          "corredor|fast, racing|adjective|from correr, to run", "."
+          "En|in", " ",
+          "un|a", " ",
+          "lugar|place, village", " ",
+          "de|of", " ",
+          "la|the", " ",
+          "Mancha|La Mancha", ", ",
+          "de|of", " ",
+          "cuyo|whose", " ",
+          "nombre|name", " ",
+          "no|not", " ",
+          "quiero|I want", " ",
+          "acordarme|to remember", ", ",
+          "no|not", " ",
+          "ha|it has been", " ",
+          "mucho|much, long", " ",
+          "tiempo|time", " ",
+          "que|that", " ",
+          "vivía|there lived", " ",
+          "un|a", " ",
+          "hidalgo|gentleman, minor nobleman", " ",
+          "de|of", " ",
+          "los|those", " ",
+          "de|with", " ",
+          "lanza|lance", " ",
+          "en|in", " ",
+          "astillero|lance rack", ", ",
+          "adarga|leather shield", " ",
+          "antigua|old", ", ",
+          "rocín|nag, worn-out horse", " ",
+          "flaco|skinny", " ",
+          "y|and", " ",
+          "galgo|greyhound", " ",
+          "corredor|fast, racing", "."
         ]
       }
     ]
@@ -149,42 +150,42 @@ window.LEGGIO_PASSAGES = [
       {
         t: "For a long time, I went to bed early.",
         w: [
-          "Longtemps|for a long time|adverb", ", ",
-          "je|I|pronoun", " ",
-          "me|myself|pronoun|se coucher is reflexive", " ",
-          "suis|am|verb|être, forming the passé composé", " ",
-          "couché|gone to bed|past participle|se coucher, to go to bed", " ",
-          "de|of|preposition|de bonne heure: early", " ",
-          "bonne|good|adjective, f.|de bonne heure: early", " ",
-          "heure|hour|noun, f.|de bonne heure: early", "."
+          "Longtemps|for a long time", ", ",
+          "je|I", " ",
+          "me|myself", " ",
+          "suis|am", " ",
+          "couché|gone to bed", " ",
+          "de|of", " ",
+          "bonne|good", " ",
+          "heure|hour", "."
         ]
       },
       {
         t: "Sometimes, my candle barely out, my eyes would close so quickly that I had no time to tell myself: “I'm falling asleep.”",
         w: [
-          "Parfois|sometimes|adverb", ", ",
-          "à|at|preposition|à peine: barely", " ",
-          "peine|barely|noun, f.|à peine: hardly, scarcely", " ",
-          "ma|my|possessive, f.", " ",
-          "bougie|candle|noun, f.", " ",
-          "éteinte|put out|past participle|éteindre, to put out", ", ",
-          "mes|my|possessive, pl.", " ",
-          "yeux|eyes|noun, m. pl.|singular: œil", " ",
-          "se|themselves|pronoun|se fermer is reflexive", " ",
-          "fermaient|would close|verb|fermer, imperfect", " ",
-          "si|so|adverb", " ",
-          "vite|quickly|adverb", " ",
-          "que|that|conjunction", " ",
-          "je|I|pronoun", " ",
-          "n'avais|didn't have|verb|ne + avoir, imperfect", " ",
-          "pas|not|adverb|ne … pas: not", " ",
-          "le|the|article, m.", " ",
-          "temps|time|noun, m.", " ",
-          "de|to|preposition", " ",
-          "me|to myself|pronoun", " ",
-          "dire|say|verb, infinitive", " : « ",
-          "Je|I|pronoun", " ",
-          "m'endors|am falling asleep|verb|s'endormir, present", ". »"
+          "Parfois|sometimes", ", ",
+          "à|at", " ",
+          "peine|barely", " ",
+          "ma|my", " ",
+          "bougie|candle", " ",
+          "éteinte|put out", ", ",
+          "mes|my", " ",
+          "yeux|eyes", " ",
+          "se|themselves", " ",
+          "fermaient|would close", " ",
+          "si|so", " ",
+          "vite|quickly", " ",
+          "que|that", " ",
+          "je|I", " ",
+          "n'avais|didn't have", " ",
+          "pas|not", " ",
+          "le|the", " ",
+          "temps|time", " ",
+          "de|to", " ",
+          "me|to myself", " ",
+          "dire|say", " : « ",
+          "Je|I", " ",
+          "m'endors|am falling asleep", ". »"
         ]
       }
     ]
@@ -204,36 +205,36 @@ window.LEGGIO_PASSAGES = [
       {
         t: "When Gregor Samsa woke one morning from troubled dreams, he found himself transformed in his bed into a monstrous vermin.",
         w: [
-          "Als|when|conjunction", " Gregor Samsa ",
-          "eines|one|article, genitive|eines Morgens: one morning", " ",
-          "Morgens|morning|noun, genitive|der Morgen", " ",
-          "aus|from, out of|preposition", " ",
-          "unruhigen|troubled, uneasy|adjective, dative pl.|unruhig", " ",
-          "Träumen|dreams|noun, dative pl.|der Traum", " ",
-          "erwachte|woke up|verb|erwachen, past", ", ",
-          "fand|found|verb|finden, past", " ",
-          "er|he|pronoun", " ",
-          "sich|himself|reflexive pronoun", " ",
-          "in|in|preposition", " ",
-          "seinem|his|possessive, dative", " ",
-          "Bett|bed|noun, n.|das Bett", " ",
-          "zu|into|preposition|zu etwas verwandelt: turned into something", " ",
-          "einem|a|article, dative", " ",
-          "ungeheueren|monstrous, enormous|adjective|ungeheuer", " ",
-          "Ungeziefer|vermin|noun, n.|das Ungeziefer", " ",
-          "verwandelt|transformed|past participle|verwandeln, to transform", "."
+          "Als|when", " Gregor Samsa ",
+          "eines|one", " ",
+          "Morgens|morning", " ",
+          "aus|from, out of", " ",
+          "unruhigen|troubled, uneasy", " ",
+          "Träumen|dreams", " ",
+          "erwachte|woke up", ", ",
+          "fand|found", " ",
+          "er|he", " ",
+          "sich|himself", " ",
+          "in|in", " ",
+          "seinem|his", " ",
+          "Bett|bed", " ",
+          "zu|into", " ",
+          "einem|a", " ",
+          "ungeheueren|monstrous, enormous", " ",
+          "Ungeziefer|vermin", " ",
+          "verwandelt|transformed", "."
         ]
       },
       {
         t: "He lay on his armour-hard back…",
         w: [
-          "Er|he|pronoun", " ",
-          "lag|lay|verb|liegen, past", " ",
-          "auf|on|preposition", " ",
-          "seinem|his|possessive, dative", " ",
-          "panzerartig|armour-like|adverb|der Panzer: armour, shell", " ",
-          "harten|hard|adjective, dative|hart", " ",
-          "Rücken|back|noun, m.|der Rücken", "…"
+          "Er|he", " ",
+          "lag|lay", " ",
+          "auf|on", " ",
+          "seinem|his", " ",
+          "panzerartig|armour-like", " ",
+          "harten|hard", " ",
+          "Rücken|back", "…"
         ]
       }
     ]
@@ -254,56 +255,56 @@ window.LEGGIO_PASSAGES = [
       {
         t: "I am a cat.",
         w: [
-          "吾輩|I (grand, old-fashioned)|pronoun|a pompous first person|わがはい",
-          "は|(topic marker)|particle|read “wa”",
-          "猫|cat|noun||ねこ",
-          "で|is|copula|である: “is”, in written style",
-          "ある|is|verb|である: “is”, in written style",
+          "吾輩|I (grand, old-fashioned)",
+          "は|(topic marker)",
+          "猫|cat",
+          "で|is",
+          "ある|is",
           "。"
         ]
       },
       {
         t: "As yet I have no name.",
         w: [
-          "名前|name|noun||なまえ",
-          "は|(topic marker)|particle|read “wa”",
-          "まだ|not yet, still|adverb",
-          "無い|there is none|adjective|usually written ない|ない",
+          "名前|name",
+          "は|(topic marker)",
+          "まだ|not yet, still",
+          "無い|there is none",
           "。"
         ]
       },
       {
         t: "I haven't the faintest idea where I was born.",
         w: [
-          "どこ|where|pronoun",
-          "で|at, in|particle",
-          "生れた|was born|verb|生まれる, past|うまれた",
-          "か|(question marker)|particle",
-          "とんと|(not) at all|adverb|with a negative: not in the least",
-          "見当|idea, guess|noun|見当がつかない: to have no idea|けんとう",
-          "が|(subject marker)|particle",
-          "つかぬ|can't form|verb|つく + ぬ, an old negative",
+          "どこ|where",
+          "で|at, in",
+          "生れた|was born",
+          "か|(question marker)",
+          "とんと|(not) at all",
+          "見当|idea, guess",
+          "が|(subject marker)",
+          "つかぬ|can't form",
           "。"
         ]
       },
       {
         t: "All I remember is that I was mewing in some dim, damp place.",
         w: [
-          "何でも|as far as I know|adverb|literally “whatever it is”|なんでも",
-          "薄暗い|dim, gloomy|adjective||うすぐらい",
-          "じめじめ|damp, clammy|adverb|a sound-symbolic word",
-          "した|that was|verb|する, past",
-          "所|place|noun||ところ",
-          "で|at, in|particle",
-          "ニャーニャー|mew mew|onomatopoeia",
-          "泣いて|crying|verb|泣く, te-form|ないて",
-          "いた|was (doing)|auxiliary|いる, past",
-          "事|the fact that|noun||こと",
-          "だけ|only|particle",
-          "は|(topic marker)|particle|read “wa”",
-          "記憶|memory|noun|記憶している: to remember|きおく",
-          "して|doing|verb|する, te-form",
-          "いる|(ongoing)|auxiliary",
+          "何でも|as far as I know",
+          "薄暗い|dim, gloomy",
+          "じめじめ|damp, clammy",
+          "した|that was",
+          "所|place",
+          "で|at, in",
+          "ニャーニャー|mew mew",
+          "泣いて|crying",
+          "いた|was (doing)",
+          "事|the fact that",
+          "だけ|only",
+          "は|(topic marker)",
+          "記憶|memory",
+          "して|doing",
+          "いる|(ongoing)",
           "。"
         ]
       }
