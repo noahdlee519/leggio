@@ -392,7 +392,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
 .page {
   position: relative;
-  min-height: 460px;
+  min-height: 480px;
   padding: 30px 30px 56px;
   background-color: var(--paper);
 }
@@ -563,14 +563,114 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   transition: opacity 170ms ease, filter 170ms ease;
 }
 
+/* ---------- Turning the page ---------- */
+
+.spread { touch-action: pan-y; }
+.spread.is-turning { -webkit-user-select: none; user-select: none; cursor: grabbing; }
+.spread.is-turning .dogear { visibility: hidden; }
+
+.turn {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  perspective: 2400px;
+}
+.turn__leaf {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.turn__face {
+  position: absolute;
+  inset: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: rotateY(0deg);
+}
+.turn__face--back { transform: rotateY(180deg); }
+.turn__shade,
+.turn__cast {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+/* Light falls from the reader's side: the lifting page darkens toward its free edge */
+.turn--next .turn__shade--front { background: linear-gradient(to left, rgb(24 18 8 / 0.42), rgb(24 18 8 / 0.1) 55%, rgb(24 18 8 / 0.04)); }
+.turn--prev .turn__shade--front { background: linear-gradient(to right, rgb(24 18 8 / 0.42), rgb(24 18 8 / 0.1) 55%, rgb(24 18 8 / 0.04)); }
+.turn--next .turn__shade--back { background: linear-gradient(to right, rgb(24 18 8 / 0.38), rgb(24 18 8 / 0.08) 60%, transparent); }
+.turn--prev .turn__shade--back { background: linear-gradient(to left, rgb(24 18 8 / 0.38), rgb(24 18 8 / 0.08) 60%, transparent); }
+/* The shadow the lifted leaf casts on the page it uncovers */
+.turn--next .turn__cast { inset: auto; background: linear-gradient(to right, rgb(24 18 8 / 0.34), rgb(24 18 8 / 0.08) 40%, transparent 75%); }
+.turn--prev .turn__cast { inset: auto; background: linear-gradient(to left, rgb(24 18 8 / 0.34), rgb(24 18 8 / 0.08) 40%, transparent 75%); }
+
+/* A folded corner: the way to turn by click, and a hint that the page can be dragged */
+.dogear {
+  position: absolute;
+  bottom: 0;
+  z-index: 4;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.dogear--next { right: 0; }
+.dogear--prev { left: 0; }
+.dogear::before,
+.dogear::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transition: transform 240ms var(--ease-out);
+}
+/* the page beneath, seen where the corner has lifted */
+.dogear--next::before {
+  transform-origin: 100% 100%;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(to top left, #e6e2d6, #efece3 60%);
+  border-bottom-right-radius: 3px;
+}
+.dogear--prev::before {
+  transform-origin: 0 100%;
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  background: linear-gradient(to top right, #e6e2d6, #efece3 60%);
+  border-bottom-left-radius: 3px;
+}
+/* the folded flap */
+.dogear--next::after {
+  transform-origin: 100% 100%;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  background: linear-gradient(to bottom right, #e9e6dc, #fffefb 70%);
+  box-shadow: inset 1px 1px 0 rgb(24 18 8 / 0.1);
+}
+.dogear--prev::after {
+  transform-origin: 0 100%;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  background: linear-gradient(to bottom left, #e9e6dc, #fffefb 70%);
+  box-shadow: inset -1px 1px 0 rgb(24 18 8 / 0.1);
+}
+.dogear--prev { opacity: 0.8; }
+@media (hover: hover) and (pointer: fine) {
+  .dogear:hover::before,
+  .dogear:hover::after { transform: scale(1.32); }
+  .dogear--prev:hover { opacity: 1; }
+}
+.dogear:active::before,
+.dogear:active::after { transform: scale(1.2); }
+.dogear:focus-visible { outline: 2px solid var(--cloth-ink); outline-offset: -4px; }
+
 /* Japanese: set vertically, bound on the right */
-.spread[data-vertical="true"] .page--original { order: 2; padding-left: 28px; padding-right: 52px; border-radius: 0 3px 3px 0; background-image: linear-gradient(to right, rgb(40 30 10 / 0.12), rgb(40 30 10 / 0.03) 26px, transparent 60px); }
-.spread[data-vertical="true"] .page--facing { order: 1; padding-left: 40px; padding-right: 30px; border-radius: 3px 0 0 3px; background-image: linear-gradient(to left, rgb(40 30 10 / 0.14), rgb(40 30 10 / 0.03) 26px, transparent 60px); }
-.spread[data-vertical="true"] .page--original .runhead { flex-direction: row-reverse; }
-.spread[data-vertical="true"] .page--facing .runhead { flex-direction: row-reverse; }
-.spread[data-vertical="true"] .passage {
+.page--original[data-vertical="true"] { order: 2; padding-left: 28px; padding-right: 52px; border-radius: 0 3px 3px 0; background-image: linear-gradient(to right, rgb(40 30 10 / 0.12), rgb(40 30 10 / 0.03) 26px, transparent 60px); }
+.page--facing[data-vertical="true"] { order: 1; padding-left: 40px; padding-right: 30px; border-radius: 3px 0 0 3px; background-image: linear-gradient(to left, rgb(40 30 10 / 0.14), rgb(40 30 10 / 0.03) 26px, transparent 60px); }
+.page--original[data-vertical="true"] .runhead { flex-direction: row-reverse; }
+.page--facing[data-vertical="true"] .runhead { flex-direction: row-reverse; }
+.page[data-vertical="true"] .passage {
   writing-mode: vertical-rl;
-  height: 19em;
+  height: 16.5em;
   margin-top: 30px;
   margin-inline-start: auto;
   font-family: var(--font-jp);
@@ -579,12 +679,12 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   letter-spacing: 0.04em;
   line-break: strict;
 }
-.spread[data-vertical="true"] .w {
+.page[data-vertical="true"] .w {
   padding: 0.04em 0;
   text-underline-offset: 0.3em;
 }
-.spread[data-vertical="true"] .attribution { left: 28px; right: 52px; text-align: right; }
-.spread[data-vertical="true"] .linenos span { left: 0; transform: none; }
+.page[data-vertical="true"] .attribution { left: 28px; right: 52px; text-align: right; }
+.page[data-vertical="true"] .linenos span { left: 0; transform: none; }
 
 /* The gloss: a slip of paper laid next to the word */
 .gloss {
@@ -1237,29 +1337,29 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .spread::before { inset: -7px -7px -10px; }
   .page { min-height: 0; }
   .page--original,
-  .spread[data-vertical="true"] .page--original {
+  .page--original[data-vertical="true"] {
     order: 1;
     padding: 24px 22px 52px 42px;
     border-radius: 3px 3px 0 0;
     background-image: linear-gradient(to top, rgb(40 30 10 / 0.1), transparent 36px);
   }
   .page--facing,
-  .spread[data-vertical="true"] .page--facing {
+  .page--facing[data-vertical="true"] {
     order: 2;
     padding: 24px 22px 28px 22px;
     border-radius: 0 0 3px 3px;
     background-image: linear-gradient(to bottom, rgb(40 30 10 / 0.12), transparent 36px);
   }
-  .spread[data-vertical="true"] .page--original .runhead,
-  .spread[data-vertical="true"] .page--facing .runhead { flex-direction: row; }
-  .spread[data-vertical="true"] .attribution { left: 42px; right: 22px; text-align: left; }
+  .page--original[data-vertical="true"] .runhead,
+  .page--facing[data-vertical="true"] .runhead { flex-direction: row; }
+  .page[data-vertical="true"] .attribution { left: 42px; right: 22px; text-align: left; }
   .gutter { top: auto; left: 0; right: 0; width: auto; height: 1px; }
   .page--facing .chapter { margin-top: 18px; }
   .attribution { left: 42px; right: 22px; }
   .linenos span { left: 14px; }
   .chapter { margin: 20px 0 14px; }
   .passage { font-size: 1.0625rem; }
-  .spread[data-vertical="true"] .passage { height: 17em; }
+  .page[data-vertical="true"] .passage { height: 17em; }
 
   .shelf { flex-direction: column; align-items: stretch; gap: 18px; margin-top: 36px; }
   .spines { justify-content: space-between; gap: 4px; }
@@ -1285,5 +1385,6 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .textlink:hover .icon { transform: none; }
   .nav__links > a:not(.button) { transition: none; }
   .spread.is-swapping .passage, .spread.is-swapping .notes { filter: none; }
+  .dogear::before, .dogear::after { transition: none; }
 }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }

@@ -301,7 +301,8 @@ The world refuses two defaults by name: the browser-extension landing page (brow
 
 Motion answers something the reader did. The build has no ambient, looping or scroll-triggered animation.
 
-- **Curve.** One curve for anything that moves: `ease-out` (cubic-bezier(0.23, 1, 0.32, 1)). Colour-only changes use plain `ease`. A second curve, `--ease-in-out`, is declared in `:root` but nothing uses it; it is not part of the system.
+- **Curve.** One curve for anything that moves: `ease-out` (cubic-bezier(0.23, 1, 0.32, 1)). Colour-only changes use plain `ease`. The one exception is the played page turn, which travels across the screen and uses a cubic ease-in-out.
+- **Page turn (the signature moment).** Covered in full under Components › Page Turn. In short: the leaf follows the pointer 1:1 while dragged, a played turn takes 820ms ease-in-out, and releasing finishes or lays the leaf back down in 180–520ms ease-out.
 - **Changing cloth (600ms ease).** Background, text, stamp and border colours cross-fade together whenever the volume changes: the body cloth, spread boards, plate board, footer, headline, lede, chapter lines, callouts, step numbers and ornament.
 - **Swapping the text (170ms).** Passage, notes, running heads, chapter, attribution and line numbers fade to 0 with a 3px blur. The script waits 170ms, swaps the text, then fades back in.
 - **Gloss slip.** Opens in 180ms (opacity, blur 2px to 0) with a 240ms ease-out settle from `translateY(4px) scale(0.96)`, scaled from the selected word as its origin. Closes faster: 120ms opacity and 140ms transform, then it is hidden after 140ms. Moving between words while a slip is open repositions it with no animation.
@@ -309,9 +310,9 @@ Motion answers something the reader did. The build has no ambient, looping or sc
 - **Spines (260ms ease-out).** The selected spine lifts 16px, hover lifts 6px, and a press scales to 0.98.
 - **Presses.** Live buttons scale to 0.97 on `:active`, the slip's close button to 0.94. Buttons move in 160ms ease-out, and their colour and shadow change in 200ms ease.
 - **Small responses.** Word highlight 140ms. Nav underline grows from the left in 220ms ease-out. The text-link arrow nudges 3px in 200ms. The privacy contents rail changes in 160ms.
-- **Reduced motion.** Cloth changes become effectively instant (1ms). The slip keeps only a 120ms opacity fade, with no transform or blur. Spines stop moving. Ink-in becomes a 200ms fade. The swap skips its blur and its 170ms delay. Smooth scrolling (the root `scroll-behavior` and the closing shelf's `scrollIntoView`) turns off.
+- **Reduced motion.** There is no 3D turn: corners, spines and swipes change volume with the plain swap. Cloth changes become effectively instant (1ms). The slip keeps only a 120ms opacity fade, with no transform or blur. Spines stop moving. Ink-in becomes a 200ms fade. The swap skips its blur and its 170ms delay. Smooth scrolling (the root `scroll-behavior` and the closing shelf's `scrollIntoView`) turns off.
 
-**The Answer-Only Motion Rule.** Every animation responds to a reader's action (choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll.
+**The Answer-Only Motion Rule.** Every animation responds to a reader's action (turning a page, choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll. Keyboard-initiated changes (arrow keys on the spines, Enter on a corner) use the quick swap, never the 3D turn.
 
 ## Colors
 
@@ -408,9 +409,9 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 
 **Asymmetric twelfths.** Two-column sections split 5/7 (hero copy against the book; the preface heading against its body), 7/5 (plate against steps) or 6/6 (colophon lead against facts). Column gaps are fluid, from clamp(32px, 5vw, 80px) up to clamp(40px, 6vw, 96px). Everything collapses to one column at 1099px and below.
 
-**The spread.** The book is at most 720px wide and centred in its column. It has two pages, each at least 460px tall with 30px top and 56px bottom padding. The original page has a wider 52px left margin to hold line numbers; the facing page has a 40px outer margin. A 1px gutter line runs between the pages. Line numbers appear on every fifth line, measured from the rendered layout so they stay true at any width.
+**The spread.** The book is at most 720px wide and centred in its column. It has two pages, each at least 480px tall (every volume shares this page size so turning never changes the book's height) with 30px top and 56px bottom padding. The original page has a wider 52px left margin to hold line numbers; the facing page has a 40px outer margin. A 1px gutter line runs between the pages. Line numbers appear on every fifth line, measured from the rendered layout so they stay true at any width.
 
-**Japanese binding.** A vertical volume is set `vertical-rl`, 19em tall (17em on phones), and bound on the right. The original page moves to the right of the spread, the facing page to the left, and running heads and gutter shading mirror. Arrow keys follow the columns (down or left moves to the next word), and closing punctuation is held to its word (kinsoku).
+**Japanese binding.** A vertical volume is set `vertical-rl`, 16.5em tall (17em on phones), and bound on the right. The original page moves to the right of the spread, the facing page to the left, and running heads and gutter shading mirror. Arrow keys follow the columns (down or left moves to the next word), and closing punctuation is held to its word (kinsoku).
 
 **Leaves.** Each leaf is a page laid on the cloth inside the container. Padding is clamp(24px, 3.5vw, 36px) at the top, clamp(22px, 6vw, 88px) at the sides and clamp(56px, 8vw, 104px) at the bottom. A running head sits clamp(48px, 7vw, 96px) above the content. Leaves stack with clamp(40px, 6vw, 72px) between them.
 
@@ -503,7 +504,17 @@ An open bilingual edition, drawn near life size.
 - **Words:** every word is a button, with a roving tabindex and arrow-key movement. Hover adds a 10% cloth wash. The active word gets a 17% cloth wash plus a solid 1.5px cloth-ink underline, offset 0.24em. Saved words carry a dotted cloth-ink underline. Focus is a 2px cloth-ink outline.
 - **Margin line numbers** mark every fifth line, and the attribution sits at the foot in Alegreya italic in pencil ("Carlo Collodi, 1883").
 - **Facing page:** saved words as a list of "l. N" (the line they came from, oldstyle, pencil), then the headword in bold cloth-ink, then the meaning in ink. A new entry inks in. The empty state is an italic pencil note, max 24ch.
-- **Changing volume:** the text blur-fades for 170ms while the cloth cross-fades for 600ms. Arriving at a volume opens the gloss for its start word.
+- **Changing volume:** by pointer, the page turns (see Page Turn). By keyboard or with reduced motion, the text blur-fades for 170ms while the cloth cross-fades for 600ms. Arriving at a volume opens the gloss for its start word.
+
+### Page Turn (signature)
+
+Turning a page moves to the next volume (Italiano → Español → Français → Deutsch → 日本語 → back to Italiano); turning back goes the other way.
+- **Leaf.** A 3D leaf hinged on the gutter (`perspective: 2400px`, `transform-style: preserve-3d`). Its front is a snapshot of the page being lifted and its back is the next volume's page on that side, so when it lands it simply becomes the new page. The page it lands on stays in place underneath until it is covered, and the next volume's other page is already rendered where the leaf lifts away. The leaf lifts toward the reader by up to 28px (`translateZ`, following sin p).
+- **Light.** One ink for all turn shading, `rgb(24 18 8 / a)`. The front darkens toward its free edge (up to 0.42 alpha, reaching full strength by half-way). The back is shaded toward the gutter (0.38) and clears as it lands. The uncovered page carries a cast shadow from the gutter (0.34 falling to transparent), strongest mid-turn.
+- **Gesture.** A horizontal drag of at least 10px, and at least 1.3× more horizontal than vertical, starts a turn; vertical movement stays a scroll (`touch-action: pan-y`). Dragging left turns forward, right turns back. The leaf follows the pointer across 1.6 page widths. On release it finishes if it is past half-way or flicked faster than 0.3px/ms, and otherwise lays back down, over 180–520ms ease-out scaled to the distance left. Pointer capture holds the drag, and a drag never also counts as a click on the word it started on.
+- **Played turn.** Clicking a folded corner or a spine plays the same turn over 820ms ease-in-out. The cloth hands over as the leaf passes upright (for a drag, on release), and the pages under the leaf take the new volume's inks from the start.
+- **Folded corners.** Two 44px corners sit at the bottom outer edges of the spread. The flap is `#e9e6dc` to `#fffefb`, with a 1px `rgb(24 18 8 / 0.1)` fold edge, and the page beneath shows `#e6e2d6` to `#efece3`. The back corner sits at 0.8 opacity. On hover the corner lifts (scales 1.32 from its corner, 240ms ease-out) and on press it scales 1.2. Their labels name the destination volume.
+- **Phones.** With the pages stacked, the whole spread is one leaf that swings away around its left edge (up to 100°) over the next volume.
 
 ### Gloss Slip (signature)
 

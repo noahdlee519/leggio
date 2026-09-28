@@ -69,6 +69,9 @@
 
   const passageEl = $("#passage");
   const pageOriginal = $("#page-original");
+  const pageFacing = $(".page--facing", spread);
+  const dogNext = $("#turn-next");
+  const dogPrev = $("#turn-prev");
   const dock = $("#gloss-dock");
   const linenosEl = $("#linenos");
   const notesEl = $("#notes");
@@ -127,7 +130,7 @@
     b.setAttribute("aria-selected", "false");
     b.setAttribute("aria-controls", "spread");
     b.tabIndex = -1;
-    b.addEventListener("click", () => select(p.id));
+    b.addEventListener("click", (e) => select(p.id, { mode: e.detail === 0 ? "swap" : "turn" }));
     spinesEl.append(b);
 
     // The same shelf at the foot of the page opens a volume in the demo
@@ -135,7 +138,7 @@
       const c = makeSpine(p);
       c.setAttribute("aria-label", "Open the " + p.tab + " volume in the demo");
       c.addEventListener("click", () => {
-        select(p.id);
+        select(p.id, { mode: "swap" });
         spread.scrollIntoView({ behavior: animate() ? "smooth" : "auto", block: "center" });
       });
       closingSpines.append(c);
@@ -155,47 +158,319 @@
     if (next < 0) return;
     e.preventDefault();
     tabs[next].focus();
-    select(passages[next].id);
+    select(passages[next].id, { mode: "swap" });
   });
 
-  function select(id, { initial = false } = {}) {
-    const p = passages.find((x) => x.id === id);
-    if (!p || p === current) return;
+  const indexOf = (p) => passages.indexOf(p);
+  const neighbour = (from, dir) => passages[(indexOf(from) + (dir === "next" ? 1 : -1) + passages.length) % passages.length];
 
+  /* Everything outside the book that follows the open volume */
+  function applyChrome(p, { announce = true } = {}) {
     $$(".spine", spinesEl).forEach((t) => {
-      const on = t.dataset.cloth === id;
+      const on = t.dataset.cloth === p.id;
       t.setAttribute("aria-selected", String(on));
       t.tabIndex = on ? 0 : -1;
     });
-    if (closingSpines) $$(".spine", closingSpines).forEach((t) => t.classList.toggle("is-current", t.dataset.cloth === id));
-    spread.setAttribute("aria-labelledby", "spine-" + id);
-    clothEls.forEach((el) => (el.dataset.cloth = id));
-    if (themeMeta) themeMeta.content = THEME[id] || THEME.it;
+    if (closingSpines) $$(".spine", closingSpines).forEach((t) => t.classList.toggle("is-current", t.dataset.cloth === p.id));
+    spread.setAttribute("aria-labelledby", "spine-" + p.id);
+    clothEls.forEach((el) => (el.dataset.cloth = p.id));
+    if (themeMeta) themeMeta.content = THEME[p.id] || THEME.it;
+    if (dogNext) dogNext.setAttribute("aria-label", "Turn the page to " + neighbour(p, "next").tab);
+    if (dogPrev) dogPrev.setAttribute("aria-label", "Turn back to " + neighbour(p, "prev").tab);
+    if (announce) status.textContent = p.tab + ": " + p.title + ", " + p.author + ".";
+  }
 
-    const swap = () => {
-      current = p;
-      closeGloss(true);
-      renderBook();
+  function showPassage(p) {
+    current = p;
+    closeGloss(true);
+    renderBook();
+    layoutLines();
+  }
+
+  const openStart = (animated) => openGloss(words.findIndex((w) => w.tok.w === current.start), { animated });
+
+  // mode: "turn" plays the page turn, "swap" is a quick blur-fade (keyboard, reduced motion)
+  function select(id, { initial = false, mode = "turn", dir } = {}) {
+    const p = passages.find((x) => x.id === id);
+    if (!p || p === current || turn) return;
+
+    if (initial) {
+      applyChrome(p, { announce: false });
+      showPassage(p);
       requestAnimationFrame(() => {
         layoutLines();
-        openGloss(words.findIndex((w) => w.tok.w === p.start), { animated: !initial });
+        openStart(false);
       });
-    };
-
-    if (initial || !animate()) {
-      swap();
+      return;
+    }
+    if (mode === "turn" && animate()) {
+      playTurn(dir || (indexOf(p) > indexOf(current) ? "next" : "prev"), p);
+      return;
+    }
+    applyChrome(p);
+    if (!animate()) {
+      showPassage(p);
+      requestAnimationFrame(() => openStart(false));
       return;
     }
     spread.classList.add("is-swapping");
     window.setTimeout(() => {
-      swap();
-      requestAnimationFrame(() => spread.classList.remove("is-swapping"));
+      showPassage(p);
+      requestAnimationFrame(() => {
+        spread.classList.remove("is-swapping");
+        openStart(true);
+      });
     }, 170);
   }
+
+  /* ---------- The page turn ----------
+     The turning leaf carries a snapshot of the page being lifted on its front and the next
+     volume's page on its back, so when it lands it simply becomes the new page. */
+
+  let turn = null;
+  const TURN_MS = 820;
+  const easeInOut = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+  const easeOut = (k) => 1 - Math.pow(1 - k, 3);
+  const make = (cls) => {
+    const d = document.createElement("div");
+    d.className = cls;
+    return d;
+  };
+
+  function snapshot(el, clothId) {
+    const c = el.cloneNode(true);
+    c.removeAttribute("id");
+    $$("[id]", c).forEach((n) => n.removeAttribute("id"));
+    $$(".gloss, .gloss-dock", c).forEach((n) => n.remove());
+    $$(".is-new", c).forEach((n) => n.classList.remove("is-new"));
+    c.dataset.cloth = clothId;
+    return c;
+  }
+
+  function pageBoxes() {
+    const sr = spread.getBoundingClientRect();
+    return [pageOriginal, pageFacing]
+      .map((el) => {
+        const r = el.getBoundingClientRect();
+        return { el, x: r.left - sr.left, y: r.top - sr.top, w: r.width, h: r.height };
+      })
+      .sort((a, b) => a.x - b.x || a.y - b.y);
+  }
+
+  const place = (node, b, dx = 0, dy = 0) => {
+    node.style.cssText = "position:absolute;margin:0;min-height:0;left:" + (b.x - dx) + "px;top:" + (b.y - dy) + "px;width:" + b.w + "px;height:" + b.h + "px";
+    return node;
+  };
+  const fill = (node) => {
+    node.style.cssText = "position:absolute;inset:0;margin:0;min-height:0;width:100%;height:100%";
+    return node;
+  };
+
+  function beginTurn(dir, to) {
+    const from = current;
+    const prevActive = active;
+    closeGloss(true);
+    const old = pageBoxes().map((b) => ({ ...b, node: snapshot(b.el, from.id) }));
+    const stacked = Math.abs(old[0].x - old[1].x) < 2;
+
+    // The pages under the leaf take the new volume's inks; the boards change when the page lands
+    pageOriginal.dataset.cloth = pageFacing.dataset.cloth = to.id;
+    showPassage(to);
+    const neu = pageBoxes().map((b) => ({ ...b, node: snapshot(b.el, to.id) }));
+
+    const overlay = make("turn turn--" + dir);
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.inert = true;
+    const leaf = make("turn__leaf");
+    const front = make("turn__face");
+    const frontShade = make("turn__shade turn__shade--front");
+    let backShade = null;
+    let cast = null;
+
+    if (stacked) {
+      // Phones: the whole spread is one leaf that turns away around the spine
+      const box = { x: 0, y: 0, w: spread.clientWidth, h: spread.clientHeight };
+      place(leaf, box);
+      old.forEach((b) => front.append(place(b.node, b)));
+      front.append(frontShade);
+      leaf.append(front);
+      overlay.append(leaf);
+    } else {
+      const [L, R] = old;
+      const [NL, NR] = neu;
+      const moving = dir === "next" ? R : L;
+      const staying = dir === "next" ? L : R;
+      const landing = dir === "next" ? NL : NR;
+      const revealed = dir === "next" ? NR : NL;
+      const back = make("turn__face turn__face--back");
+      backShade = make("turn__shade turn__shade--back");
+      cast = place(make("turn__cast"), revealed);
+      place(leaf, moving);
+      front.append(fill(moving.node), frontShade);
+      back.append(fill(landing.node), backShade);
+      // If the two volumes' pages differ in height, the back keeps the landing page's own size
+      back.style.bottom = "auto";
+      back.style.height = landing.h + "px";
+      leaf.append(front, back);
+      overlay.append(place(staying.node, staying), cast, leaf);
+    }
+    leaf.style.transformOrigin = dir === "next" ? "0 50%" : "100% 50%";
+    spread.append(overlay);
+    spread.classList.add("is-turning");
+    turn = { dir, from, to, prevActive, overlay, leaf, frontShade, backShade, cast, stacked, p: 0, raf: 0, chrome: false, autoplay: false };
+    setTurn(0);
+  }
+
+  function setTurn(p) {
+    const t = turn;
+    t.p = p;
+    const sign = t.dir === "next" ? -1 : 1;
+    const lift = Math.sin(p * Math.PI);
+    if (t.stacked) {
+      t.leaf.style.transform = "rotateY(" + sign * 100 * p + "deg)";
+      t.frontShade.style.opacity = String(Math.min(1, p * 1.4) * 0.55);
+    } else {
+      t.leaf.style.transform = "translateZ(" + lift * 28 + "px) rotateY(" + sign * 180 * p + "deg)";
+      t.frontShade.style.opacity = String(Math.min(1, p * 2) * 0.5);
+      t.backShade.style.opacity = String(Math.min(1, (1 - p) * 2) * 0.45);
+      t.cast.style.opacity = String(lift * 0.9);
+    }
+    // Played turns hand the cloth over as the page passes upright
+    if (t.autoplay && !t.chrome && p >= 0.5) {
+      applyChrome(t.to);
+      t.chrome = true;
+    }
+  }
+
+  function tweenTurn(to, ms, ease, done) {
+    const t = turn;
+    const from = t.p;
+    const t0 = performance.now();
+    cancelAnimationFrame(t.raf);
+    const step = (now) => {
+      const k = Math.min(1, (now - t0) / ms);
+      setTurn(from + (to - from) * ease(k));
+      if (k < 1) t.raf = requestAnimationFrame(step);
+      else done();
+    };
+    t.raf = requestAnimationFrame(step);
+  }
+
+  function endTurn(commit) {
+    const t = turn;
+    cancelAnimationFrame(t.raf);
+    t.overlay.remove();
+    spread.classList.remove("is-turning");
+    turn = null;
+    delete pageOriginal.dataset.cloth;
+    delete pageFacing.dataset.cloth;
+    if (commit) {
+      if (!t.chrome) applyChrome(t.to);
+      requestAnimationFrame(() => openStart(true));
+    } else {
+      showPassage(t.from);
+      if (t.prevActive >= 0) openGloss(t.prevActive, { animated: false });
+    }
+  }
+
+  function playTurn(dir, to) {
+    if (turn) return;
+    beginTurn(dir, to);
+    turn.autoplay = true;
+    tweenTurn(1, TURN_MS, easeInOut, () => endTurn(true));
+  }
+
+  function turnBy(dir, keyboard) {
+    if (turn || !current) return;
+    select(neighbour(current, dir).id, { mode: keyboard ? "swap" : "turn", dir });
+  }
+  if (dogNext) dogNext.addEventListener("click", (e) => turnBy("next", e.detail === 0));
+  if (dogPrev) dogPrev.addEventListener("click", (e) => turnBy("prev", e.detail === 0));
+
+  /* Drag or swipe the page. The leaf follows the pointer; a flick is enough to finish the turn,
+     and letting go early lays it back down. */
+  let drag = null;
+  let suppressClickUntil = 0;
+
+  spread.addEventListener("pointerdown", (e) => {
+    if (!e.isPrimary || e.button !== 0 || turn || drag) return;
+    if (e.target.closest(".gloss")) return;
+    drag = { id: e.pointerId, x0: e.clientX, y0: e.clientY, started: false, samples: [] };
+  });
+
+  spread.addEventListener("pointermove", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.x0;
+    const dy = e.clientY - drag.y0;
+    if (!drag.started) {
+      if (Math.abs(dy) > 14 && Math.abs(dy) > Math.abs(dx)) {
+        drag = null; // a vertical scroll, not a page turn
+        return;
+      }
+      if (Math.abs(dx) < 10 || Math.abs(dx) < Math.abs(dy) * 1.3) return;
+      const dir = dx < 0 ? "next" : "prev";
+      suppressClickUntil = performance.now() + 600;
+      if (!animate()) {
+        drag = null;
+        select(neighbour(current, dir).id, { mode: "swap", dir });
+        return;
+      }
+      drag.started = true;
+      drag.dir = dir;
+      try {
+        spread.setPointerCapture(e.pointerId);
+      } catch (err) {
+        /* capture is best effort */
+      }
+      beginTurn(dir, neighbour(current, dir));
+      drag.travel = turn.stacked ? spread.clientWidth * 0.9 : turn.leaf.offsetWidth * 1.6;
+    }
+    const now = performance.now();
+    drag.samples.push({ t: now, x: e.clientX });
+    while (drag.samples.length > 2 && now - drag.samples[0].t > 100) drag.samples.shift();
+    const moved = drag.dir === "next" ? -dx : dx;
+    setTurn(Math.min(1, Math.max(0, moved / drag.travel)));
+  });
+
+  const release = (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const d = drag;
+    drag = null;
+    if (!d.started || !turn) return;
+    suppressClickUntil = performance.now() + 400;
+    const a = d.samples[0];
+    const b = d.samples[d.samples.length - 1];
+    const dt = Math.max(1, b.t - a.t);
+    const velocity = ((d.dir === "next" ? -1 : 1) * (b.x - a.x)) / dt; // px per ms, positive = turning onward
+    const commit = e.type !== "pointercancel" && (turn.p > 0.5 || velocity > 0.3);
+    if (commit && !turn.chrome) {
+      applyChrome(turn.to);
+      turn.chrome = true;
+    }
+    const target = commit ? 1 : 0;
+    const remaining = Math.abs(target - turn.p);
+    const ms = Math.round(Math.min(520, Math.max(180, (remaining * 620) / Math.max(1, Math.abs(velocity)))));
+    tweenTurn(target, ms, easeOut, () => endTurn(commit));
+  };
+  spread.addEventListener("pointerup", release);
+  spread.addEventListener("pointercancel", release);
+  // A drag must not also count as a click on the word or corner it started on
+  spread.addEventListener(
+    "click",
+    (e) => {
+      if (performance.now() < suppressClickUntil) {
+        e.stopPropagation();
+        e.preventDefault();
+        suppressClickUntil = 0;
+      }
+    },
+    true
+  );
 
   function renderBook() {
     const p = current;
     spread.dataset.vertical = String(!!p.vertical);
+    pageOriginal.dataset.vertical = pageFacing.dataset.vertical = String(!!p.vertical);
     $("[data-title]", spread).textContent = p.title;
     $("[data-title]", spread).lang = p.lang;
     $("[data-chapter]", spread).textContent = p.chapter;
