@@ -1,0 +1,1113 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-28T17:48:52Z",
+  "title": "Design System: Leggio",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "India Paper",
+        "canonical": "#fbfaf6",
+        "oklch": "oklch(98.5% 0.005 95.1)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262522",
+          "#43423f",
+          "#62615e",
+          "#83827f",
+          "#a6a5a1",
+          "#cac9c5",
+          "#efeeea"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Tissue",
+        "canonical": "#eeede8",
+        "oklch": "oklch(94.5% 0.007 97.4)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#262521",
+          "#43423e",
+          "#62615d",
+          "#83827e",
+          "#a6a5a0",
+          "#cac9c4",
+          "#efeee9"
+        ]
+      },
+      "paper-bright": {
+        "role": "neutral",
+        "displayName": "Slip White",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Printer's Black",
+        "canonical": "#1c1b19",
+        "oklch": "oklch(22.2% 0.004 84.6)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262523",
+          "#434240",
+          "#62615f",
+          "#838280",
+          "#a6a5a2",
+          "#cac9c6",
+          "#f0eeeb"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Pencil",
+        "canonical": "#57544c",
+        "oklch": "oklch(44.6% 0.013 89.8)",
+        "tonalRamp": [
+          "#0d0b05",
+          "#28251e",
+          "#45423a",
+          "#646159",
+          "#858279",
+          "#a8a59c",
+          "#ccc9c0",
+          "#f2eee5"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#dcd8cd",
+        "oklch": "oklch(88.2% 0.016 90.2)",
+        "tonalRamp": [
+          "#0e0b05",
+          "#28251d",
+          "#454239",
+          "#646157",
+          "#868278",
+          "#a9a59a",
+          "#cdc9be",
+          "#f2eee3"
+        ]
+      },
+      "house": {
+        "role": "secondary",
+        "displayName": "House Green",
+        "canonical": "#1f4e3d",
+        "oklch": "oklch(38.6% 0.060 166.8)",
+        "tonalRamp": [
+          "#000f08",
+          "#012d1f",
+          "#1d4c3b",
+          "#3e6c5a",
+          "#5f8e7b",
+          "#81b19d",
+          "#a5d6c1",
+          "#c9fce6"
+        ]
+      },
+      "house-deep": {
+        "role": "secondary",
+        "displayName": "House Green Deep",
+        "canonical": "#163b2e",
+        "oklch": "oklch(32.1% 0.049 167.5)",
+        "tonalRamp": [
+          "#010f09",
+          "#052c20",
+          "#264a3d",
+          "#456a5c",
+          "#668c7c",
+          "#88af9f",
+          "#abd4c3",
+          "#d0fae8"
+        ]
+      },
+      "ring": {
+        "role": "neutral",
+        "displayName": "Focus Ring",
+        "canonical": "#1f4e3d",
+        "oklch": "oklch(38.6% 0.060 166.8)",
+        "tonalRamp": [
+          "#000f08",
+          "#012d1f",
+          "#1d4c3b",
+          "#3e6c5a",
+          "#5f8e7b",
+          "#81b19d",
+          "#a5d6c1",
+          "#c9fce6"
+        ],
+        "note": "Default focus ring on plain paper. On cloth rings use on-cloth; on paper over cloth they use cloth-ink."
+      },
+      "cloth-it": {
+        "role": "primary",
+        "displayName": "Bottle Green Cloth",
+        "canonical": "#1f4e3d",
+        "oklch": "oklch(38.6% 0.060 166.8)",
+        "tonalRamp": [
+          "#000f08",
+          "#012d1f",
+          "#1d4c3b",
+          "#3e6c5a",
+          "#5f8e7b",
+          "#81b19d",
+          "#a5d6c1",
+          "#c9fce6"
+        ]
+      },
+      "cloth-it-deep": {
+        "role": "primary",
+        "displayName": "Bottle Green Board",
+        "canonical": "#163b2e",
+        "oklch": "oklch(32.1% 0.049 167.5)",
+        "tonalRamp": [
+          "#010f09",
+          "#052c20",
+          "#264a3d",
+          "#456a5c",
+          "#668c7c",
+          "#88af9f",
+          "#abd4c3",
+          "#d0fae8"
+        ]
+      },
+      "cloth-it-ink": {
+        "role": "primary",
+        "displayName": "Bottle Green Ink",
+        "canonical": "#1f4e3d",
+        "oklch": "oklch(38.6% 0.060 166.8)",
+        "tonalRamp": [
+          "#000f08",
+          "#012d1f",
+          "#1d4c3b",
+          "#3e6c5a",
+          "#5f8e7b",
+          "#81b19d",
+          "#a5d6c1",
+          "#c9fce6"
+        ]
+      },
+      "on-cloth-it": {
+        "role": "neutral",
+        "displayName": "Lettering on Bottle Green",
+        "canonical": "#f6f3ea",
+        "oklch": "oklch(96.4% 0.012 91.5)",
+        "tonalRamp": [
+          "#0d0b06",
+          "#27251e",
+          "#44423b",
+          "#646159",
+          "#85827a",
+          "#a8a59c",
+          "#ccc9c0",
+          "#f1eee5"
+        ]
+      },
+      "on-cloth-it-2": {
+        "role": "neutral",
+        "displayName": "Secondary Lettering on Bottle Green",
+        "canonical": "rgb(246 243 234 / 0.8)",
+        "oklch": "oklch(96.4% 0.012 91.5)",
+        "tonalRamp": [
+          "#0d0b06",
+          "#27251e",
+          "#44423b",
+          "#646159",
+          "#85827a",
+          "#a8a59c",
+          "#ccc9c0",
+          "#f1eee5"
+        ],
+        "note": "Translucent lettering; ramp built from its opaque base."
+      },
+      "stamp-it": {
+        "role": "secondary",
+        "displayName": "Gilt on Bottle Green",
+        "canonical": "#e4c57e",
+        "oklch": "oklch(83.4% 0.096 86.8)",
+        "tonalRamp": [
+          "#110a00",
+          "#302301",
+          "#543f02",
+          "#795d0c",
+          "#9b7e37",
+          "#bfa15b",
+          "#e4c57e",
+          "#feedc6"
+        ]
+      },
+      "cloth-es": {
+        "role": "primary",
+        "displayName": "Carmine Cloth",
+        "canonical": "#8a1c2b",
+        "oklch": "oklch(41.8% 0.144 19.2)",
+        "tonalRamp": [
+          "#1e0003",
+          "#4c010f",
+          "#7d0a21",
+          "#a3353f",
+          "#ca595f",
+          "#f27c80",
+          "#ffb2b2",
+          "#ffe8e8"
+        ]
+      },
+      "cloth-es-deep": {
+        "role": "primary",
+        "displayName": "Carmine Board",
+        "canonical": "#67131f",
+        "oklch": "oklch(34.0% 0.116 18.7)",
+        "tonalRamp": [
+          "#1e0003",
+          "#4c0110",
+          "#732029",
+          "#984147",
+          "#be6367",
+          "#e58688",
+          "#ffb2b2",
+          "#ffe8e8"
+        ]
+      },
+      "cloth-es-ink": {
+        "role": "primary",
+        "displayName": "Carmine Ink",
+        "canonical": "#8a1c2b",
+        "oklch": "oklch(41.8% 0.144 19.2)",
+        "tonalRamp": [
+          "#1e0003",
+          "#4c010f",
+          "#7d0a21",
+          "#a3353f",
+          "#ca595f",
+          "#f27c80",
+          "#ffb2b2",
+          "#ffe8e8"
+        ]
+      },
+      "on-cloth-es": {
+        "role": "neutral",
+        "displayName": "Lettering on Carmine",
+        "canonical": "#f8f1ea",
+        "oklch": "oklch(96.2% 0.012 67.7)",
+        "tonalRamp": [
+          "#0f0a06",
+          "#29241f",
+          "#46413b",
+          "#66605a",
+          "#87817b",
+          "#aaa49d",
+          "#cfc8c1",
+          "#f4ede6"
+        ]
+      },
+      "on-cloth-es-2": {
+        "role": "neutral",
+        "displayName": "Secondary Lettering on Carmine",
+        "canonical": "rgb(248 241 234 / 0.82)",
+        "oklch": "oklch(96.2% 0.012 67.7)",
+        "tonalRamp": [
+          "#0f0a06",
+          "#29241f",
+          "#46413b",
+          "#66605a",
+          "#87817b",
+          "#aaa49d",
+          "#cfc8c1",
+          "#f4ede6"
+        ],
+        "note": "Translucent lettering; ramp built from its opaque base."
+      },
+      "stamp-es": {
+        "role": "secondary",
+        "displayName": "Gilt on Carmine",
+        "canonical": "#efcf8c",
+        "oklch": "oklch(86.7% 0.092 85.0)",
+        "tonalRamp": [
+          "#110a00",
+          "#312302",
+          "#543e02",
+          "#795c15",
+          "#9c7e3c",
+          "#c0a15f",
+          "#e5c582",
+          "#ffedc7"
+        ]
+      },
+      "cloth-fr": {
+        "role": "primary",
+        "displayName": "Prussian Blue Cloth",
+        "canonical": "#1c3963",
+        "oklch": "oklch(34.5% 0.082 257.8)",
+        "tonalRamp": [
+          "#000a21",
+          "#07244c",
+          "#25426d",
+          "#43628f",
+          "#6384b3",
+          "#85a7d8",
+          "#a8cbff",
+          "#e5efff"
+        ]
+      },
+      "cloth-fr-deep": {
+        "role": "primary",
+        "displayName": "Prussian Blue Board",
+        "canonical": "#132946",
+        "oklch": "oklch(27.9% 0.061 256.0)",
+        "tonalRamp": [
+          "#000a20",
+          "#0f2542",
+          "#2c4362",
+          "#4a6384",
+          "#6a84a7",
+          "#8ca7cb",
+          "#b0cbf1",
+          "#e5f0fe"
+        ]
+      },
+      "cloth-fr-ink": {
+        "role": "primary",
+        "displayName": "Prussian Blue Ink",
+        "canonical": "#1c3963",
+        "oklch": "oklch(34.5% 0.082 257.8)",
+        "tonalRamp": [
+          "#000a21",
+          "#07244c",
+          "#25426d",
+          "#43628f",
+          "#6384b3",
+          "#85a7d8",
+          "#a8cbff",
+          "#e5efff"
+        ]
+      },
+      "on-cloth-fr": {
+        "role": "neutral",
+        "displayName": "Lettering on Prussian Blue",
+        "canonical": "#f3f2ee",
+        "oklch": "oklch(96.1% 0.005 95.1)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262522",
+          "#43423f",
+          "#62615e",
+          "#83827f",
+          "#a6a5a1",
+          "#cac9c5",
+          "#efeeea"
+        ]
+      },
+      "on-cloth-fr-2": {
+        "role": "neutral",
+        "displayName": "Secondary Lettering on Prussian Blue",
+        "canonical": "rgb(243 242 238 / 0.8)",
+        "oklch": "oklch(96.1% 0.005 95.1)",
+        "tonalRamp": [
+          "#0c0b09",
+          "#262522",
+          "#43423f",
+          "#62615e",
+          "#83827f",
+          "#a6a5a1",
+          "#cac9c5",
+          "#efeeea"
+        ],
+        "note": "Translucent lettering; ramp built from its opaque base."
+      },
+      "stamp-fr": {
+        "role": "secondary",
+        "displayName": "Gilt on Prussian Blue",
+        "canonical": "#e6c987",
+        "oklch": "oklch(84.6% 0.090 86.8)",
+        "tonalRamp": [
+          "#110a00",
+          "#302301",
+          "#543f02",
+          "#775d18",
+          "#9a7f3e",
+          "#bea261",
+          "#e3c684",
+          "#ffedc4"
+        ]
+      },
+      "cloth-de": {
+        "role": "primary",
+        "displayName": "Ochre Cloth",
+        "canonical": "#c5962c",
+        "oklch": "oklch(70.0% 0.129 83.2)",
+        "tonalRamp": [
+          "#110a00",
+          "#312201",
+          "#563d01",
+          "#7c5b05",
+          "#a67a06",
+          "#cc9d35",
+          "#f2c15e",
+          "#ffecca"
+        ]
+      },
+      "cloth-de-deep": {
+        "role": "primary",
+        "displayName": "Ochre Board",
+        "canonical": "#a47b1d",
+        "oklch": "oklch(60.8% 0.116 82.9)",
+        "tonalRamp": [
+          "#110a00",
+          "#322201",
+          "#563d01",
+          "#7d5b05",
+          "#a47b1d",
+          "#c89e47",
+          "#eec26d",
+          "#ffecca"
+        ]
+      },
+      "cloth-de-ink": {
+        "role": "primary",
+        "displayName": "Umber (German cloth-ink)",
+        "canonical": "#6f500e",
+        "oklch": "oklch(45.3% 0.088 80.7)",
+        "tonalRamp": [
+          "#110a00",
+          "#322201",
+          "#573d01",
+          "#7b5b1d",
+          "#9d7d41",
+          "#c29f64",
+          "#e7c487",
+          "#ffeccd"
+        ]
+      },
+      "on-cloth-de": {
+        "role": "neutral",
+        "displayName": "Lamp Black (German lettering)",
+        "canonical": "#1f1708",
+        "oklch": "oklch(21.0% 0.029 82.0)",
+        "tonalRamp": [
+          "#110a00",
+          "#2c2414",
+          "#4a4130",
+          "#6a604f",
+          "#8b816f",
+          "#aea491",
+          "#d3c8b4",
+          "#f8edd9"
+        ]
+      },
+      "on-cloth-de-2": {
+        "role": "neutral",
+        "displayName": "Secondary Lettering on Ochre",
+        "canonical": "rgb(31 23 8 / 0.93)",
+        "oklch": "oklch(21.0% 0.029 82.0)",
+        "tonalRamp": [
+          "#110a00",
+          "#2c2414",
+          "#4a4130",
+          "#6a604f",
+          "#8b816f",
+          "#aea491",
+          "#d3c8b4",
+          "#f8edd9"
+        ],
+        "note": "Translucent lettering; ramp built from its opaque base."
+      },
+      "stamp-de": {
+        "role": "secondary",
+        "displayName": "Blind Stamp (German)",
+        "canonical": "#2a1e07",
+        "oklch": "oklch(24.4% 0.041 81.3)",
+        "tonalRamp": [
+          "#120a00",
+          "#2f230c",
+          "#4d4029",
+          "#6d5f47",
+          "#8f8067",
+          "#b2a389",
+          "#d7c7ac",
+          "#fdecd1"
+        ]
+      },
+      "cloth-ja": {
+        "role": "primary",
+        "displayName": "Murasaki Cloth",
+        "canonical": "#4a2c5a",
+        "oklch": "oklch(35.1% 0.085 312.8)",
+        "tonalRamp": [
+          "#150021",
+          "#331542",
+          "#513362",
+          "#725284",
+          "#9473a7",
+          "#b896cb",
+          "#dcbaf1",
+          "#f6e9ff"
+        ]
+      },
+      "cloth-ja-deep": {
+        "role": "primary",
+        "displayName": "Murasaki Board",
+        "canonical": "#351f41",
+        "oklch": "oklch(28.4% 0.066 312.7)",
+        "tonalRamp": [
+          "#14021e",
+          "#301a3c",
+          "#4e375b",
+          "#6e567c",
+          "#90779f",
+          "#b399c3",
+          "#d8bde9",
+          "#f6e9fe"
+        ]
+      },
+      "cloth-ja-ink": {
+        "role": "primary",
+        "displayName": "Murasaki Ink",
+        "canonical": "#4a2c5a",
+        "oklch": "oklch(35.1% 0.085 312.8)",
+        "tonalRamp": [
+          "#150021",
+          "#331542",
+          "#513362",
+          "#725284",
+          "#9473a7",
+          "#b896cb",
+          "#dcbaf1",
+          "#f6e9ff"
+        ]
+      },
+      "on-cloth-ja": {
+        "role": "neutral",
+        "displayName": "Lettering on Murasaki",
+        "canonical": "#f5f0f2",
+        "oklch": "oklch(96.0% 0.006 350.8)",
+        "tonalRamp": [
+          "#0d0a0b",
+          "#272425",
+          "#454142",
+          "#646062",
+          "#858183",
+          "#a8a3a5",
+          "#ccc8c9",
+          "#f2edef"
+        ]
+      },
+      "on-cloth-ja-2": {
+        "role": "neutral",
+        "displayName": "Secondary Lettering on Murasaki",
+        "canonical": "rgb(245 240 242 / 0.8)",
+        "oklch": "oklch(96.0% 0.006 350.8)",
+        "tonalRamp": [
+          "#0d0a0b",
+          "#272425",
+          "#454142",
+          "#646062",
+          "#858183",
+          "#a8a3a5",
+          "#ccc8c9",
+          "#f2edef"
+        ],
+        "note": "Translucent lettering; ramp built from its opaque base."
+      },
+      "stamp-ja": {
+        "role": "secondary",
+        "displayName": "Gilt on Murasaki",
+        "canonical": "#e8cc94",
+        "oklch": "oklch(85.6% 0.079 84.3)",
+        "tonalRamp": [
+          "#110a00",
+          "#312201",
+          "#553e01",
+          "#765d27",
+          "#997e49",
+          "#bca16b",
+          "#e1c68e",
+          "#ffecc8"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only (\"Read it in the original.\")."
+      },
+      "display-closing": {
+        "displayName": "Display, closing",
+        "purpose": "The closing headline above the final store button and shelf."
+      },
+      "display-document": {
+        "displayName": "Display, document",
+        "purpose": "The privacy policy title in its cloth hero."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Leaf and colophon headings, held to 14 to 18ch."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Privacy policy section heads."
+      },
+      "title-step": {
+        "displayName": "Title, step",
+        "purpose": "The three \"how to read\" step headings."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Hero lede and closing line, in on-cloth-2."
+      },
+      "body-preface": {
+        "displayName": "Body, preface",
+        "purpose": "Preface paragraphs on a leaf, 60ch."
+      },
+      "body-document": {
+        "displayName": "Body, document",
+        "purpose": "Privacy policy text, 68ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base text with oldstyle proportional numerals."
+      },
+      "passage": {
+        "displayName": "Passage",
+        "purpose": "The demo's original-language text on the spread."
+      },
+      "passage-vertical": {
+        "displayName": "Passage, vertical",
+        "purpose": "Japanese demo text set vertical-rl."
+      },
+      "gloss-headword": {
+        "displayName": "Gloss headword",
+        "purpose": "The selected word at the head of a gloss slip, in cloth-ink."
+      },
+      "gloss-meaning": {
+        "displayName": "Gloss meaning",
+        "purpose": "The word's meaning on the slip."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Folios, margin line numbers, \"l. N\" references; oldstyle."
+      },
+      "running-head": {
+        "displayName": "Running head",
+        "purpose": "Alegreya SC page furniture at the head of every page and leaf."
+      },
+      "chapter": {
+        "displayName": "Chapter line",
+        "purpose": "Centred small-caps chapter line in cloth-ink."
+      },
+      "label-term": {
+        "displayName": "Term label",
+        "purpose": "Colophon terms in stamp; spine titles share the voice."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "\"Leggio\" in gilt small caps beside the book-on-stand mark."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Store buttons and the nav button (0.95rem there)."
+      },
+      "label-control": {
+        "displayName": "Control label",
+        "purpose": "The gloss save button."
+      },
+      "nav": {
+        "displayName": "Nav",
+        "purpose": "Header and footer links, text links, contents links."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "The shelf note beside the spines."
+      },
+      "fine-print": {
+        "displayName": "Fine print",
+        "purpose": "Footer credits and copyright."
+      }
+    },
+    "shadows": [
+      {
+        "name": "book-block",
+        "value": "drop-shadow(0 34px 34px rgb(0 0 0 / 0.28)) drop-shadow(0 6px 10px rgb(0 0 0 / 0.18))",
+        "purpose": "filter on the open spread, so boards and page edges cast one shadow."
+      },
+      {
+        "name": "leaf",
+        "value": "0 1px 0 #e4e1d8, 0 2px 0 var(--paper), 0 3px 0 #dedad0, 0 30px 50px -28px rgb(0 0 0 / 0.5), 0 8px 16px -8px rgb(0 0 0 / 0.25)",
+        "purpose": "Leaves on the cloth: three 1px paper edges plus a pooled drop."
+      },
+      {
+        "name": "slip",
+        "value": "0 0 0 1px rgb(28 27 25 / 0.08), 0 4px 10px -2px rgb(28 27 25 / 0.14), 0 22px 44px -14px rgb(28 27 25 / 0.4)",
+        "purpose": "Gloss slip and the plate's miniature slip."
+      },
+      {
+        "name": "spine",
+        "value": "0 0 0 1px rgb(0 0 0 / 0.2), 0 8px 16px -8px rgb(0 0 0 / 0.55)",
+        "purpose": "Each spine on the shelf."
+      },
+      {
+        "name": "spine-face",
+        "value": "linear-gradient(90deg, rgb(0 0 0 / 0.16), rgb(255 255 255 / 0.12) 22%, rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.08) 72%, rgb(0 0 0 / 0.3))",
+        "purpose": "Cylindrical shading over the spine's cloth (background layer, blend normal over the soft-light weave)."
+      },
+      {
+        "name": "recessed-board",
+        "value": "inset 0 0 0 1px rgb(0 0 0 / 0.12), inset 0 10px 24px -14px rgb(0 0 0 / 0.5)",
+        "purpose": "The plate's cloth board."
+      },
+      {
+        "name": "tipped-in-leaf",
+        "value": "0 2px 0 #e6e3da, 0 18px 30px -18px rgb(0 0 0 / 0.55)",
+        "purpose": "The PDF leaf on the plate."
+      },
+      {
+        "name": "button-primary",
+        "value": "0 1px 0 rgb(255 255 255 / 0.6) inset, 0 14px 28px -14px rgb(0 0 0 / 0.55), 0 2px 4px rgb(0 0 0 / 0.12)",
+        "purpose": "The raised store button on cloth."
+      },
+      {
+        "name": "button-primary-hover",
+        "value": "0 1px 0 rgb(255 255 255 / 0.6) inset, 0 18px 32px -14px rgb(0 0 0 / 0.6), 0 2px 4px rgb(0 0 0 / 0.12)",
+        "purpose": "Live primary button on hover (fine pointers only)."
+      },
+      {
+        "name": "button-pending-ring",
+        "value": "inset 0 0 0 1.5px color-mix(in srgb, var(--on-cloth) 42%, transparent)",
+        "purpose": "Outline of an inert, pending store button."
+      },
+      {
+        "name": "saved-ring",
+        "value": "inset 0 0 0 1.5px var(--cloth-ink)",
+        "purpose": "Saved state of the gloss save button and the miniature \"Saved\" chip."
+      },
+      {
+        "name": "callout-halo",
+        "value": "0 0 0 3px var(--paper-bright)",
+        "purpose": "Separates numbered discs from the page beneath."
+      },
+      {
+        "name": "gutter-shade-original",
+        "value": "linear-gradient(to left, rgb(40 30 10 / 0.12), rgb(40 30 10 / 0.03) 26px, transparent 60px)",
+        "purpose": "Original page darkening toward the binding (facing page mirrors at 0.14)."
+      },
+      {
+        "name": "gutter-shade-leaf",
+        "value": "linear-gradient(to right, rgb(40 30 10 / 0.1), rgb(40 30 10 / 0.02) 30px, transparent 72px)",
+        "purpose": "Leaves, bound on the left."
+      },
+      {
+        "name": "page-edges",
+        "value": "repeating-linear-gradient(0deg, #f6f4ee 0 1px, #dedad0 1px 2px)",
+        "purpose": "7px strip of stacked page edges under the spread."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "The one curve for anything that moves: slips, spines, presses, underline wipe, arrow nudge, ink-in."
+      },
+      {
+        "name": "ease",
+        "value": "ease",
+        "purpose": "Colour-only changes (cloth, lettering, word wash, contents rail)."
+      },
+      {
+        "name": "cloth-change",
+        "value": "600ms ease",
+        "purpose": "Background, lettering, stamp and border colours cross-fade when the volume changes."
+      },
+      {
+        "name": "text-swap",
+        "value": "170ms ease (opacity to 0, blur 3px)",
+        "purpose": "Passage, notes, running heads, chapter, attribution and line numbers fade out, swap after 170ms, fade in."
+      },
+      {
+        "name": "gloss-open",
+        "value": "opacity/filter 180ms ease; transform 240ms cubic-bezier(0.23, 1, 0.32, 1) from translateY(4px) scale(0.96) blur(2px)",
+        "purpose": "Slip opening, scaled from the selected word."
+      },
+      {
+        "name": "gloss-close",
+        "value": "opacity/filter 120ms ease; transform 140ms cubic-bezier(0.23, 1, 0.32, 1); hidden after 140ms",
+        "purpose": "Slip closing, faster than it opens."
+      },
+      {
+        "name": "ink-in",
+        "value": "560ms cubic-bezier(0.23, 1, 0.32, 1); clip-path inset(0 100% 0 0) to inset(0), opacity 0.4 to 1",
+        "purpose": "A newly saved entry written onto the facing page."
+      },
+      {
+        "name": "spine-lift",
+        "value": "260ms cubic-bezier(0.23, 1, 0.32, 1); selected -16px, hover -6px, press scale 0.98",
+        "purpose": "Spines on the shelf."
+      },
+      {
+        "name": "press",
+        "value": "160ms cubic-bezier(0.23, 1, 0.32, 1); scale 0.97 (buttons), 0.94 (slip close)",
+        "purpose": "Live buttons and slip controls; colour and shadow at 200ms ease."
+      },
+      {
+        "name": "word-highlight",
+        "value": "140ms ease",
+        "purpose": "Word wash and underline colour."
+      },
+      {
+        "name": "nav-underline",
+        "value": "220ms cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "1px underline wipes in from the left under nav links."
+      },
+      {
+        "name": "textlink-arrow",
+        "value": "200ms cubic-bezier(0.23, 1, 0.32, 1); translateX(3px)",
+        "purpose": "Arrow nudge on text links."
+      },
+      {
+        "name": "toc-rail",
+        "value": "160ms ease",
+        "purpose": "Privacy contents link colour and rail segment."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "cloth 1ms; slip opacity 120ms only; spines none; ink-in becomes fade-in 200ms ease; swap without blur or delay; smooth scroll off",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "hover",
+        "value": "(hover: hover) and (pointer: fine)",
+        "purpose": "All hover styling."
+      },
+      {
+        "name": "nav-compact",
+        "value": "max-width: 560px",
+        "purpose": "\"How it works\" leaves the nav."
+      },
+      {
+        "name": "phone",
+        "value": "max-width: 639px",
+        "purpose": "Spread stacks, gloss docks, spines stretch, facts stack, buttons full width."
+      },
+      {
+        "name": "document",
+        "value": "max-width: 860px",
+        "purpose": "Privacy contents leave the sticky column for a two-column list."
+      },
+      {
+        "name": "single-column",
+        "value": "max-width: 1099px",
+        "purpose": "Every two-column grid becomes one column."
+      }
+    ],
+    "clothTexture": {
+      "token": "--cloth-tex",
+      "technique": "240x240 SVG data URI: two feTurbulence fractalNoise layers (warp baseFrequency .95 .05 seed 4; weft .05 .95 seed 9; 2 octaves; stitchTiles), averaged with feComposite arithmetic k2 .5 k3 .5, desaturated, compressed with feComponentTransfer slope .95 intercept .025, alpha 1. Laid as background-image over background-color: var(--cloth) with background-blend-mode: soft-light, so the weave is luminance-only and the hue comes from the cloth token.",
+      "usedOn": [
+        "body and full-bleed cloth sections (.cloth)",
+        "spread boards (over --cloth-deep)",
+        "spines (under the spine-face gradient)",
+        "plate board",
+        "footer (over --cloth-deep)"
+      ]
+    },
+    "clothSwitch": {
+      "attribute": "data-cloth (it | es | fr | de | ja)",
+      "properties": [
+        "--cloth",
+        "--cloth-deep",
+        "--cloth-ink",
+        "--on-cloth",
+        "--on-cloth-2",
+        "--stamp"
+      ],
+      "behaviour": "site.js sets data-cloth on every [data-sync-cloth] element and updates meta theme-color; on [data-sync-cloth] the focus ring (--ring) follows --on-cloth. :root defaults equal the Italian cloth (house green)."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button (live)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The store button on cloth once a Chrome Web Store URL exists: Slip White, cloth-ink lettering, raised.",
+      "html": "<div class=\"ds-cloth\"><a class=\"ds-btn-primary\" href=\"#\">Add Leggio to Chrome</a></div>",
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 14px 24px; border: 0; border-radius: 6px; background: var(--paper-bright, #ffffff); color: var(--cloth-ink, #1f4e3d); font: 700 1.0625rem/1.15 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); letter-spacing: 0.01em; text-decoration: none; cursor: pointer; box-shadow: 0 1px 0 rgb(255 255 255 / 0.6) inset, 0 14px 28px -14px rgb(0 0 0 / 0.55), 0 2px 4px rgb(0 0 0 / 0.12); transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 200ms ease; } @media (hover: hover) and (pointer: fine) { .ds-btn-primary:hover { box-shadow: 0 1px 0 rgb(255 255 255 / 0.6) inset, 0 18px 32px -14px rgb(0 0 0 / 0.6), 0 2px 4px rgb(0 0 0 / 0.12); } } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; }"
+    },
+    {
+      "name": "Pending Store Button",
+      "kind": "button",
+      "refersTo": "button-primary-pending",
+      "description": "Before the store listing exists: outlined, unlinked, no hover or press. Honest about not working yet.",
+      "html": "<div class=\"ds-cloth\"><a class=\"ds-btn-pending\">Coming soon to the Chrome Web Store</a></div>",
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-btn-pending { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 14px 24px; border-radius: 6px; background: transparent; color: var(--on-cloth, #f6f3ea); font: 700 1.0625rem/1.15 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); letter-spacing: 0.01em; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--on-cloth, #f6f3ea) 42%, transparent); cursor: default; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "button-nav",
+      "description": "Gilt small-caps wordmark left; nav links with a wipe-in underline and the small on-cloth store button (shown live) right.",
+      "html": "<div class=\"ds-cloth ds-nav-wrap\"><nav class=\"ds-nav\"><a class=\"ds-wordmark\" href=\"#\"><svg class=\"ds-mark\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3.5 6.2c3-1 5.8-.6 8.5 1.1 2.7-1.7 5.5-2.1 8.5-1.1v9.4c-3-1-5.8-.6-8.5 1.1-2.7-1.7-5.5-2.1-8.5-1.1z\"/><path d=\"M12 7.3v9.4M12 16.7V21M8.5 21h7\"/></svg><span>Leggio</span></a><div class=\"ds-nav__links\"><a class=\"ds-nav__link\" href=\"#\">How it works</a><a class=\"ds-nav__link\" href=\"#\">Privacy</a><a class=\"ds-btn-nav\" href=\"#\">Add to Chrome</a></div></nav></div>",
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-nav-wrap { padding: 0 24px; } .ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 76px; } .ds-wordmark { display: inline-flex; align-items: center; gap: 10px; color: var(--stamp, #e4c57e); font: 700 1.4rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.05em; text-decoration: none; } .ds-mark { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; } .ds-nav__links { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); font: 500 1.0625rem/1 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); } .ds-nav__link { color: var(--on-cloth, #f6f3ea); text-decoration: none; padding-block: 8px; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 220ms cubic-bezier(0.23, 1, 0.32, 1); } @media (hover: hover) and (pointer: fine) { .ds-nav__link:hover { background-size: 100% 1px; } } .ds-btn-nav { display: inline-flex; align-items: center; min-height: 40px; padding: 9px 16px; border-radius: 6px; background: var(--on-cloth, #f6f3ea); color: var(--cloth-ink, #1f4e3d); font: 700 0.95rem/1.15 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); letter-spacing: 0.01em; text-decoration: none; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-nav:active { transform: scale(0.97); } .ds-nav a:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; border-radius: 3px; }"
+    },
+    {
+      "name": "Gloss Slip",
+      "kind": "custom",
+      "refersTo": "gloss-slip",
+      "description": "The paper slip laid beside a selected word: headword, meaning, the sentence in English, and the save button (unsaved and saved).",
+      "html": "<div class=\"ds-desk\"><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">lettori</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">readers</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> “A king!” my little readers will say at once.</p><button class=\"ds-gloss__save\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10v17l-5-3.6-5 3.6z\"/></svg>Save to facing page</button></div><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">ragazzi</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">children, kids</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> No, children, you’ve got it wrong.</p><button class=\"ds-gloss__save is-saved\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg>Saved</button></div></div>",
+      "css": ".ds-desk { display: flex; flex-wrap: wrap; gap: 24px; padding: 28px; background: var(--paper, #fbfaf6); } .ds-gloss { position: relative; width: min(284px, 100%); padding: 15px 16px 14px; border-radius: 7px; background: var(--paper-bright, #ffffff); color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); box-shadow: 0 0 0 1px rgb(28 27 25 / 0.08), 0 4px 10px -2px rgb(28 27 25 / 0.14), 0 22px 44px -14px rgb(28 27 25 / 0.4); } .ds-gloss p { margin: 0; } .ds-gloss__head { display: flex; align-items: baseline; gap: 8px; padding-right: 30px; } .ds-gloss__word { font: 700 1.3125rem/1.2 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--cloth-ink, #1f4e3d); } .ds-gloss__close { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: var(--ink-2, #57544c); cursor: pointer; transition: background-color 140ms ease, color 140ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-gloss__close:active { transform: scale(0.94); } @media (hover: hover) and (pointer: fine) { .ds-gloss__close:hover { background: var(--paper-2, #eeede8); color: var(--ink, #1c1b19); } } .ds-icon { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; } .ds-gloss__meaning { margin-top: 8px !important; font: 500 1.1875rem/1.3 var(--font-text, \"Alegreya\", Georgia, serif); } .ds-gloss__context { margin-top: 12px !important; padding-top: 10px; border-top: 1px solid var(--rule, #dcd8cd); font: 400 0.9375rem/1.45 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--ink-2, #57544c); } .ds-gloss__label { font: 500 0.8125rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--ink, #1c1b19); margin-right: 4px; } .ds-gloss__save { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; margin-top: 14px; padding: 8px 14px 8px 12px; border: 0; border-radius: 6px; background: var(--cloth, #1f4e3d); color: var(--on-cloth, #f6f3ea); font: 700 0.9375rem/1 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease, color 200ms ease, box-shadow 200ms ease; } .ds-gloss__save:active { transform: scale(0.97); } .ds-gloss__save.is-saved { background: transparent; color: var(--cloth-ink, #1f4e3d); box-shadow: inset 0 0 0 1.5px var(--cloth-ink, #1f4e3d); } .ds-gloss__save:focus-visible, .ds-gloss__close:focus-visible { outline: 2px solid var(--cloth-ink, #1f4e3d); outline-offset: 3px; }"
+    },
+    {
+      "name": "Spine Shelf",
+      "kind": "custom",
+      "refersTo": "spine",
+      "description": "The language switcher: five clothbound spines on a plank, each in its own language's cloth with gilt bands; the open volume stands 16px proud.",
+      "html": "<div class=\"ds-cloth\"><div class=\"ds-spines\" role=\"tablist\" aria-label=\"Demo language\"><button class=\"ds-spine ds-spine--it\" role=\"tab\" aria-selected=\"true\"><span>Italiano</span></button><button class=\"ds-spine ds-spine--es\" role=\"tab\" aria-selected=\"false\"><span>Español</span></button><button class=\"ds-spine ds-spine--fr\" role=\"tab\" aria-selected=\"false\"><span>Français</span></button><button class=\"ds-spine ds-spine--de\" role=\"tab\" aria-selected=\"false\"><span>Deutsch</span></button><button class=\"ds-spine ds-spine--ja\" role=\"tab\" aria-selected=\"false\"><span lang=\"ja\">日本語</span></button></div></div>",
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-spines { display: inline-flex; align-items: flex-end; gap: 5px; padding: 20px 0 6px; border-bottom: 3px solid color-mix(in srgb, var(--cloth-deep, #163b2e) 80%, black); } .ds-spine { --c: #1f4e3d; --s: #e4c57e; position: relative; display: flex; align-items: center; justify-content: center; width: 46px; height: 132px; padding: 16px 0; border: 0; border-radius: 3px 3px 1px 1px; background-color: var(--c); background-image: linear-gradient(90deg, rgb(0 0 0 / 0.16), rgb(255 255 255 / 0.12) 22%, rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.08) 72%, rgb(0 0 0 / 0.3)), var(--cloth-tex, none); background-blend-mode: normal, soft-light; color: var(--s); writing-mode: vertical-rl; cursor: pointer; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2), 0 8px 16px -8px rgb(0 0 0 / 0.55); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-spine span { font: 700 1rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; } .ds-spine span:lang(ja) { font-family: var(--font-jp, 'Hiragino Mincho ProN', 'Yu Mincho', serif); font-weight: 600; letter-spacing: 0.12em; } .ds-spine::before, .ds-spine::after { content: ''; position: absolute; left: 7px; right: 7px; height: 0; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; padding-top: 2px; opacity: 0.85; } .ds-spine::before { top: 7px; } .ds-spine::after { bottom: 7px; } .ds-spine--it { --c: #1f4e3d; --s: #e4c57e; } .ds-spine--es { --c: #8a1c2b; --s: #efcf8c; } .ds-spine--fr { --c: #1c3963; --s: #e6c987; } .ds-spine--de { --c: #c5962c; --s: #2a1e07; } .ds-spine--ja { --c: #4a2c5a; --s: #e8cc94; } .ds-spine[aria-selected='true'] { transform: translateY(-16px); } .ds-spine:active { transform: translateY(-2px) scale(0.98); } @media (hover: hover) and (pointer: fine) { .ds-spine:not([aria-selected='true']):hover { transform: translateY(-6px); } } .ds-spine:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; } @media (prefers-reduced-motion: reduce) { .ds-spine { transition: none; } }"
+    },
+    {
+      "name": "Open Spread",
+      "kind": "custom",
+      "refersTo": "page",
+      "description": "The bilingual edition: original page with running head, chapter line, selectable words and attribution; facing page collecting saved words by line; cloth boards and page edges beneath.",
+      "html": "<div class=\"ds-cloth\"><div class=\"ds-spread\"><article class=\"ds-page ds-page--original\"><header class=\"ds-runhead\"><span>3</span><span>Le avventure di Pinocchio</span></header><p class=\"ds-chapter\">Capitolo primo</p><p class=\"ds-passage\" lang=\"it\">C’era una volta… — Un re! — diranno subito i miei piccoli <span class=\"ds-w is-active\">lettori</span>. No, <span class=\"ds-w is-saved\">ragazzi</span>, avete sbagliato.</p><p class=\"ds-attribution\">Carlo Collodi, 1883</p></article><article class=\"ds-page ds-page--facing\"><header class=\"ds-runhead\"><span>Your glosses</span><span>4</span></header><p class=\"ds-chapter\">Saved words, by line</p><ol class=\"ds-notes\"><li><span class=\"ds-notes__line\">l. 3</span><span class=\"ds-notes__word\" lang=\"it\">ragazzi</span><span class=\"ds-notes__meaning\">children, kids</span></li></ol></article></div></div>",
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-cloth .ds-spread { margin: 16px; } .ds-spread { position: relative; display: grid; grid-template-columns: 1fr 1fr; max-width: 720px; isolation: isolate; color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); font-variant-numeric: oldstyle-nums; filter: drop-shadow(0 34px 34px rgb(0 0 0 / 0.28)) drop-shadow(0 6px 10px rgb(0 0 0 / 0.18)); } .ds-spread::before { content: ''; position: absolute; inset: -9px -12px -13px; z-index: -2; border-radius: 5px; background-color: var(--cloth-deep, #163b2e); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; } .ds-spread::after { content: ''; position: absolute; inset: auto 3px -6px; height: 7px; z-index: -1; border-radius: 0 0 3px 3px; background: repeating-linear-gradient(0deg, #f6f4ee 0 1px, #dedad0 1px 2px); } .ds-page { position: relative; min-height: 300px; padding: 30px 30px 56px; background-color: var(--paper, #fbfaf6); } .ds-page p, .ds-page ol { margin: 0; } .ds-page--original { padding-left: 52px; padding-right: 28px; border-radius: 3px 0 0 3px; background-image: linear-gradient(to left, rgb(40 30 10 / 0.12), rgb(40 30 10 / 0.03) 26px, transparent 60px); box-shadow: 1px 0 0 rgb(40 30 10 / 0.18); } .ds-page--facing { padding-left: 30px; padding-right: 40px; border-radius: 0 3px 3px 0; background-image: linear-gradient(to right, rgb(40 30 10 / 0.14), rgb(40 30 10 / 0.03) 26px, transparent 60px); } .ds-runhead { display: flex; justify-content: space-between; gap: 12px; font: 500 0.8125rem/1.2 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--ink-2, #57544c); } .ds-chapter { margin: 26px 0 18px !important; font: 500 0.9375rem/1.3 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.08em; text-align: center; color: var(--cloth-ink, #1f4e3d); } .ds-passage { font-size: 1.125rem; line-height: 1.62; } .ds-w { padding: 0 0.04em; border-radius: 3px; text-decoration: underline 1.5px transparent; text-underline-offset: 0.24em; } .ds-w.is-saved { text-decoration-style: dotted; text-decoration-color: var(--cloth-ink, #1f4e3d); } .ds-w.is-active { background: color-mix(in srgb, var(--cloth, #1f4e3d) 17%, transparent); text-decoration-style: solid; text-decoration-color: var(--cloth-ink, #1f4e3d); } .ds-attribution { position: absolute; left: 52px; right: 28px; bottom: 22px; font: italic 400 0.875rem/1.3 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--ink-2, #57544c); } .ds-notes { list-style: none; padding: 0; display: grid; gap: 12px; } .ds-notes li { position: relative; padding-left: 2.9em; font-size: 1rem; line-height: 1.42; animation: ds-ink-in 560ms cubic-bezier(0.23, 1, 0.32, 1) both; } .ds-notes__line { position: absolute; left: 0; top: 0.12em; font: 400 0.8125rem/1.4 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--ink-2, #57544c); } .ds-notes__word { font-weight: 700; color: var(--cloth-ink, #1f4e3d); } .ds-notes__meaning { display: block; } @keyframes ds-ink-in { from { clip-path: inset(0 100% 0 0); opacity: 0.4; } to { clip-path: inset(0 0 0 0); opacity: 1; } } @media (prefers-reduced-motion: reduce) { .ds-notes li { animation: none; } } @media (max-width: 639px) { .ds-spread { grid-template-columns: minmax(0, 1fr); } .ds-page--original { border-radius: 3px 3px 0 0; box-shadow: 0 1px 0 rgb(40 30 10 / 0.18); } .ds-page--facing { border-radius: 0 0 3px 3px; } }"
+    },
+    {
+      "name": "Leaf with Running Head",
+      "kind": "card",
+      "refersTo": "leaf",
+      "description": "A paper page laid on the cloth: running head across the measure with a roman folio, then a heavy Alegreya headline and reading text.",
+      "html": "<div class=\"ds-cloth\"><article class=\"ds-leaf\"><header class=\"ds-leaf__runhead\"><span>Preface</span><span>vii</span></header><h2 class=\"ds-leaf__title\">You learn a language by reading it.</h2><p class=\"ds-leaf__body\">Drills teach you the rules. Reading teaches you the language: how words sit together, which ones keep coming back, what a sentence sounds like when someone meant it.</p><p class=\"ds-leaf__coda\">A <i lang=\"it\">leggio</i> is the stand that holds what you’re reading.</p></article></div>",
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-leaf { position: relative; padding: clamp(24px, 3.5vw, 36px) clamp(22px, 6vw, 88px) clamp(56px, 8vw, 104px); border-radius: 3px; background-color: var(--paper, #fbfaf6); background-image: linear-gradient(to right, rgb(40 30 10 / 0.1), rgb(40 30 10 / 0.02) 30px, transparent 72px); color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); box-shadow: 0 1px 0 #e4e1d8, 0 2px 0 var(--paper, #fbfaf6), 0 3px 0 #dedad0, 0 30px 50px -28px rgb(0 0 0 / 0.5), 0 8px 16px -8px rgb(0 0 0 / 0.25); } .ds-leaf__runhead { display: flex; justify-content: space-between; margin-bottom: clamp(48px, 7vw, 96px); font: 500 0.8125rem/1.2 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--ink-2, #57544c); } .ds-leaf__title { margin: 0; max-width: 16ch; font: 800 clamp(2.25rem, 1.3rem + 2.8vw, 3.75rem)/1.02 var(--font-text, \"Alegreya\", Georgia, serif); letter-spacing: -0.02em; text-wrap: balance; } .ds-leaf__body { margin: 28px 0 0; max-width: 60ch; font-size: clamp(1.1875rem, 1.05rem + 0.4vw, 1.3125rem); line-height: 1.66; } .ds-leaf__coda { margin: 1.1em 0 0; font-size: clamp(1.375rem, 1.15rem + 0.7vw, 1.625rem); line-height: 1.45; color: var(--cloth-ink, #1f4e3d); }"
+    },
+    {
+      "name": "Colophon Facts",
+      "kind": "custom",
+      "refersTo": "colophon-term",
+      "description": "The privacy promise as a definition list on cloth: gilt small-caps terms, on-cloth values, gilt hairlines between rows, and a gilt text link.",
+      "html": "<div class=\"ds-cloth\"><dl class=\"ds-facts\"><div><dt>Translation</dt><dd>On your device, with Chrome’s built-in AI</dd></div><div><dt>Saved words</dt><dd>Kept in your browser, on your computer</dd></div><div><dt>Account</dt><dd>None. Install it and start reading</dd></div></dl><a class=\"ds-textlink\" href=\"#\">Read the privacy policy <svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a></div>",
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-facts { margin: 0; border-top: 1px solid color-mix(in srgb, var(--stamp, #e4c57e) 60%, transparent); } .ds-facts > div { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 16px; padding-block: 20px; border-bottom: 1px solid color-mix(in srgb, var(--stamp, #e4c57e) 35%, transparent); } .ds-facts dt { font: 700 1rem/1.5 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--stamp, #e4c57e); } .ds-facts dd { margin: 0; font: 400 1.1875rem/1.45 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--on-cloth, #f6f3ea); } .ds-textlink { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; padding-block: 6px; color: var(--stamp, #e4c57e); font: 700 1.0625rem/1 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); text-decoration: none; } .ds-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); } @media (hover: hover) and (pointer: fine) { .ds-textlink:hover { text-decoration: underline; } .ds-textlink:hover .ds-icon { transform: translateX(3px); } } .ds-textlink:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; border-radius: 3px; } @media (max-width: 639px) { .ds-facts > div { grid-template-columns: minmax(0, 1fr); gap: 4px; } }"
+    },
+    {
+      "name": "Privacy Contents and Summary",
+      "kind": "nav",
+      "refersTo": "doc-toc-link",
+      "description": "Reading-mode navigation: small-caps Contents title in house green over a hairline rail whose segment darkens on hover, beside the summary opened by a 2px house-green rule.",
+      "html": "<div class=\"ds-doc\"><nav class=\"ds-toc\" aria-label=\"On this page\"><p class=\"ds-toc__title\">Contents</p><ol><li><a href=\"#\">The short version</a></li><li><a href=\"#\">Text you translate</a></li><li><a href=\"#\">What Leggio stores</a></li></ol></nav><section class=\"ds-summary\"><h2>The short version</h2><ul><li>Leggio translates text <strong>on your device</strong>, using the translation models built into Chrome.</li><li>Contact: <a class=\"ds-pending\">contact email coming soon</a></li></ul></section></div>",
+      "css": ".ds-doc { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 48px; padding: 32px; background: var(--paper, #fbfaf6); color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); } .ds-toc__title { margin: 0; font: 700 0.9375rem/1.2 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.08em; color: var(--house, #1f4e3d); } .ds-toc ol { list-style: none; padding: 0; margin: 14px 0 0; border-left: 1px solid var(--rule, #dcd8cd); } .ds-toc a { display: block; padding: 6px 0 6px 16px; margin-left: -1px; border-left: 1px solid transparent; color: var(--ink-2, #57544c); font: 500 0.96875rem/1.35 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); text-decoration: none; transition: color 160ms ease, border-color 160ms ease; } @media (hover: hover) and (pointer: fine) { .ds-toc a:hover { color: var(--ink, #1c1b19); border-left-color: var(--house, #1f4e3d); } } .ds-toc a:focus-visible { outline: 2px solid var(--house, #1f4e3d); outline-offset: 3px; border-radius: 3px; } .ds-summary { max-width: 68ch; padding-block: clamp(20px, 3vw, 28px) clamp(24px, 3.5vw, 32px); border-top: 2px solid var(--house, #1f4e3d); border-bottom: 1px solid var(--rule, #dcd8cd); } .ds-summary h2 { margin: 0 0 0.55em; font: 700 clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem)/1.15 var(--font-text, \"Alegreya\", Georgia, serif); letter-spacing: -0.01em; } .ds-summary ul { margin: 0; padding-left: 1.2em; } .ds-summary li { font-size: 1.1875rem; line-height: 1.68; } .ds-summary li + li { margin-top: 0.45em; } .ds-summary li::marker { color: var(--house, #1f4e3d); } .ds-pending { padding: 1px 6px; border-radius: 4px; background: #fbeec9; color: #5a4306; } @media (max-width: 860px) { .ds-doc { grid-template-columns: minmax(0, 1fr); } .ds-toc ol { columns: 2; column-gap: 24px; border-left: 0; } .ds-toc a { padding-left: 0; border-left: 0; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Parallel-Text Edition",
+    "overview": "Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and \"notes on use\" leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt (or blind-stamped, on the ochre German volume). The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.\n\nThe page is composed from book furniture rather than web components. The language switcher is a shelf of spines. Saved words go to the facing page, keyed by line number. Privacy is a colophon of plain facts. The ornament that closes the page is a printer's rule with a lozenge. Nothing is a card, and nothing is a feature grid. Density is low and readerly: long measures of 34 to 68ch, generous leaf margins, one idea per surface.\n\nThe world refuses two defaults by name: the browser-extension landing page (browser-window mockup, three feature cards, gradient hero) and the cream-paper-and-serif bookish default. The paper here is near-white, and the colour lives in the cloth.",
+    "keyCharacteristics": [
+      "Five language cloths, one per volume; the whole page recolours when the reader picks a spine.",
+      "Woven cloth texture built from SVG turbulence, luminance-only, blended over a flat cloth colour.",
+      "Near-white paper pages with gutter shade, stacked page edges and real page furniture.",
+      "Three members of one type family: Alegreya to read, Alegreya SC for page furniture, Alegreya Sans for controls. A Noto Serif JP subset covers the Japanese.",
+      "Every word in the demo is a button; its gloss is a paper slip that never covers the facing page.",
+      "Honest states: the demo credits its hand-written glosses, and store and contact links stay visibly pending until they exist."
+    ],
+    "rules": [
+      {
+        "name": "The Answer-Only Motion Rule",
+        "body": "Every animation responds to a reader's action (choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll.",
+        "section": "overview"
+      },
+      {
+        "name": "The One Cloth Rule",
+        "body": "One cloth per language, and the page wears the cloth of the open volume. Any element coloured by the cloth reads from the six cloth properties, never from a literal hex, so a single `data-cloth` change recolours everything in one 600ms move.",
+        "section": "colors"
+      },
+      {
+        "name": "The Cloth-Ink Rule",
+        "body": "Cloth colour set on paper always goes through `--cloth-ink`, never `--cloth`. For four volumes the two are the same. Ochre (#c5962c) is too light to read on paper, so its cloth-ink is umber (#6f500e).",
+        "section": "colors"
+      },
+      {
+        "name": "The Ochre Exception",
+        "body": "German is the one light cloth, so its lettering and stamp invert to near-black (#1f1708, #2a1e07): a blind stamp instead of gilt. Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Alegreyas Rule",
+        "body": "Alegreya reads, Alegreya SC furnishes the page, Alegreya Sans operates the controls. No fourth family except the Japanese subset. Fonts are self-hosted, so adding Japanese copy means regenerating the subset.",
+        "section": "typography"
+      },
+      {
+        "name": "The Oldstyle Rule",
+        "body": "Numerals are oldstyle everywhere text is read: body, folios, line numbers. Lining numerals appear only inside the circular callouts and step discs, where they must centre.",
+        "section": "typography"
+      },
+      {
+        "name": "The Furniture Rule",
+        "body": "Small caps are page furniture: running heads split across the measure with a folio opposite, centred chapter lines, definition terms, spine titles, the wordmark. They are never a small label stacked directly on top of a headline.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper-on-Cloth Rule",
+        "body": "On the landing page, paper appears only as an object laid on cloth: a page, a leaf, a slip, a plate leaf. It is never a full-bleed band. The privacy policy is the one full-width reading surface, and it still opens and closes in cloth.",
+        "section": "layout"
+      },
+      {
+        "name": "The Binding Rule",
+        "body": "Page furniture follows the binding. Gutter shade falls toward the spine, the wide margin sits on the line-number side, and vertical Japanese is bound on the right with every mirror that implies.",
+        "section": "layout"
+      },
+      {
+        "name": "The Physical Object Rule",
+        "body": "A shadow is allowed only if the thing casting it could sit on a desk: book, leaf, slip, spine, board, or the one raised button. Text, rules, facts, the nav and the footer stay flat.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Seven-Pixel Ceiling Rule",
+        "body": "No corner is rounder than a slip of paper (7px). Pills and soft rounded cards don't exist here. Full circles are only for numbered callouts.",
+        "section": "shapes"
+      },
+      {
+        "name": "The Facing Page Rule",
+        "body": "A gloss never covers the facing page. On wide screens it is clamped to the original page. On phones it docks inside the original page, beneath the passage.",
+        "section": "components"
+      },
+      {
+        "name": "The Honest Button Rule",
+        "body": "A control that has no destination yet looks inert: outlined, no `href`, no hover, \"Coming soon\". It changes to a live, filled button only when `config.js` supplies the store URL or the contact address.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do let the cloth own every full-bleed surface on the landing page and the 404 (hero, colophon, closing, footer), and put paper only on objects laid on it: spread pages, leaves, the plate leaf, gloss slips.",
+      "Do colour anything cloth-coloured through `--cloth`, `--cloth-deep`, `--cloth-ink`, `--on-cloth`, `--on-cloth-2` and `--stamp`, so one `data-cloth` change recolours it with the rest of the page.",
+      "Do use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, callouts, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.",
+      "Do give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.",
+      "Do set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.",
+      "Do keep the demo honest: public-domain passages credited in the footer, hand-written glosses said to be hand-written, the plate labelled as an illustration.",
+      "Do show the store and contact links as pending (outlined, unlinked, \"Coming soon\") until `config.js` has a real value.",
+      "Do use the ease-out curve (cubic-bezier(0.23, 1, 0.32, 1)) for anything that moves, gate hover behind `(hover: hover) and (pointer: fine)`, and give every animation a reduced-motion version that drops transform and blur.",
+      "Do keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts."
+    ],
+    "donts": [
+      "Don't put a coloured stripe on the side or top edge of a leaf, plate, gloss slip or any card-like container to mark category or emphasis. The rules this world does use are book furniture: gilt spine bands, the shelf plank, full-measure hairlines between colophon facts, and the rule opening the privacy summary.",
+      "Don't default to cream paper with terracotta accents. Paper stays near-white (#fbfaf6, #ffffff), and the colour lives in the five cloths.",
+      "Don't fall back to the extension landing-page template: a browser-window mockup, three feature cards, a gradient hero.",
+      "Don't let a gloss slip cover the facing page, at any width.",
+      "Don't make the demo, or any copy around it, claim more than the extension does. No invented features, languages, user counts, testimonials, reviews, pricing or screenshots, and no suggestion that the demo's glosses come from the live translator.",
+      "Don't make a pending button look clickable: no fill, no hover, no press, no `href`.",
+      "Don't set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.",
+      "Don't stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.",
+      "Don't round anything past 7px or use pill shapes. Circles are only for the numbered callouts and step discs.",
+      "Don't add ambient, looping or scroll-triggered motion. Every animation answers a reader's action.",
+      "Don't add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset."
+    ]
+  }
+}
