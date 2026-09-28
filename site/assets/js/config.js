@@ -9,5 +9,5 @@
 */
 window.LEGGIO_CONFIG = {
   chromeStoreUrl: "",
-  contactEmail: ""
+  contactEmail: "noahlee519@gmail.com"
 };

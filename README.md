@@ -27,12 +27,12 @@ Open `site/assets/js/config.js`:
 ```js
 window.LEGGIO_CONFIG = {
   chromeStoreUrl: "",   // paste the Chrome Web Store listing URL
-  contactEmail: ""      // paste your public contact email
+  contactEmail: "noahlee519@gmail.com"
 };
 ```
 
 - While `chromeStoreUrl` is empty, every install button says **Coming soon to the Chrome Web Store** and isn't clickable. Once you paste the URL, they turn into **Add to Chrome** links.
-- `contactEmail` fills the footer link and the Contact section of the privacy policy.
+- `contactEmail` is set to noahlee519@gmail.com. The address is also written into the HTML (the footer links and the Contact section of the privacy policy), so it shows even without JavaScript. To change it later, update `config.js` and search the `.html` files for the old address.
 
 ## Preview locally
 
