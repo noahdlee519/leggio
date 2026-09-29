@@ -13,7 +13,7 @@ site/                    ← the folder you deploy
     css/site.css
     js/config.js         ← the two settings you edit
     js/site.js           demo + settings
-    js/passages.js       demo texts (public domain) and hand-written glosses
+    js/passages.js       demo texts (public domain) and their glosses
     fonts/               Alegreya, Alegreya SC, Alegreya Sans, Noto Serif JP subset (SIL OFL)
     img/                 favicon, touch icon, social preview
 vercel.json / netlify.toml   hosting config (publish dir + security headers)
@@ -66,7 +66,7 @@ The landing page's demo shows a "select a word, see its translation and the sent
 
 ## The demo
 
-The book in the hero is a working demo: pick a volume from the shelf (each language has its own cloth colour, like a series of bilingual editions), select any word, and save it to the facing page. The translations are written by hand for the demo, and the page says so. The texts are public domain:
+The book in the hero is a working demo: pick a volume from the shelf (each language has its own cloth colour, like a series of bilingual editions), select any word, and save it to the facing page. The translations are written by hand for the demo, and the texts are credited in the footer. Each book's facing page holds up to five saved words. The texts are public domain:
 
 - Carlo Collodi, *Le avventure di Pinocchio* (1883)
 - Miguel de Cervantes, *Don Quijote* (1605)

@@ -295,7 +295,7 @@ The world refuses two defaults by name: the browser-extension landing page (brow
 - Near-white paper pages with gutter shade, stacked page edges and real page furniture.
 - Three members of one type family: Alegreya to read, Alegreya SC for page furniture, Alegreya Sans for controls. A Noto Serif JP subset covers the Japanese.
 - Every word in the demo is a button; its gloss is a paper slip that never covers the facing page.
-- Honest states: the demo credits its hand-written glosses, and store and contact links stay visibly pending until they exist.
+- Honest states: the demo credits its public-domain texts in the footer, and the store link stays visibly pending until it exists.
 
 ### Motion grammar
 
@@ -335,7 +335,7 @@ The primary colour is whichever cloth is active. Components read it through six 
 - **Cloth-ink** is the cloth as a legible ink on paper: chapter lines, gloss and note headwords, the preface coda, underlines on active and saved words, callout and step discs, and focus rings on paper.
 - **On-cloth** is headline and body lettering on cloth, the nav links, and the nav button's fill.
 - **Focus rings** default to house green (the `ring` token) on plain paper. On cloth they take on-cloth; on paper laid over cloth (leaves, spread, plate, the privacy document) they take cloth-ink.
-- **On-cloth-2** is secondary lettering on cloth: the lede, the on-device line, the shelf note, colophon paragraphs and footer text.
+- **On-cloth-2** is secondary lettering on cloth: the lede, the shelf note, colophon paragraphs and footer text.
 - **Stamp** is gilt: the wordmark, spine titles and gilt bands, colophon terms and their hairlines, the text link, the ornament, and selection highlight on cloth.
 
 ### Secondary: the house green
@@ -389,7 +389,7 @@ The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` 
 - **Wordmark** (Alegreya SC 700, 1.4rem, 0.05em, stamp).
 - **Button** (Alegreya Sans 700, 1.0625rem/1.15, 0.01em; 0.95rem in the nav) and **label-control** (Alegreya Sans 700, 0.9375rem/1, for the save button). Callout and step numerals are 0.875 to 0.9375rem at 700.
 - **Nav** (Alegreya Sans 500, 1.0625rem) for header and footer links, the text link (700) and the privacy meta line. The contents links are 500 at 0.96875rem/1.35.
-- **Caption** (Alegreya Sans 400, 0.9375rem/1.45): the shelf note. The on-device line is 500 at 1rem/1.4, and the footer tagline is 400 at 1rem.
+- **Caption** (Alegreya Sans 400, 0.9375rem/1.45): the shelf note. The footer tagline is 400 at 1rem.
 - **Fine print** (Alegreya Sans 400, 0.875rem/1.55, max 88ch): footer credits. Book titles in it are Alegreya italic, and the Japanese title stays upright in the JP face.
 - **Numeral** (Alegreya 400, 0.8125rem, oldstyle): folios, margin line numbers and the "l. 3" references on the facing page. Attributions are Alegreya italic at 0.875rem.
 
@@ -409,7 +409,7 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 
 **Asymmetric twelfths.** Two-column sections split 5/7 (hero copy against the book; the preface heading against its body), 7/5 (plate against steps) or 6/6 (colophon lead against facts). Column gaps are fluid, from clamp(32px, 5vw, 80px) up to clamp(40px, 6vw, 96px). Everything collapses to one column at 1099px and below.
 
-**The spread.** The book is at most 720px wide and centred in its column. It has two pages, each at least 480px tall (every volume shares this page size so turning never changes the book's height) with 30px top and 56px bottom padding. The original page has a wider 52px left margin to hold line numbers; the facing page has a 40px outer margin. A 1px gutter line runs between the pages. Line numbers appear on every fifth line, measured from the rendered layout so they stay true at any width.
+**The spread.** The book is at most 720px wide and centred in its column. It has two pages, each at least 528px tall (every volume shares this page size so turning never changes the book's height) with 30px top and 56px bottom padding. The original page has a wider 52px left margin to hold line numbers; the facing page has a 40px outer margin. A 1px gutter line runs between the pages. Line numbers appear on every fifth line, measured from the rendered layout so they stay true at any width.
 
 **Japanese binding.** A vertical volume is set `vertical-rl`, 16.5em tall (17em on phones), and bound on the right. The original page moves to the right of the spread, the facing page to the left, and running heads and gutter shading mirror. Arrow keys follow the columns (down or left moves to the next word), and closing punctuation is held to its word (kinsoku).
 
@@ -503,7 +503,7 @@ An open bilingual edition, drawn near life size.
 - **Chapter line:** centred small caps in cloth-ink ("Capitolo primo"; "Saved words, by line" on the facing page).
 - **Words:** every word is a button, with a roving tabindex and arrow-key movement. Hover adds a 10% cloth wash. The active word gets a 17% cloth wash plus a solid 1.5px cloth-ink underline, offset 0.24em. Saved words carry a dotted cloth-ink underline. Focus is a 2px cloth-ink outline.
 - **Margin line numbers** mark every fifth line, and the attribution sits at the foot in Alegreya italic in pencil ("Carlo Collodi, 1883").
-- **Facing page:** saved words as a list of "l. N" (the line they came from, oldstyle, pencil), then the headword in bold cloth-ink, then the meaning in ink. A new entry inks in. The empty state is an italic pencil note, max 24ch.
+- **Facing page:** holds at most five saved words per book; at the limit the Save button reads "Facing page full" (muted, aria-disabled) and an italic note explains how to remove one. Saved words appear as a list of "l. N" (the line they came from, oldstyle, pencil), then the headword in bold cloth-ink, then the meaning in ink. A new entry inks in. The empty state is an italic pencil note, max 24ch.
 - **Changing volume:** by pointer, the page turns (see Page Turn). By keyboard or with reduced motion, the text blur-fades for 170ms while the cloth cross-fades for 600ms. Arriving at a volume opens the gloss for its start word.
 
 ### Page Turn (signature)
@@ -532,7 +532,7 @@ A slip of brighter paper laid beside the word.
 A shelf of volumes is the language switcher.
 - **Spine:** 46×132px (flexible, up to 64×118 on phones), in its own language's cloth, whatever cloth the page is wearing. It has cylindrical shading over the weave, gilt head and tail bands, and a vertical Alegreya SC title in stamp (Italiano, Español, Français, Deutsch, 日本語).
 - **Shelf:** spines 5px apart, standing on a 3px plank (cloth-deep mixed 80% with black). The selected spine stands 16px proud, hover lifts a spine 6px, and a press scales it to 0.98.
-- **Hero shelf:** an ARIA tablist controlling the spread, with arrow, Home and End keys. Its focus ring is on-cloth. Beside it is a caption saying the demo glosses are hand-written for public-domain passages and that Leggio translates on the device.
+- **Hero shelf:** an ARIA tablist controlling the spread, with arrow, Home and End keys. Its focus ring is on-cloth. Beside it is a caption telling the reader to drag or swipe the page, or pick a book.
 - **Closing shelf:** the same spines centred under the closing call to action. Choosing one opens that volume and scrolls the spread into view.
 
 ### Leaves
@@ -585,7 +585,7 @@ A full-cloth page titled "This page is out of print.", with the wordmark, a line
 - **Do** use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, callouts, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.
 - **Do** give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.
 - **Do** set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.
-- **Do** keep the demo honest: public-domain passages credited in the footer, hand-written glosses said to be hand-written, the plate labelled as an illustration.
+- **Do** keep the demo honest: public-domain passages credited in the footer, glosses limited to what on-device translation gives (word, translation, sentence translation), the plate labelled as an illustration.
 - **Do** show the store and contact links as pending (outlined, unlinked, "Coming soon") until `config.js` has a real value.
 - **Do** use the ease-out curve (cubic-bezier(0.23, 1, 0.32, 1)) for anything that moves, gate hover behind `(hover: hover) and (pointer: fine)`, and give every animation a reduced-motion version that drops transform and blur.
 - **Do** keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts.

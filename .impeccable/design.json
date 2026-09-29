@@ -1016,7 +1016,7 @@
       "Near-white paper pages with gutter shade, stacked page edges and real page furniture.",
       "Three members of one type family: Alegreya to read, Alegreya SC for page furniture, Alegreya Sans for controls. A Noto Serif JP subset covers the Japanese.",
       "Every word in the demo is a button; its gloss is a paper slip that never covers the facing page.",
-      "Honest states: the demo credits its hand-written glosses, and store and contact links stay visibly pending until they exist."
+      "Honest states: the demo credits its public-domain texts in the footer, and the store link stays visibly pending until it exists."
     ],
     "rules": [
       {
@@ -1091,7 +1091,7 @@
       "Do use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, callouts, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.",
       "Do give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.",
       "Do set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.",
-      "Do keep the demo honest: public-domain passages credited in the footer, hand-written glosses said to be hand-written, the plate labelled as an illustration.",
+      "Do keep the demo honest: public-domain passages credited in the footer, glosses limited to what on-device translation gives (word, translation, sentence translation), the plate labelled as an illustration.",
       "Do show the store and contact links as pending (outlined, unlinked, \"Coming soon\") until `config.js` has a real value.",
       "Do use the ease-out curve (cubic-bezier(0.23, 1, 0.32, 1)) for anything that moves, gate hover behind `(hover: hover) and (pointer: fine)`, and give every animation a reduced-motion version that drops transform and blur.",
       "Do keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts."

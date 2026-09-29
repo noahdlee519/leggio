@@ -44,14 +44,10 @@
       <div class="container hero__grid">
         <div class="hero__copy">
           <h1 id="hero-title">Read it in the original.</h1>
-          <p class="hero__lede">Leggio is a Chrome extension for language learners. Select a word on a web page or in a PDF, see what it means, and keep reading in the language you’re learning.</p>
+          <p class="hero__lede">Leggio is a Chrome extension for language learners. Select an unfamiliar word on a web page or in a PDF, and see what it means with the press of a button.</p>
           <div class="hero__actions">
             <a class="button button--primary" data-store-link data-label-live="Add to Chrome" data-label-pending="Coming soon to the Chrome Web Store">Coming soon to the Chrome Web Store</a>
           </div>
-          <p class="hero__assure">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19.5h20"/></svg>
-            Translation happens on your device. What you read stays there.
-          </p>
         </div>
 
         <div class="hero__book">
@@ -76,6 +72,7 @@
               <p class="chapter">Saved words, by line</p>
               <ol class="notes" id="notes"></ol>
               <p class="notes__empty" id="notes-empty">Words you save appear here, next to the line they came from.</p>
+              <p class="notes__full" id="notes-full" hidden>This page holds five words. Select a saved word to remove it.</p>
             </article>
 
             <button class="dogear dogear--prev" type="button" id="turn-prev" aria-label="Turn back to the previous language"></button>
@@ -101,7 +98,7 @@
           <div class="shelf">
             <div class="spines" role="tablist" aria-label="Demo language" id="spines"></div>
             <p class="visually-hidden" role="status" id="demo-status"></p>
-            <p class="shelf__note">Drag or swipe the page to turn to the next language, or pick a book. Select any word to see its translation. The demo’s translations are written by hand for these public-domain passages.</p>
+            <p class="shelf__note">Drag or swipe the page to turn to the next language, or pick a book. Select any word to see its translation.</p>
           </div>
         </div>
       </div>

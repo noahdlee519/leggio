@@ -76,6 +76,8 @@
   const linenosEl = $("#linenos");
   const notesEl = $("#notes");
   const notesEmpty = $("#notes-empty");
+  const notesFull = $("#notes-full");
+  const MAX_SAVED = 5; // keeps the facing page to one page per book
   const spinesEl = $("#spines");
   const closingSpines = $("#closing-spines");
   const status = $("#demo-status");
@@ -604,6 +606,7 @@
       notesEl.append(li);
     });
     notesEmpty.hidden = entries.length > 0;
+    notesFull.hidden = entries.length < MAX_SAVED;
     words.forEach((w, i) => w.el.classList.toggle("is-saved", saved.get(keyOf(i)) !== undefined));
   }
 
@@ -703,10 +706,14 @@
   }
 
   function syncSave() {
-    const on = savedBy.get(current.id).get(keyOf(active)) !== undefined;
+    const saved = savedBy.get(current.id);
+    const on = saved.get(keyOf(active)) !== undefined;
+    const full = !on && saved.size >= MAX_SAVED;
     glossSave.classList.toggle("is-saved", on);
-    glossSaveLabel.textContent = on ? "Saved" : "Save to facing page";
-    glossSaveHint.textContent = on ? " (select to remove)" : "";
+    glossSave.classList.toggle("is-full", full);
+    glossSave.setAttribute("aria-disabled", String(full));
+    glossSaveLabel.textContent = on ? "Saved" : full ? "Facing page full" : "Save to facing page";
+    glossSaveHint.textContent = on ? " (select to remove)" : full ? " (five words per book; remove one to save another)" : "";
   }
 
   glossSave.addEventListener("click", () => {
@@ -714,6 +721,10 @@
     const saved = savedBy.get(current.id);
     const key = keyOf(active);
     const word = words[active].tok.w;
+    if (!saved.has(key) && saved.size >= MAX_SAVED) {
+      status.textContent = "The facing page holds five words. Remove one to save another.";
+      return;
+    }
     if (saved.has(key)) {
       saved.delete(key);
       renderNotes();
