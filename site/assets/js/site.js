@@ -193,6 +193,19 @@
 
   const openStart = (animated) => openGloss(words.findIndex((w) => w.tok.w === current.start), { animated });
 
+  // Arriving at a volume (on load, or after a turn), the start word's gloss opens after a
+  // one-second pause, so the page is seen before the slip lands on it. A word the reader
+  // opens, or another turn, in the meantime wins.
+  const START_PAUSE_MS = 1000;
+  let startTimer = 0;
+  const cancelStart = () => window.clearTimeout(startTimer);
+  function scheduleStart() {
+    cancelStart();
+    startTimer = window.setTimeout(() => {
+      if (!turn && active < 0) openStart(true);
+    }, START_PAUSE_MS);
+  }
+
   // mode: "turn" plays the page turn, "swap" is a quick blur-fade (keyboard, reduced motion)
   function select(id, { initial = false, mode = "turn", dir } = {}) {
     const p = passages.find((x) => x.id === id);
@@ -203,11 +216,12 @@
       showPassage(p);
       requestAnimationFrame(() => {
         layoutLines();
-        openStart(false);
+        scheduleStart();
       });
       return;
     }
-    retirePeek(); // they've found another volume; the hint has done its job
+    cancelStart();
+    retireHints(); // they've found another volume; the hints have done their job
     if (mode === "turn" && animate()) {
       playTurn(dir || (indexOf(p) > indexOf(current) ? "next" : "prev"), p);
       return;
@@ -215,7 +229,7 @@
     applyChrome(p);
     if (!animate()) {
       showPassage(p);
-      requestAnimationFrame(() => openStart(false));
+      scheduleStart();
       return;
     }
     spread.classList.add("is-swapping");
@@ -223,7 +237,7 @@
       showPassage(p);
       requestAnimationFrame(() => {
         spread.classList.remove("is-swapping");
-        openStart(true);
+        scheduleStart();
       });
     }, 170);
   }
@@ -272,7 +286,8 @@
   };
 
   function beginTurn(dir, to) {
-    retirePeek();
+    cancelStart();
+    retireHints();
     const from = current;
     const prevActive = active;
     closeGloss(true);
@@ -371,7 +386,7 @@
     delete pageFacing.dataset.cloth;
     if (commit) {
       if (!t.chrome) applyChrome(t.to);
-      requestAnimationFrame(() => openStart(true));
+      scheduleStart();
     } else {
       showPassage(t.from);
       if (t.prevActive >= 0) openGloss(t.prevActive, { animated: false });
@@ -502,6 +517,26 @@
     peekTimer = window.setTimeout(playPeek, PEEK_IDLE_MS[peeksPlayed]);
   }
 
+  /* The drag hint's other half: a small curved arrow, blind-stamped into the paper by the
+     folded corner. It fades in a few seconds after the book comes into view (with reduced
+     motion too: it doesn't move) and fades away for good at the first turn. */
+  const dragHint = $("#drag-hint");
+  const ARROW_AFTER_MS = 2200; // after the gloss opens (1s), before the page lifts (3.5s)
+  let arrowTimer = 0;
+  let arrowRetired = false;
+
+  function scheduleArrow() {
+    if (!dragHint || arrowRetired || arrowTimer || dragHint.classList.contains("is-shown")) return;
+    arrowTimer = window.setTimeout(() => dragHint.classList.add("is-shown"), ARROW_AFTER_MS);
+  }
+
+  function retireHints() {
+    arrowRetired = true;
+    window.clearTimeout(arrowTimer);
+    if (dragHint) dragHint.classList.remove("is-shown");
+    retirePeek();
+  }
+
   function retirePeek() {
     peeksPlayed = PEEK_IDLE_MS.length;
     window.clearTimeout(peekTimer);
@@ -533,8 +568,10 @@
     const back = make("turn__face turn__face--back");
     const backShade = make("turn__shade turn__shade--back");
     const cast = place(make("turn__cast"), R);
-    // The folded corner lifts with its page
-    front.append(fill(snapshot(pageFacing, current.id)), make("dogear dogear--next"), frontShade);
+    // The folded corner (and the arrow stamped beside it) lift with their page
+    front.append(fill(snapshot(pageFacing, current.id)), make("dogear dogear--next"));
+    if (dragHint?.classList.contains("is-shown")) front.append(dragHint.cloneNode(true));
+    front.append(frontShade);
     back.append(backShade);
     leaf.append(front, back);
     leaf.style.transformOrigin = "0 50%";
@@ -568,6 +605,7 @@
       ([entry]) => {
         bookInView = entry.intersectionRatio >= 0.6;
         schedulePeek();
+        if (bookInView) scheduleArrow();
       },
       { threshold: [0, 0.6] }
     ).observe(spread);
@@ -585,9 +623,15 @@
     pageOriginal.dataset.vertical = pageFacing.dataset.vertical = String(!!p.vertical);
     $("[data-title]", spread).textContent = p.title;
     $("[data-title]", spread).lang = p.lang;
-    $("[data-chapter]", spread).textContent = p.chapter;
+    // Text sits in its own spans so the pointer can tell text (text cursor) from paper (grab)
+    const inSpan = (text) => {
+      const span = document.createElement("span");
+      span.textContent = text;
+      return span;
+    };
+    $("[data-chapter]", spread).replaceChildren(inSpan(p.chapter));
     $("[data-chapter]", spread).lang = p.lang;
-    $("[data-attribution]", spread).textContent = p.author + ", " + p.year;
+    $("[data-attribution]", spread).replaceChildren(inSpan(p.author + ", " + p.year));
     $$("[data-folio]", spread).forEach((f) => (f.textContent = p.folios[Number(f.dataset.folio)]));
 
     passageEl.textContent = "";
@@ -612,7 +656,11 @@
             wrap.append(glue[0]);
             text = text.slice(glue[0].length);
           }
-          if (text) passageEl.append(document.createTextNode(text));
+          if (text) {
+            const t = inSpan(text);
+            t.className = "t";
+            passageEl.append(t);
+          }
           lastWord = null;
           return;
         }
@@ -730,6 +778,7 @@
 
   function openGloss(i, { animated = true } = {}) {
     if (i < 0 || !words[i]) return;
+    cancelStart();
     window.clearTimeout(closeTimer);
     const wasOpen = active >= 0 && !gloss.hidden;
     if (active >= 0 && words[active]) {

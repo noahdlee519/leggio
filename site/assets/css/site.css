@@ -567,12 +567,43 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 /* ---------- Turning the page ---------- */
 
 .spread { touch-action: pan-y; }
-.spread.is-turning { -webkit-user-select: none; user-select: none; cursor: grabbing; }
+/* Anywhere on the book that isn't text is a handle for turning the page: an open hand over
+   the paper, a closed one while turning. Words keep the pointer, other text the text cursor. */
+.spread { cursor: grab; }
+.spread :is(.runhead__text, .folio, .chapter > span, .attribution > span, .passage .t, .passage .nobr, .notes li > span, .notes__empty, .notes__full) { cursor: text; }
+.spread .gloss { cursor: auto; }
+.spread.is-turning { -webkit-user-select: none; user-select: none; }
+.spread.is-turning,
+.spread.is-turning * { cursor: grabbing !important; } /* over whatever the pointer crosses mid-turn */
 .spread.is-turning .dogear { visibility: hidden; }
 /* The page-turn hint (see site.js): the lifting leaf carries the page and its corner, and what
    it uncovers is the clean paper of the leaf beneath, not a second copy of the same page */
 .spread.is-peeking > .page--facing > *,
-.spread.is-peeking > .dogear--next { visibility: hidden; }
+.spread.is-peeking > .dogear--next,
+.spread.is-peeking > .drag-hint,
+.spread.is-turning > .drag-hint { visibility: hidden; }
+
+/* The drag hint's arrow: a curve toward the next page, blind-stamped into the paper by the
+   folded corner. Dark ink at low strength with a 1px highlight under the stroke reads as an
+   impression, not a mark printed on top. */
+.drag-hint {
+  position: absolute;
+  right: 54px;
+  bottom: 16px;
+  z-index: 3;
+  width: 56px;
+  height: 28px;
+  fill: none;
+  stroke: rgb(40 30 10 / 0.26);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 0 rgb(255 255 255 / 0.9));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 900ms ease;
+}
+.drag-hint.is-shown { opacity: 1; }
 
 .turn {
   position: absolute;
@@ -1457,5 +1488,6 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .nav__links > a:not(.button) { transition: none; }
   .spread.is-swapping .passage, .spread.is-swapping .notes { filter: none; }
   .dogear::before, .dogear::after { transition: none; }
+  .drag-hint { transition-duration: 200ms; }
 }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
