@@ -569,6 +569,10 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .spread { touch-action: pan-y; }
 .spread.is-turning { -webkit-user-select: none; user-select: none; cursor: grabbing; }
 .spread.is-turning .dogear { visibility: hidden; }
+/* The page-turn hint (see site.js): the lifting leaf carries the page and its corner, and what
+   it uncovers is the clean paper of the leaf beneath, not a second copy of the same page */
+.spread.is-peeking > .page--facing > *,
+.spread.is-peeking > .dogear--next { visibility: hidden; }
 
 .turn {
   position: absolute;

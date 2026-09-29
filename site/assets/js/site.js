@@ -205,6 +205,7 @@
       });
       return;
     }
+    retirePeek(); // they've found another volume; the hint has done its job
     if (mode === "turn" && animate()) {
       playTurn(dir || (indexOf(p) > indexOf(current) ? "next" : "prev"), p);
       return;
@@ -269,6 +270,7 @@
   };
 
   function beginTurn(dir, to) {
+    retirePeek();
     const from = current;
     const prevActive = active;
     closeGloss(true);
@@ -323,8 +325,7 @@
     setTurn(0);
   }
 
-  function setTurn(p) {
-    const t = turn;
+  function setTurn(p, t = turn) {
     t.p = p;
     const sign = t.dir === "next" ? -1 : 1;
     const lift = Math.sin(p * Math.PI);
@@ -395,6 +396,7 @@
   let suppressClickUntil = 0;
 
   spread.addEventListener("pointerdown", (e) => {
+    stopPeek(); // the reader's hand takes over from the hint
     if (!e.isPrimary || e.button !== 0 || turn || drag) return;
     if (e.target.closest(".gloss")) return;
     drag = { id: e.pointerId, x0: e.clientX, y0: e.clientY, started: false, samples: [] };
@@ -468,6 +470,112 @@
     },
     true
   );
+
+  /* ---------- The page-turn hint ----------
+     The one motion nobody asked for, and a documented exception to the Answer-Only Motion
+     Rule: once the book has sat in view, untouched, for a few seconds, the right-hand page
+     lifts from its edge by itself, the way a thumb tests a page, and lays back down. It is
+     the same leaf a drag lifts, so it shows exactly what dragging does. It plays at most
+     twice, stops for good once the reader turns a page, gives way the moment they touch the
+     book, and never runs with reduced motion, on stacked (phone) pages or in a hidden tab. */
+
+  const PEEK_IDLE_MS = [3500, 12000]; // stillness before the first hint, then before the second
+  // [ms, turn progress, ease]: a small try, a settle, a bolder lift (0.1 is about 18°), a pause,
+  // then the page lays itself back down
+  const PEEK_KEYS = [
+    [420, 0.05, easeOut],
+    [300, 0.022, easeInOut],
+    [440, 0.1, easeOut],
+    [220, 0.1],
+    [600, 0, easeInOut],
+  ];
+  let peek = null;
+  let peekTimer = 0;
+  let peeksPlayed = 0;
+  let bookInView = false;
+
+  function schedulePeek() {
+    window.clearTimeout(peekTimer);
+    if (peeksPlayed >= PEEK_IDLE_MS.length || !bookInView || !animate() || document.hidden) return;
+    peekTimer = window.setTimeout(playPeek, PEEK_IDLE_MS[peeksPlayed]);
+  }
+
+  function retirePeek() {
+    peeksPlayed = PEEK_IDLE_MS.length;
+    window.clearTimeout(peekTimer);
+    stopPeek();
+  }
+
+  function stopPeek() {
+    if (!peek) return;
+    cancelAnimationFrame(peek.raf);
+    peek.overlay.remove();
+    spread.classList.remove("is-peeking");
+    peek = null;
+  }
+
+  function playPeek() {
+    if (peek || turn || drag || !current || spread.classList.contains("is-swapping")) return schedulePeek();
+    const [L, R] = pageBoxes();
+    // Only a right-hand facing page lifts: not stacked pages, and not the page the gloss is on
+    // (vertical Japanese binds on the right, which puts the original there)
+    if (Math.abs(L.x - R.x) < 2 || R.el !== pageFacing) return;
+    peeksPlayed++;
+
+    const overlay = make("turn turn--next");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.inert = true;
+    const leaf = place(make("turn__leaf"), R);
+    const front = make("turn__face");
+    const frontShade = make("turn__shade turn__shade--front");
+    const back = make("turn__face turn__face--back");
+    const backShade = make("turn__shade turn__shade--back");
+    const cast = place(make("turn__cast"), R);
+    // The folded corner lifts with its page
+    front.append(fill(snapshot(pageFacing, current.id)), make("dogear dogear--next"), frontShade);
+    back.append(backShade);
+    leaf.append(front, back);
+    leaf.style.transformOrigin = "0 50%";
+    overlay.append(cast, leaf);
+    spread.append(overlay);
+    spread.classList.add("is-peeking");
+    peek = { dir: "next", overlay, leaf, frontShade, backShade, cast, stacked: false, autoplay: false, chrome: true, p: 0, raf: 0 };
+
+    const t0 = performance.now();
+    const step = (now) => {
+      if (!peek) return;
+      let at = now - t0;
+      let from = 0;
+      for (const [ms, to, ease] of PEEK_KEYS) {
+        if (at < ms) {
+          setTurn(from + (to - from) * (ease ? ease(at / ms) : 1), peek);
+          peek.raf = requestAnimationFrame(step);
+          return;
+        }
+        at -= ms;
+        from = to;
+      }
+      stopPeek();
+      schedulePeek();
+    };
+    peek.raf = requestAnimationFrame(step);
+  }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        bookInView = entry.intersectionRatio >= 0.6;
+        schedulePeek();
+      },
+      { threshold: [0, 0.6] }
+    ).observe(spread);
+  }
+  // Any input restarts the wait: the hint only plays while the visitor is sitting still
+  ["pointerdown", "keydown", "wheel", "touchstart", "scroll"].forEach((type) =>
+    window.addEventListener(type, () => peeksPlayed < PEEK_IDLE_MS.length && schedulePeek(), { capture: true, passive: true })
+  );
+  document.addEventListener("visibilitychange", schedulePeek);
+  reduceMotion.addEventListener?.("change", () => (animate() ? schedulePeek() : retirePeek()));
 
   function renderBook() {
     const p = current;

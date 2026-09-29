@@ -1021,7 +1021,7 @@
     "rules": [
       {
         "name": "The Answer-Only Motion Rule",
-        "body": "Every animation responds to a reader's action (choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll.",
+        "body": "Every animation responds to a reader's action (choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll, except the page-turn hint: after 3.5s of stillness the right-hand page lifts a little and lays back down, at most twice, never after the reader turns a page, never with reduced motion or on stacked pages.",
         "section": "overview"
       },
       {
@@ -1106,7 +1106,7 @@
       "Don't set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.",
       "Don't stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.",
       "Don't round anything past 7px or use pill shapes. Circles are only for the numbered callouts and step discs.",
-      "Don't add ambient, looping or scroll-triggered motion. Every animation answers a reader's action.",
+      "Don't add ambient, looping or scroll-triggered motion. Every animation answers a reader's action, except the bounded page-turn hint.",
       "Don't add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset."
     ]
   }

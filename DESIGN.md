@@ -299,7 +299,7 @@ The world refuses two defaults by name: the browser-extension landing page (brow
 
 ### Motion grammar
 
-Motion answers something the reader did. The build has no ambient, looping or scroll-triggered animation.
+Motion answers something the reader did. The build has no ambient, looping or scroll-triggered animation. The one exception is the page-turn hint (Components › Page Turn), which the owner asked for.
 
 - **Curve.** One curve for anything that moves: `ease-out` (cubic-bezier(0.23, 1, 0.32, 1)). Colour-only changes use plain `ease`. The one exception is the played page turn, which travels across the screen and uses a cubic ease-in-out.
 - **Page turn (the signature moment).** Covered in full under Components › Page Turn. In short: the leaf follows the pointer 1:1 while dragged, a played turn takes 820ms ease-in-out, and releasing finishes or lays the leaf back down in 180–520ms ease-out.
@@ -312,7 +312,7 @@ Motion answers something the reader did. The build has no ambient, looping or sc
 - **Small responses.** Word highlight 140ms. Nav underline grows from the left in 220ms ease-out. The text-link arrow nudges 3px in 200ms. The privacy contents rail changes in 160ms.
 - **Reduced motion.** There is no 3D turn: corners, spines and swipes change volume with the plain swap. Cloth changes become effectively instant (1ms). The slip keeps only a 120ms opacity fade, with no transform or blur. Spines stop moving. Ink-in becomes a 200ms fade. The swap skips its blur and its 170ms delay. Smooth scrolling (the root `scroll-behavior` and the closing shelf's `scrollIntoView`) turns off.
 
-**The Answer-Only Motion Rule.** Every animation responds to a reader's action (turning a page, choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll. Keyboard-initiated changes (arrow keys on the spines, Enter on a corner) use the quick swap, never the 3D turn.
+**The Answer-Only Motion Rule.** Every animation responds to a reader's action (turning a page, choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll. Keyboard-initiated changes (arrow keys on the spines, Enter on a corner) use the quick swap, never the 3D turn. **One exception:** the page-turn hint. If the book has sat in view, untouched, for 3.5 seconds, the right-hand page lifts a little by itself and lays back down, to show that it can be dragged. It plays at most twice (the second time after 12 more seconds of stillness), stops for good once the reader turns a page, and gives way the moment they press on the book. It doesn't play with reduced motion, on stacked pages or in a hidden tab. Nothing else moves on its own.
 
 ## Colors
 
@@ -515,6 +515,7 @@ Turning a page moves to the next volume (Italiano → Español → Français →
 - **Played turn.** Clicking a folded corner or a spine plays the same turn over 820ms ease-in-out. The cloth hands over as the leaf passes upright (for a drag, on release), and the pages under the leaf take the new volume's inks from the start.
 - **Folded corners.** Two 44px corners sit at the bottom outer edges of the spread. The flap is `#e9e6dc` to `#fffefb`, with a 1px `rgb(24 18 8 / 0.1)` fold edge, and the page beneath shows `#e6e2d6` to `#efece3`. The back corner sits at 0.8 opacity. On hover the corner lifts (scales 1.32 from its corner, 240ms ease-out) and on press it scales 1.2. Their labels name the destination volume.
 - **Phones.** With the pages stacked, the whole spread is one leaf that swings away around its left edge (up to 100°) over the next volume.
+- **Hint (the one unprompted motion).** After 3.5s of stillness with the book at least 60% in view, the right-hand facing page lifts on the same leaf a drag uses, carrying its folded corner, the way a thumb tests a page. It makes a small try to 0.05 of a turn (420ms ease-out), settles to 0.022 (300ms), lifts to 0.1, about 18° (440ms ease-out), holds for 220ms and lays down (600ms ease-in-out): 2s in all. The page it uncovers shows clean paper, and the gloss is never touched. It plays at most twice (the second after 12s more stillness). Any input restarts the wait, pressing on the book cancels it at once, and turning a page retires it. It never plays with reduced motion, on stacked (phone) pages, when the original is the right-hand page (vertical Japanese) or in a hidden tab.
 
 ### Gloss Slip (signature)
 
@@ -603,5 +604,5 @@ A full-cloth page titled "This page is out of print.", with the wordmark, a line
 - **Don't** set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.
 - **Don't** stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.
 - **Don't** round anything past 7px or use pill shapes. Circles are only for the numbered callouts and step discs.
-- **Don't** add ambient, looping or scroll-triggered motion. Every animation answers a reader's action.
+- **Don't** add ambient, looping or scroll-triggered motion. Every animation answers a reader's action, except the bounded page-turn hint.
 - **Don't** add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset.
