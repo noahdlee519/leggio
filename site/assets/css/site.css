@@ -382,7 +382,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
 .page {
   position: relative;
-  min-height: 528px;
+  min-height: 436px;
   padding: 30px 30px 56px;
   background-color: var(--paper);
 }
@@ -504,7 +504,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   list-style: none;
   padding: 0;
   display: grid;
-  gap: 12px;
+  gap: 7px;
 }
 .notes li {
   position: relative;
@@ -521,14 +521,15 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   color: var(--ink-2);
 }
 .notes__word { font-weight: 700; color: var(--cloth-ink); transition: color 600ms ease; }
-.notes__meaning { display: block; color: var(--ink); }
+.notes__meaning { color: var(--ink); }
+.notes__word + .notes__meaning::before { content: " "; }
 .notes li.is-new { animation: ink-in 560ms var(--ease-out) both; }
 @keyframes ink-in {
   from { clip-path: inset(0 100% 0 0); opacity: 0.4; }
   to { clip-path: inset(0 0 0 0); opacity: 1; }
 }
 .notes__full {
-  margin-top: 16px;
+  margin-top: 12px;
   font-style: italic;
   font-size: 0.9375rem;
   line-height: 1.5;
@@ -669,7 +670,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .page--facing[data-vertical="true"] .runhead { flex-direction: row-reverse; }
 .page[data-vertical="true"] .passage {
   writing-mode: vertical-rl;
-  height: 16.5em;
+  height: 15em;
   margin-top: 30px;
   margin-inline-start: auto;
   font-family: var(--font-jp);

@@ -409,9 +409,9 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 
 **Asymmetric twelfths.** Two-column sections split 5/7 (hero copy against the book; the preface heading against its body), 7/5 (plate against steps) or 6/6 (colophon lead against facts). Column gaps are fluid, from clamp(32px, 5vw, 80px) up to clamp(40px, 6vw, 96px). Everything collapses to one column at 1099px and below.
 
-**The spread.** The book is at most 720px wide and centred in its column. It has two pages, each at least 528px tall (every volume shares this page size so turning never changes the book's height) with 30px top and 56px bottom padding. The original page has a wider 52px left margin to hold line numbers; the facing page has a 40px outer margin. A 1px gutter line runs between the pages. Line numbers appear on every fifth line, measured from the rendered layout so they stay true at any width.
+**The spread.** The book is at most 720px wide and centred in its column. It has two pages, each 436px tall (every volume shares this page size so turning never changes the book's height) with 30px top and 56px bottom padding. The original page has a wider 52px left margin to hold line numbers; the facing page has a 40px outer margin. A 1px gutter line runs between the pages. Line numbers appear on every fifth line, measured from the rendered layout so they stay true at any width.
 
-**Japanese binding.** A vertical volume is set `vertical-rl`, 16.5em tall (17em on phones), and bound on the right. The original page moves to the right of the spread, the facing page to the left, and running heads and gutter shading mirror. Arrow keys follow the columns (down or left moves to the next word), and closing punctuation is held to its word (kinsoku).
+**Japanese binding.** A vertical volume is set `vertical-rl`, 15em tall (17em on phones), and bound on the right. The original page moves to the right of the spread, the facing page to the left, and running heads and gutter shading mirror. Arrow keys follow the columns (down or left moves to the next word), and closing punctuation is held to its word (kinsoku).
 
 **Leaves.** Each leaf is a page laid on the cloth inside the container. Padding is clamp(24px, 3.5vw, 36px) at the top, clamp(22px, 6vw, 88px) at the sides and clamp(56px, 8vw, 104px) at the bottom. A running head sits clamp(48px, 7vw, 96px) above the content. Leaves stack with clamp(40px, 6vw, 72px) between them.
 
@@ -503,7 +503,7 @@ An open bilingual edition, drawn near life size.
 - **Chapter line:** centred small caps in cloth-ink ("Capitolo primo"; "Saved words, by line" on the facing page).
 - **Words:** every word is a button, with a roving tabindex and arrow-key movement. Hover adds a 10% cloth wash. The active word gets a 17% cloth wash plus a solid 1.5px cloth-ink underline, offset 0.24em. Saved words carry a dotted cloth-ink underline. Focus is a 2px cloth-ink outline.
 - **Margin line numbers** mark every fifth line, and the attribution sits at the foot in Alegreya italic in pencil ("Carlo Collodi, 1883").
-- **Facing page:** holds at most five saved words per book; at the limit the Save button reads "Facing page full" (muted, aria-disabled) and an italic note explains how to remove one. Saved words appear as a list of "l. N" (the line they came from, oldstyle, pencil), then the headword in bold cloth-ink, then the meaning in ink. A new entry inks in. The empty state is an italic pencil note, max 24ch.
+- **Facing page:** holds at most five saved words per book; at the limit the Save button reads "Facing page full" (muted, aria-disabled) and an italic note explains how to remove one. Saved words appear as a glossary, one per line (7px apart): "l. N" (the line they came from, oldstyle, pencil), then the headword in bold cloth-ink, then the meaning in ink on the same line. A new entry inks in. The empty state is an italic pencil note, max 24ch.
 - **Changing volume:** by pointer, the page turns (see Page Turn). By keyboard or with reduced motion, the text blur-fades for 170ms while the cloth cross-fades for 600ms. Arriving at a volume opens the gloss for its start word.
 
 ### Page Turn (signature)
