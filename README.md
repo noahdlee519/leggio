@@ -7,7 +7,7 @@ It's plain HTML, CSS and a little JavaScript, with no build step. Everything the
 ```
 site/                    ← the folder you deploy
   index.html             landing page
-  privacy/index.html     privacy policy  →  https://<your-domain>/privacy/
+  privacy/index.html     privacy policy  →  https://getleggio.com/privacy/
   404.html
   assets/
     css/site.css
@@ -51,7 +51,7 @@ Opening `index.html` directly from disk won't work because the site uses root-re
 
 Both configs add a strict Content-Security-Policy (`'self'` only) and long cache headers for the fonts.
 
-For the Chrome Web Store listing, the privacy policy URL is `https://<your-domain>/privacy/`.
+The site lives at **https://getleggio.com**. For the Chrome Web Store listing, the privacy policy URL is `https://getleggio.com/privacy/`. The canonical and social-preview tags in the HTML, `robots.txt` and `sitemap.xml` all use this domain, so update them if it ever changes.
 
 ## Before you publish: check the privacy policy against the extension
 
