@@ -518,6 +518,8 @@ Turning a page moves to the next volume (Italiano → Español → Français →
 
 ### Gloss Slip (signature)
 
+The book (and so the slip) is layered above the shelf (`z-index: 2` over 1), so a slip that hangs below the page always sits in front of the spines. The slip opens below the word, else above it, else beside it within the original page. As a last resort it opens upward past the page top (up to 56px) before hanging below the book.
+
 A slip of brighter paper laid beside the word.
 - **Build:** Slip White, 7px radius, slip shadow, min(284px, 100% − 16px) wide (240px for vertical Japanese), padded 15px 16px 14px.
 - **Contents:** the headword (Alegreya 700, cloth-ink) with a 32px square close button (6px radius, an × icon in pencil, and a Tissue wash on hover). Below it, the meaning. Then a hairline rule and the "This sentence" small-caps label with an English rendering of the sentence, clamped to four lines (three on phones).
@@ -533,6 +535,7 @@ A shelf of volumes is the language switcher.
 - **Spine:** 46×132px (flexible, up to 64×118 on phones), in its own language's cloth, whatever cloth the page is wearing. It has cylindrical shading over the weave, gilt head and tail bands, and a vertical Alegreya SC title in stamp (Italiano, Español, Français, Deutsch, 日本語).
 - **Shelf:** spines 5px apart, standing on a 3px plank (cloth-deep mixed 80% with black). The selected spine stands 16px proud, hover lifts a spine 6px, and a press scales it to 0.98.
 - **Hero shelf:** an ARIA tablist controlling the spread, with arrow, Home and End keys. Its focus ring is on-cloth. Beside it is a caption telling the reader to drag or swipe the page, or pick a book.
+- **Language count:** "+34 more languages" in gilt Alegreya SC 700 at 0.9375rem, pinned to the top right of the spines (below them, right-aligned, on phones). 34 is the 39 languages in Chrome's Translator list minus the five volumes shown.
 - **Closing shelf:** the same spines centred under the closing call to action. Choosing one opens that volume and scrolls the spread into view.
 
 ### Leaves

@@ -690,8 +690,14 @@
       left: { left: wx - gap - gw, top: clampY(cy - gh / 2), fits: wx - gap - gw >= minX },
       right: { left: wx + r.width + gap, top: clampY(cy - gh / 2), fits: wx + r.width + gap <= maxX }
     };
-    const order = current.vertical ? ["left", "right", "below", "above"] : ["below", "above", "right", "left"];
-    const side = order.find((k) => sides[k].fits) || "below";
+    // Last resorts: open upward past the page top into the margin above the book, or hang below
+    // it in front of the shelf, whichever keeps the word in view
+    sides.aboveLoose = { left: sides.above.left, top: sides.above.top, fits: sides.above.top >= -56 };
+    const order = current.vertical
+      ? ["left", "right", "below", "above", "aboveLoose"]
+      : ["below", "above", "right", "left", "aboveLoose"];
+    const found = order.find((k) => sides[k].fits) || "below";
+    const side = found === "aboveLoose" ? "above" : found;
     const { left, top } = sides[side];
     const origin = {
       below: [cx - left, 0],

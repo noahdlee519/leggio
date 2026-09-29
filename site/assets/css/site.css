@@ -347,6 +347,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .spread {
   --page-pad: 34px;
   position: relative;
+  z-index: 2; /* the book and its gloss slip sit in front of the shelf */
   display: grid;
   grid-template-columns: 1fr 1fr;
   max-width: 720px;
@@ -818,12 +819,15 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
 /* Spines: the language switcher, a shelf of volumes */
 .shelf {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-end;
   gap: 24px;
   max-width: 720px;
   margin: 44px auto 0;
 }
+.spines-wrap { position: relative; flex: none; }
 .spines {
   display: flex;
   align-items: flex-end;
@@ -886,6 +890,18 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   outline-offset: 3px;
 }
 
+/* How many more volumes the real extension can open, pinned to the shelf's top right */
+.shelf__more {
+  position: absolute;
+  left: 100%;
+  top: 2px;
+  margin: 0 0 0 16px;
+  white-space: nowrap;
+  font: 700 0.9375rem/1.2 var(--font-sc);
+  letter-spacing: 0.06em;
+  color: var(--stamp);
+  transition: color 600ms ease;
+}
 .shelf__note {
   max-width: 34ch;
   padding-bottom: 8px;
@@ -1353,7 +1369,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .page--facing,
   .page--facing[data-vertical="true"] {
     order: 2;
-    padding: 24px 22px 28px 22px;
+    padding: 24px 22px 60px 22px; /* clears the folded corners */
     border-radius: 0 0 3px 3px;
     background-image: linear-gradient(to bottom, rgb(40 30 10 / 0.12), transparent 36px);
   }
@@ -1372,6 +1388,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .spines { justify-content: space-between; gap: 4px; }
   .spine { flex: 1 1 0; width: auto; max-width: 64px; height: 118px; }
   .shelf__note { max-width: none; }
+  .shelf__more { position: static; margin: 12px 0 0; text-align: right; }
 
   .leaf { border-radius: 2px; }
   .minigloss { width: auto; max-width: 260px; }

@@ -74,4 +74,6 @@ The book in the hero is a working demo: pick a volume from the shelf (each langu
 - Franz Kafka, *Die Verwandlung* (1915)
 - Natsume Sōseki, *吾輩は猫である* (1905), set vertically as in a Japanese book
 
+The shelf's "+34 more languages" label counts the 39 languages in Chrome's built-in Translator list (Chinese Simplified and Traditional counted separately) minus the five shown. If Leggio supports a different set, change the number in `site/index.html`.
+
 To add or edit a passage, see the format notes at the top of `passages.js`. If you add Japanese characters that aren't already on the site, regenerate the Noto Serif JP subset in `assets/fonts/` to include them.
