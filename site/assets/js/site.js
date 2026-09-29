@@ -89,6 +89,8 @@
   const glossSaveLabel = $("#gloss-save-label");
   const glossSaveHint = $("#gloss-save-hint");
   const glossClose = $("#gloss-close");
+  const glossSpeak = $("#gloss-speak");
+  const glossCopy = $("#gloss-copy");
   const clothEls = $$("[data-sync-cloth]");
   const themeMeta = $('meta[name="theme-color"]');
 
@@ -745,6 +747,7 @@
     glossMeaning.textContent = tok.gloss;
     glossContext.textContent = sentence.t;
     syncSave();
+    syncTools();
 
     mountGloss();
     gloss.hidden = false;
@@ -760,6 +763,7 @@
   }
 
   function closeGloss(instant = false) {
+    stopSpeaking();
     if (active >= 0 && words[active]) {
       words[active].el.classList.remove("is-active");
       words[active].el.setAttribute("aria-expanded", "false");
@@ -849,6 +853,65 @@
       status.textContent = "Saved " + word + " to the facing page, line " + words[active].line + ".";
     }
     syncSave();
+  });
+
+  /* Listen and copy, as in the extension's slip. Listening uses only voices installed on
+     the device (never a browser's network voice), so the site still makes no requests
+     beyond itself. */
+  const LANGUAGE = { it: "Italian", es: "Spanish", fr: "French", de: "German", ja: "Japanese" };
+  const hasSpeech = "speechSynthesis" in window;
+  const localVoice = (lang) => {
+    const voices = hasSpeech ? speechSynthesis.getVoices().filter((v) => v.localService && v.lang.toLowerCase().split(/[-_]/)[0] === lang) : [];
+    return voices.find((v) => v.default) || voices[0] || null;
+  };
+  let copiedTimer = 0;
+
+  function syncTools() {
+    const lang = current.lang.split("-")[0];
+    const voice = localVoice(lang);
+    glossSpeak.setAttribute("aria-disabled", String(!voice));
+    glossSpeak.title = voice ? "Listen" : "No " + (LANGUAGE[lang] || "") + " voice on this device";
+    glossSpeak.setAttribute("aria-label", voice ? "Listen to " + glossWord.textContent : glossSpeak.title);
+    glossCopy.classList.remove("is-copied");
+    window.clearTimeout(copiedTimer);
+  }
+  // Voices load after the page in some browsers
+  if (hasSpeech) speechSynthesis.addEventListener?.("voiceschanged", () => active >= 0 && syncTools());
+
+  function stopSpeaking() {
+    if (hasSpeech) speechSynthesis.cancel();
+    glossSpeak.classList.remove("is-speaking");
+  }
+
+  glossSpeak.addEventListener("click", () => {
+    if (active < 0) return;
+    const voice = localVoice(current.lang.split("-")[0]);
+    if (!voice) {
+      status.textContent = glossSpeak.title + ".";
+      return;
+    }
+    stopSpeaking();
+    const say = new SpeechSynthesisUtterance(words[active].tok.w);
+    say.voice = voice;
+    say.lang = voice.lang;
+    say.rate = 0.9;
+    say.onend = say.onerror = () => glossSpeak.classList.remove("is-speaking");
+    glossSpeak.classList.add("is-speaking");
+    speechSynthesis.speak(say);
+  });
+
+  glossCopy.addEventListener("click", async () => {
+    if (active < 0) return;
+    const { tok } = words[active];
+    try {
+      await navigator.clipboard.writeText(tok.gloss);
+    } catch (err) {
+      return; // no clipboard access (an insecure page, or the browser refused)
+    }
+    glossCopy.classList.add("is-copied");
+    status.textContent = "Copied the meaning of " + tok.w + ".";
+    window.clearTimeout(copiedTimer);
+    copiedTimer = window.setTimeout(() => glossCopy.classList.remove("is-copied"), 1200);
   });
 
   glossClose.addEventListener("click", () => {

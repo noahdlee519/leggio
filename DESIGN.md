@@ -308,7 +308,7 @@ Motion answers something the reader did. The build has no ambient, looping or sc
 - **Gloss slip.** Opens in 180ms (opacity, blur 2px to 0) with a 240ms ease-out settle from `translateY(4px) scale(0.96)`, scaled from the selected word as its origin. Closes faster: 120ms opacity and 140ms transform, then it is hidden after 140ms. Moving between words while a slip is open repositions it with no animation.
 - **Ink-in (560ms ease-out).** A newly saved entry on the facing page is revealed left to right with `clip-path: inset(0 100% 0 0)` while its opacity rises from 0.4 to 1, like ink going onto the page.
 - **Spines (260ms ease-out).** The selected spine lifts 16px, hover lifts 6px, and a press scales to 0.98.
-- **Presses.** Live buttons scale to 0.97 on `:active`, the slip's close button to 0.94. Buttons move in 160ms ease-out, and their colour and shadow change in 200ms ease.
+- **Presses.** Live buttons scale to 0.97 on `:active`, the slip's corner tools to 0.94. Buttons move in 160ms ease-out, and their colour and shadow change in 200ms ease.
 - **Small responses.** Word highlight 140ms. Nav underline grows from the left in 220ms ease-out. The text-link arrow nudges 3px in 200ms. The privacy contents rail changes in 160ms.
 - **Reduced motion.** There is no 3D turn: corners, spines and swipes change volume with the plain swap. Cloth changes become effectively instant (1ms). The slip keeps only a 120ms opacity fade, with no transform or blur. Spines stop moving. Ink-in becomes a 200ms fade. The swap skips its blur and its 170ms delay. Smooth scrolling (the root `scroll-behavior` and the closing shelf's `scrollIntoView`) turns off.
 
@@ -332,7 +332,7 @@ The primary colour is whichever cloth is active. Components read it through six 
 
 - **Cloth** is the full-bleed ground (body, colophon, closing, 404, the privacy header), the spine body, the plate board and the gloss save button.
 - **Deep** is the spread's boards and the footer. It is also mixed 80% with black to make the 3px shelf plank under the spines.
-- **Cloth-ink** is the cloth as a legible ink on paper: chapter lines, gloss and note headwords, the preface coda, underlines on active and saved words, callout and step discs, and focus rings on paper.
+- **Cloth-ink** is the cloth as a legible ink on paper: chapter lines, gloss and note headwords, the headword and sense numbers of the preface's dictionary entry, underlines on active and saved words, callout and step discs, and focus rings on paper.
 - **On-cloth** is headline and body lettering on cloth, the nav links, and the nav button's fill.
 - **Focus rings** default to house green (the `ring` token) on plain paper. On cloth they take on-cloth; on paper laid over cloth (leaves, spread, plate, the privacy document) they take cloth-ink.
 - **On-cloth-2** is secondary lettering on cloth: the lede, the shelf note, colophon paragraphs and footer text.
@@ -346,7 +346,7 @@ The primary colour is whichever cloth is active. Components read it through six 
 
 - **India Paper** (#fbfaf6): the ground of every page and leaf, and of the privacy reading column. Near-white, not cream.
 - **Slip White** (#ffffff): brighter paper for things laid on top of a page: gloss slips, the plate's PDF leaf, the primary button, the skip link, the callout halo.
-- **Tissue** (#eeede8): the scrollbar track and the slip close button's hover wash.
+- **Tissue** (#eeede8): the scrollbar track and the hover wash of the slip's corner tools.
 - **Printer's Black** (#1c1b19): all reading text on paper.
 - **Pencil** (#57544c): secondary text on paper: running heads, folios, line numbers, attributions, the gloss context sentence, step descriptions, contents links.
 - **Hairline** (#dcd8cd): rules on paper: the gloss context divider, the contents rail, the rule under the privacy summary.
@@ -380,7 +380,7 @@ The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` 
 - **Headline** (800, clamp(2.25rem → 3.75rem), 1.02, −0.02em): leaf and colophon headings. Held to 14 to 18ch so they break into two or three balanced lines.
 - **Title** (700, clamp(1.5rem → 1.875rem), 1.15, −0.01em): privacy policy section heads. **Title-step** (700, clamp(1.3125rem → 1.5rem), 1.2) heads the three "how to read" steps.
 - **Lede** (400, clamp(1.1875rem → 1.375rem), 1.5): the hero lede (34ch; 44ch when stacked) and the closing line, in on-cloth-2.
-- **Body, preface** (400, clamp(1.1875rem → 1.3125rem), 1.66, 60ch). The coda line steps up to clamp(1.375rem → 1.625rem) at 1.45 in cloth-ink. **Body, document** (1.1875rem, 1.68, 68ch) is the privacy policy text.
+- **Body, preface** (400, clamp(1.1875rem → 1.3125rem), 1.66, 60ch). The coda is *leggio* as a dictionary entry: clamp(1.125rem → 1.25rem) at 1.6, run in with a 1.4em hanging indent below a hairline. Headword Alegreya 800 at 1.35em in cloth-ink, bold lining sense numbers in cloth-ink, IPA, labels and etymology in pencil (labels italic). **Body, document** (1.1875rem, 1.68, 68ch) is the privacy policy text.
 - **Body** (400, 1.0625rem, 1.6): the base size, with oldstyle proportional numerals.
 - **Passage** (400, 1.125rem, 1.62; 1.0625rem on phones): the demo text, with `hyphens: manual`. **Passage-vertical** (JP stack, 1.125rem, 1.95, 0.04em, `line-break: strict`) is for vertical Japanese.
 - **Gloss headword** (700, 1.3125rem, 1.2, cloth-ink) over the **gloss meaning** (500, 1.1875rem, 1.3). The context sentence is 400 at 0.9375rem/1.45 in pencil. Facing-page notes are 1rem at 1.42.
@@ -461,7 +461,7 @@ Corners are nearly square, as paper and board are. Radii run from 2px to 7px, ea
 - **Page** (3px): spread pages (rounded on the outer corners only, square at the gutter), leaves, the word highlight, and focus outlines.
 - **Plate** (4px): the plate board and the pending-contact highlight.
 - **Board** (5px): the spread's boards and the miniature slip's "Saved" chip.
-- **Control** (6px): buttons, the save button, the slip's close button, the skip link.
+- **Control** (6px): buttons, the save button, the slip's corner tools, the skip link.
 - **Slip** (7px): gloss slips. This is the largest radius in the system.
 - **Round** (50%): numbered callouts (26px) and step discs (30px) only.
 
@@ -523,7 +523,7 @@ The book (and so the slip) is layered above the shelf (`z-index: 2` over 1), so 
 
 A slip of brighter paper laid beside the word.
 - **Build:** Slip White, 7px radius, slip shadow, min(284px, 100% − 16px) wide (240px for vertical Japanese), padded 15px 16px 14px.
-- **Contents:** the headword (Alegreya 700, cloth-ink) with a 32px square close button (6px radius, an × icon in pencil, and a Tissue wash on hover). Below it, the meaning. Then a hairline rule and the "This sentence" small-caps label with an English rendering of the sentence, clamped to four lines (three on phones).
+- **Contents:** the headword (Alegreya 700, cloth-ink), and in the top-right corner the same three tools as the extension's slip: Listen, Copy and Close. They are 32px squares, 6px radius, with line icons in pencil and a Tissue wash on hover. Listen reads the word aloud with a voice installed on the device, never a network voice, so the site still makes no third-party requests. When the device has no voice for that language, it fades to 0.4 and says so. Copy puts the meaning on the clipboard, and its icon turns to a check in cloth-ink for 1.2s. Below it, the meaning. Then a hairline rule and the "This sentence" small-caps label with an English rendering of the sentence, clamped to four lines (three on phones).
 - **Save:** a 40px button with a 6px radius, filled with the cloth and lettered in on-cloth, with a bookmark icon, reading "Save to facing page". Once saved it becomes an outline: transparent, a 1.5px inset cloth-ink ring and a check icon, reading "Saved". Selecting it again removes the word, and a live region announces both actions.
 - **Placement, wide screens:** absolutely positioned inside the spread and clamped to the original page's bounds with 10px padding. It tries below, above, right, then left of the word; vertical Japanese tries left, right, below, then above. It scales from the word it belongs to. It closes on Escape (returning focus to the word), on its × button, on a pointerdown outside it, or on a second tap of the same word.
 - **Docked variant, 639px and below:** the slip moves into a dock inside the original page, directly under the passage. There it is relatively positioned, full width, with an 18px top margin, and its transform origin is at the top centre. It closes instantly, and tapping outside does not close it.
@@ -544,7 +544,7 @@ A shelf of volumes is the language switcher.
 Paper pages laid on the cloth: the preface and "Notes on use".
 - India Paper, 3px radius (2px on phones), gutter shade from the left, leaf shadow.
 - A running head across the full measure, with the section name in Alegreya SC on the left and a roman-numeral folio (vii, viii) on the right, then a large gap before the headline.
-- Headlines are in ink. The preface pairs a 5-column headline with a 7-column body, ending on a coda in cloth-ink.
+- Headlines are in ink. The preface pairs a 5-column headline with a 7-column body, ending on a coda: *leggio* as it stands in an Italian–English dictionary.
 
 ### Plate and Steps
 

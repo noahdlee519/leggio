@@ -734,17 +734,22 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   display: flex;
   align-items: baseline;
   gap: 8px;
-  padding-right: 30px;
+  padding-right: 98px; /* room for the three tools in the corner */
 }
 .gloss__word {
   font: 700 1.3125rem/1.2 var(--font-text);
   color: var(--cloth-ink);
 }
 .gloss__word:lang(ja) { font-family: var(--font-jp); font-weight: 600; }
-.gloss__close {
+/* Listen, copy, close: the same three tools as the extension's slip, in its top-right corner */
+.gloss__tools {
   position: absolute;
   top: 8px;
   right: 8px;
+  display: flex;
+  gap: 1px;
+}
+.gloss__tool {
   display: grid;
   place-items: center;
   width: 32px;
@@ -757,11 +762,20 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   cursor: pointer;
   transition: background-color 140ms ease, color 140ms ease, transform 160ms var(--ease-out);
 }
-.gloss__close .icon { width: 18px; height: 18px; }
-.gloss__close:active { transform: scale(0.94); }
+.gloss__tool .icon { width: 18px; height: 18px; }
+.gloss__tool:active { transform: scale(0.94); }
 @media (hover: hover) and (pointer: fine) {
-  .gloss__close:hover { background: var(--paper-2); color: var(--ink); }
+  .gloss__tool:hover { background: var(--paper-2); color: var(--ink); }
 }
+.gloss__tool.is-speaking { color: var(--cloth-ink); }
+.gloss__tool[aria-disabled="true"] { opacity: 0.4; cursor: default; }
+@media (hover: hover) and (pointer: fine) {
+  .gloss__tool[aria-disabled="true"]:hover { background: transparent; color: var(--ink-2); }
+}
+.gloss__tool .icon--copied { display: none; }
+.gloss__tool.is-copied { color: var(--cloth-ink); }
+.gloss__tool.is-copied .icon--copy { display: none; }
+.gloss__tool.is-copied .icon--copied { display: block; }
 .gloss__meaning {
   margin-top: 8px;
   font: 500 1.1875rem/1.3 var(--font-text);
@@ -819,7 +833,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .gloss__save.is-saved .icon--save { display: none; }
 .gloss__save.is-saved .icon--saved { display: block; }
 .gloss__save:active { transform: scale(0.97); }
-.gloss__save:focus-visible, .gloss__close:focus-visible { outline-color: var(--cloth-ink); }
+.gloss__save:focus-visible, .gloss__tool:focus-visible { outline-color: var(--cloth-ink); }
 
 /* Spines: the language switcher, a shelf of volumes */
 .shelf {
@@ -950,9 +964,38 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   line-height: 1.66;
 }
 .preface__body p + p { margin-top: 1.1em; }
+/* The coda: leggio as it stands in an Italian–English dictionary. One run-in entry
+   with a hanging indent, below a hairline, the headword in the cloth's ink. */
 .preface__body .preface__coda {
-  font-size: clamp(1.375rem, 1.15rem + 0.7vw, 1.625rem);
-  line-height: 1.45;
+  margin-top: 1.6em;
+  padding: 1.05em 0 0 1.4em;
+  border-top: 1px solid var(--rule);
+  text-indent: -1.4em;
+  font-size: clamp(1.125rem, 1.04rem + 0.3vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--ink);
+}
+.entry__head {
+  font-size: 1.35em;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--cloth-ink);
+  transition: color 600ms ease;
+}
+.entry__ipa,
+.entry__etym { color: var(--ink-2); }
+.entry__label,
+.entry__ctx {
+  font-style: italic;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+/* Labels and the plural never break across lines */
+.entry__ctx,
+.entry__keep { white-space: nowrap; }
+.entry__n {
+  font-weight: 700;
+  font-variant-numeric: lining-nums;
   color: var(--cloth-ink);
   transition: color 600ms ease;
 }
@@ -1408,7 +1451,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .gloss, .gloss.is-open { transform: none; filter: none; transition: opacity 120ms ease; }
   .spine, .spine[aria-selected="true"], .spine:not([aria-selected="true"]):hover { transition: none; }
   .notes li.is-new { animation: fade-in 200ms ease both; }
-  .button.is-live:active, .gloss__close:active, .gloss__save:active, .spine:active, .spine[aria-selected="true"]:active { transform: none; }
+  .button.is-live:active, .gloss__tool:active, .gloss__save:active, .spine:active, .spine[aria-selected="true"]:active { transform: none; }
   .spine[aria-selected="true"], .shelf--closing .spine.is-current { transform: translateY(-16px); }
   .textlink:hover .icon { transform: none; }
   .nav__links > a:not(.button) { transition: none; }

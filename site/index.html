@@ -86,9 +86,18 @@
             <div class="gloss" id="gloss" hidden>
               <div class="gloss__head">
                 <span class="gloss__word" id="gloss-word"></span>
-                <button class="gloss__close" type="button" aria-label="Close translation" id="gloss-close">
-                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
-                </button>
+                <div class="gloss__tools">
+                  <button class="gloss__tool" type="button" id="gloss-speak" aria-label="Listen" title="Listen">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11"/></svg>
+                  </button>
+                  <button class="gloss__tool" type="button" id="gloss-copy" aria-label="Copy the meaning" title="Copy the meaning">
+                    <svg class="icon icon--copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="12" rx="1.6"/><path d="M15.5 5.5v-.3a1.7 1.7 0 0 0-1.7-1.7H6.2a1.7 1.7 0 0 0-1.7 1.7v9.6a1.7 1.7 0 0 0 1.7 1.7h.3"/></svg>
+                    <svg class="icon icon--copied" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+                  </button>
+                  <button class="gloss__tool gloss__close" type="button" aria-label="Close translation" title="Close (Esc)" id="gloss-close">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
+                  </button>
+                </div>
               </div>
               <p class="gloss__meaning" id="gloss-meaning"></p>
               <p class="gloss__context"><span class="gloss__label">This sentence</span> <span id="gloss-context"></span></p>
@@ -120,8 +129,8 @@
           <h2 id="preface-title">You learn a language by reading it.</h2>
           <div class="preface__body">
             <p>Drills teach you the rules. Reading teaches you the language: how words sit together, which ones keep coming back, what a sentence sounds like when someone meant it. The trouble is that reading in a language you’re still learning is slow, and the moment you open a translation, you stop learning.</p>
-            <p>Leggio keeps you in the original. When a word stops you, its meaning appears right beside it, like the facing page of a bilingual edition, and the page you’re reading never changes. It reads the whole sentence, so a word that could mean several things gets the meaning it has there. Save the words that matter to you, then carry on with the next line.</p>
-            <p class="preface__coda">A <i lang="it">leggio</i> is the stand that holds what you’re reading. That’s the whole job.</p>
+            <p>Leggio keeps you in the original. When a word stops you, its meaning appears right beside it. It reads the whole sentence, so a word that could mean several things gets the meaning it has there. Save the words that matter to you, then carry on with the next line.</p>
+            <p class="preface__coda entry"><b class="entry__head" lang="it">leggìo</b> <span class="entry__ipa">/ledˈdʒio/</span> <abbr class="entry__label" lang="it" title="sostantivo maschile, masculine noun">s.m.</abbr> <span class="entry__keep">(<abbr class="entry__label" title="plural">pl.</abbr> <span lang="it">leggìi</span>)</span> <span class="entry__keep"><b class="entry__n">1</b> <i class="entry__ctx" lang="it">(per libri)</i></span> reading stand, book rest <span class="entry__keep"><b class="entry__n">2</b> <i class="entry__ctx" lang="it">(in chiesa)</i></span> lectern <span class="entry__keep"><b class="entry__n">3</b> <abbr class="entry__label" title="music">(Mus.)</abbr></span> music stand. <span class="entry__etym">[from <i lang="it">leggere</i>, to read]</span></p>
           </div>
         </div>
       </article>
