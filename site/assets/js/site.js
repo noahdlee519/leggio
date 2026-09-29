@@ -570,7 +570,11 @@
     const cast = place(make("turn__cast"), R);
     // The folded corner (and the arrow stamped beside it) lift with their page
     front.append(fill(snapshot(pageFacing, current.id)), make("dogear dogear--next"));
-    if (dragHint?.classList.contains("is-shown")) front.append(dragHint.cloneNode(true));
+    if (dragHint?.classList.contains("is-shown")) {
+      const arrow = dragHint.cloneNode(true);
+      [arrow, ...arrow.querySelectorAll("[id]")].forEach((n) => n.removeAttribute("id")); // its filter resolves to the original's
+      front.append(arrow);
+    }
     front.append(frontShade);
     back.append(backShade);
     leaf.append(front, back);

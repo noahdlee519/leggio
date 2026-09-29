@@ -583,26 +583,32 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .spread.is-peeking > .drag-hint,
 .spread.is-turning > .drag-hint { visibility: hidden; }
 
-/* The drag hint's arrow: a curve toward the next page, blind-stamped into the paper by the
-   folded corner. Dark ink at low strength with a 1px highlight under the stroke reads as an
-   impression, not a mark printed on top. */
+/* The drag hint's arrow: a thick curve toward the next page, blind-stamped into the paper by
+   the folded corner. A brush-weight shape (fine tail, full shaft, broad head) filled and
+   outlined in the turn's own ink at low strength. The ink deepens toward the top (the
+   impression's shaded wall) and a white copy 1px below lights its lower lip, so it reads as
+   pressed in, not printed on. Plain vector, so it stays crisp at any zoom. */
 .drag-hint {
   position: absolute;
-  right: 54px;
-  bottom: 16px;
+  right: 52px;
+  bottom: 13px;
   z-index: 3;
-  width: 56px;
-  height: 28px;
-  fill: none;
-  stroke: rgb(40 30 10 / 0.26);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 1px 0 rgb(255 255 255 / 0.9));
+  width: 64px;
+  height: 30px;
+  overflow: visible;
   opacity: 0;
   pointer-events: none;
   transition: opacity 900ms ease;
 }
+.drag-hint use {
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+.drag-hint__lip {
+  fill: rgb(255 255 255 / 0.9);
+  stroke: rgb(255 255 255 / 0.9);
+}
+.drag-hint__ink { stroke: rgb(24 18 8 / 0.3); } /* its fill is the #drag-hint-ink gradient */
 .drag-hint.is-shown { opacity: 1; }
 
 .turn {
