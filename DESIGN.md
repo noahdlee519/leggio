@@ -299,7 +299,7 @@ The world refuses two defaults by name: the browser-extension landing page (brow
 
 ### Motion grammar
 
-Motion answers something the reader did. The build has no ambient, looping or scroll-triggered animation. The one exception is the page-turn hint (Components › Page Turn), which the owner asked for.
+Motion answers something the reader did. The build has no ambient or looping animation. The owner asked for three exceptions: the page-turn hint (Components › Page Turn), the arrival fade when a page opens, and the fade as blocks scroll into view.
 
 - **Curve.** One curve for anything that moves: `ease-out` (cubic-bezier(0.23, 1, 0.32, 1)). Colour-only changes use plain `ease`. The one exception is the played page turn, which travels across the screen and uses a cubic ease-in-out.
 - **Page turn (the signature moment).** Covered in full under Components › Page Turn. In short: the leaf follows the pointer 1:1 while dragged, a played turn takes 820ms ease-in-out, and releasing finishes or lays the leaf back down in 180–520ms ease-out.
@@ -310,9 +310,11 @@ Motion answers something the reader did. The build has no ambient, looping or sc
 - **Spines (260ms ease-out).** The selected spine lifts 16px, hover lifts 6px, and a press scales to 0.98.
 - **Presses.** Live buttons scale to 0.97 on `:active`, the slip's corner tools to 0.94. Buttons move in 160ms ease-out, and their colour and shadow change in 200ms ease.
 - **Small responses.** Word highlight 140ms. Nav underline grows from the left in 220ms ease-out. The text-link arrow nudges 3px in 200ms. The privacy contents rail changes in 160ms.
-- **Reduced motion.** There is no 3D turn: corners, spines and swipes change volume with the plain swap. Cloth changes become effectively instant (1ms). The slip keeps only a 120ms opacity fade, with no transform or blur. Spines stop moving. Ink-in becomes a 200ms fade. The swap skips its blur and its 170ms delay. Smooth scrolling (the root `scroll-behavior` and the closing shelf's `scrollIntoView`) turns off.
+- **Arrival (on open, every page).** The cloth is there from the first frame; the type and the book settle onto it. The nav fades in (600ms). The headline, lede and actions follow at 80, 160 and 240ms, each fading in while rising 10px (760ms ease-out). The book lands at 160ms, rising 16px over 800ms, so it has arrived before its first gloss opens at one second. The privacy title, its meta line and the document, and the 404's lines, use the same 80ms steps. It is pure CSS (`settle`, filling backwards only), so nothing waits on script and every element ends fully visible with no transform left behind.
+- **Reveals (on scroll, landing page).** Below the fold, each block fades in while rising 18px as it comes into view (700ms opacity, 900ms transform, ease-out): the leaves' running heads and headlines, the preface paragraphs, the plate, each step, the colophon's lead and facts, and each part of the closing. The paper leaves themselves don't move; only what is printed on them arrives. Blocks arriving together follow one another 90ms apart (at most 360ms). A block plays once, and is then handed back to its own styles. site.js only hides blocks that start below the fold, so nothing in view at load ever blinks, and without script nothing is hidden. The privacy policy has no reveals: it is read, not browsed.
+- **Reduced motion.** There is no 3D turn: corners, spines and swipes change volume with the plain swap. Cloth changes become effectively instant (1ms). The slip keeps only a 120ms opacity fade, with no transform or blur. Spines stop moving. Ink-in becomes a 200ms fade. The swap skips its blur and its 170ms delay. Smooth scrolling (the root `scroll-behavior` and the closing shelf's `scrollIntoView`) turns off. Arrival and reveals keep their fade but drop the rise, in 400ms.
 
-**The Answer-Only Motion Rule.** Every animation responds to a reader's action (turning a page, choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll. Keyboard-initiated changes (arrow keys on the spines, Enter on a corner) use the quick swap, never the 3D turn. **One exception:** the page-turn hint. If the book has sat in view, untouched, for 3.5 seconds, the right-hand page lifts a little by itself and lays back down, to show that it can be dragged. It plays at most twice (the second time after 12 more seconds of stillness), stops for good once the reader turns a page, and gives way the moment they press on the book. It doesn't play with reduced motion, on stacked pages or in a hidden tab. Nothing else moves on its own.
+**The Answer-Only Motion Rule.** Every animation responds to a reader's action (turning a page, choosing a volume, a word, a save). Nothing moves on its own, apart from the arrival fade on open and the reveals on scroll (see Motion grammar), which the owner asked for. Keyboard-initiated changes (arrow keys on the spines, Enter on a corner) use the quick swap, never the 3D turn. **One exception:** the page-turn hint. If the book has sat in view, untouched, for 3.5 seconds, the right-hand page lifts a little by itself and lays back down, to show that it can be dragged. It plays at most twice (the second time after 12 more seconds of stillness), stops for good once the reader turns a page, and gives way the moment they press on the book. It doesn't play with reduced motion, on stacked pages or in a hidden tab. Nothing else moves on its own.
 
 ## Colors
 
@@ -420,7 +422,7 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 **Breakpoints.**
 - **1099px:** every two-column grid becomes one column. The hero copy is capped at 40rem and the plate at 720px.
 - **860px:** the privacy policy drops its sticky contents column. The contents become a two-column list above the text, without the rail.
-- **639px (phones):** the spread stacks, original page above facing page, and the gutter turns horizontal. The gloss slip docks inside the original page. Spines stretch to share the shelf (max 64px wide, 118px tall). Colophon facts stack. Every button goes full width except the nav button.
+- **639px (phones):** the spread stacks, original page above facing page, and the gutter turns horizontal. The gloss slip docks inside the original page. Spines stretch to share the shelf (max 64px wide, 118px tall); the closing shelf spans the full width too, so its volumes match the hero's. Colophon facts stack. Every button goes full width except the nav button.
 - **560px:** "How it works" leaves the nav.
 - **Hover:** all hover styling is behind `(hover: hover) and (pointer: fine)`.
 
@@ -499,7 +501,7 @@ Buttons are solid, quiet, and honest about whether they work.
 
 An open bilingual edition, drawn near life size.
 - **Pages:** India Paper, with a 3px radius on the outer corners. Gutter shade runs toward the binding, and a 1px gutter line (`rgb(40 30 10 / 0.18)`) runs between the pages.
-- **Running heads:** Alegreya SC in pencil. The folio (oldstyle) sits at the outer edge and the title toward the gutter; a long title is truncated with an ellipsis. The original page carries the book title in its own language, and the facing page reads "Your glosses".
+- **Running heads:** Alegreya SC in pencil. The folio (oldstyle) sits at the outer edge and the title toward the gutter; a long title is truncated with an ellipsis. The original page carries the book title in its own language, and the facing page reads "Your words".
 - **Chapter line:** centred small caps in cloth-ink ("Capitolo primo"; "Saved words, by line" on the facing page).
 - **Words:** every word is a button, with a roving tabindex and arrow-key movement. Hover adds a 10% cloth wash. The active word gets a 17% cloth wash plus a solid 1.5px cloth-ink underline, offset 0.24em. Saved words carry a dotted cloth-ink underline. Focus is a 2px cloth-ink outline.
 - **Margin line numbers** mark every fifth line, and the attribution sits at the foot in Alegreya italic in pencil ("Carlo Collodi, 1883").
@@ -579,7 +581,7 @@ The one page in reading mode.
 
 ### 404
 
-A full-cloth page titled "This page is out of print.", with the wordmark, a line in on-cloth-2 (max 40ch) and a text link back to the shelf.
+A full-cloth page titled "This page is out of print", with the wordmark, a line in on-cloth-2 (max 40ch) and a text link back to the shelf.
 
 **The Honest Button Rule.** A control that has no destination yet looks inert: outlined, no `href`, no hover, "Coming soon". It changes to a live, filled button only when `config.js` supplies the store URL or the contact address.
 
@@ -606,5 +608,5 @@ A full-cloth page titled "This page is out of print.", with the wordmark, a line
 - **Don't** set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.
 - **Don't** stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.
 - **Don't** round anything past 7px or use pill shapes. Circles are only for the numbered callouts and step discs.
-- **Don't** add ambient, looping or scroll-triggered motion. Every animation answers a reader's action, except the bounded page-turn hint.
+- **Don't** add ambient or looping motion, or scroll-triggered motion beyond the one reveal. Every other animation answers a reader's action, except the bounded page-turn hint.
 - **Don't** add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset.

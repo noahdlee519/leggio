@@ -24,7 +24,7 @@ OWN-WORLD: Saturated bookcloth owns the page, one cloth per language like a seri
 
 STORY: The visitor sees a real passage in the original, taps a word, reads its meaning, saves it to the facing page, understands the translation is a support and runs on-device, and adds Leggio to Chrome.
 
-FIRST VIEWPORT: Full-bleed cloth. Gilt wordmark left; Privacy and Add to Chrome right. Left five columns: H1 "Read it in the original.", lede, primary CTA, on-device line. Right seven columns: the open spread near life size, one word selected with its gloss open, the facing page holding saved entries by line number; spines beneath.
+FIRST VIEWPORT: Full-bleed cloth. Gilt wordmark left; Privacy and Add to Chrome right. Left five columns: H1 "Read it in the original", lede, primary CTA, on-device line. Right seven columns: the open spread near life size, one word selected with its gloss open, the facing page holding saved entries by line number; spines beneath.
 
 FORM: Facing pages, ranked 1 of 7 on my grounded list (user chose the pick over assigned candidate 7); seed key 7a5bf139 (degraded roll, no challengers).
 

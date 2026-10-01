@@ -1419,6 +1419,41 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .notfound p { margin-top: 18px; font-size: 1.25rem; color: var(--on-cloth-2); max-width: 40ch; }
 .notfound .textlink { margin-top: 28px; }
 
+/* ---------- Arrival and reveals ---------- */
+
+/* On open, the type and the book settle onto a cloth that is already there.
+   Pure CSS, so nothing waits on script, and every element ends fully visible. */
+@keyframes settle {
+  from { opacity: 0; transform: translateY(var(--settle-rise, 10px)); }
+}
+.site-header > .nav,
+.hero__copy > *,
+.hero__book,
+.doc-hero .container > *,
+.doc,
+.notfound > * {
+  animation: settle 760ms var(--ease-out) var(--settle-delay, 0ms) backwards;
+}
+.site-header > .nav { --settle-rise: 0px; animation-duration: 600ms; }
+.hero__copy > :nth-child(1), .doc-hero .container > :nth-child(1), .notfound > :nth-child(2) { --settle-delay: 80ms; }
+.hero__copy > :nth-child(2), .doc-hero .container > :nth-child(2), .notfound > :nth-child(3) { --settle-delay: 160ms; }
+.hero__copy > :nth-child(3), .doc, .notfound > :nth-child(4) { --settle-delay: 240ms; }
+/* The book lands just before its first gloss opens (one second in) */
+.hero__book { --settle-delay: 160ms; --settle-rise: 16px; animation-duration: 800ms; }
+
+/* Further down, each block fades up as it comes into view. site.js adds .reveal only
+   to blocks that start below the fold, then .is-in, then hands them back. */
+.reveal { opacity: 0; transform: translateY(18px); }
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+@media print {
+  .reveal { opacity: 1; transform: none; }
+}
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1099px) {
@@ -1473,6 +1508,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .spine { flex: 1 1 0; width: auto; max-width: 64px; height: 118px; }
   .shelf__note { max-width: none; }
   .shelf__more { position: static; margin: 12px 0 0; text-align: right; }
+  .shelf--closing { width: 100%; } /* as wide as the hero's shelf, so its volumes match */
 
   .leaf { border-radius: 2px; }
   .minigloss { width: auto; max-width: 260px; }
@@ -1495,5 +1531,8 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .spread.is-swapping .passage, .spread.is-swapping .notes { filter: none; }
   .dogear::before, .dogear::after { transition: none; }
   .drag-hint { transition-duration: 200ms; }
+  .site-header > .nav, .hero__copy > *, .hero__book, .doc-hero .container > *, .doc, .notfound > * { --settle-rise: 0px; animation-duration: 400ms; }
+  .reveal { transform: none; }
+  .reveal.is-in { transition: opacity 400ms ease; transition-delay: var(--reveal-delay, 0ms); }
 }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }

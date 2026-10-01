@@ -61,6 +61,40 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(anchorMini);
   }
 
+  /* ---------- Reveals: blocks below the fold fade up as they come into view ---------- */
+
+  const revealable = $$(".leaf__runhead, .leaf h2, .preface__body > p, .plate, .steps > li, .colophon__lead > *, .colophon__facts > div, .closing__inner > *");
+  if (revealable.length && "IntersectionObserver" in window) {
+    const revealer = new IntersectionObserver(
+      (entries) => {
+        entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left)
+          .forEach((entry, i) => {
+            const el = entry.target;
+            revealer.unobserve(el);
+            const delay = Math.min(i, 4) * 90; // blocks arriving together follow one another
+            el.style.setProperty("--reveal-delay", delay + "ms");
+            el.classList.add("is-in");
+            // Once it has arrived, hand the block back to its own styles and transitions
+            setTimeout(() => {
+              el.classList.remove("reveal", "is-in");
+              el.style.removeProperty("--reveal-delay");
+            }, delay + 950);
+          });
+      },
+      { rootMargin: "0px 0px -8% 0px" }
+    );
+    // Only blocks that start below the fold; anything already in view is left alone
+    const fold = window.innerHeight * 0.92;
+    revealable
+      .filter((el) => el.getBoundingClientRect().top > fold)
+      .forEach((el) => {
+        el.classList.add("reveal");
+        revealer.observe(el);
+      });
+  }
+
   /* ---------- The demo book ---------- */
 
   const passages = window.LEGGIO_PASSAGES;
