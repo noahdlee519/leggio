@@ -405,6 +405,8 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 
 **The Furniture Rule.** Small caps are page furniture: running heads split across the measure with a folio opposite, centred chapter lines, definition terms, spine titles, the wordmark. They are never a small label stacked directly on top of a headline.
 
+**The Open Headline Rule.** Headings never end in a full stop, from the hero and the 404 to the section headlines and the three step heads. Body sentences, ledes and the share image's subline keep theirs.
+
 ## Layout
 
 **Container.** Content sits in a centred container, max 1240px plus a fluid gutter of clamp(16px, 4vw, 40px) on each side. Full-bleed cloth sits behind it. The header is a 76px row: wordmark on the left, then "How it works", Privacy and the store button on the right.
