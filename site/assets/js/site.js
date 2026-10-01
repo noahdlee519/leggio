@@ -522,6 +522,67 @@
     true
   );
 
+  /* Two fingers swiped sideways on a trackpad turn the page too. The leaf follows the swipe,
+     momentum included; when the swipe comes to rest, the page finishes turning if it got a
+     third of the way, and otherwise lays back down. One swipe turns at most one page, and
+     scrolling up and down over the book is left alone. */
+  const SWIPE_GAP_MS = 160; // a pause this long ends a swipe
+  let swipe = null;
+
+  const endSwipe = () => {
+    const s = swipe;
+    swipe = null;
+    if (!s || !s.turning || !turn) return;
+    const commit = turn.p > 0.35;
+    if (commit && !turn.chrome) {
+      applyChrome(turn.to);
+      turn.chrome = true;
+    }
+    const target = commit ? 1 : 0;
+    tweenTurn(target, Math.round(180 + Math.abs(target - turn.p) * 340), easeOut, () => endTurn(commit));
+  };
+
+  spread.addEventListener(
+    "wheel",
+    (e) => {
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? spread.clientWidth : 1;
+      const dx = e.deltaX * unit;
+      if (!swipe) {
+        // The first event decides: sideways is a page turn, anything else is a scroll (or a pinch)
+        swipe = { sideways: Math.abs(dx) > Math.abs(e.deltaY * unit) && e.cancelable && !e.ctrlKey, x: 0, turning: false, done: false, timer: 0 };
+      }
+      window.clearTimeout(swipe.timer);
+      swipe.timer = window.setTimeout(endSwipe, SWIPE_GAP_MS);
+      if (!swipe.sideways) return;
+      e.preventDefault(); // no sideways scroll, and no browser back/forward swipe
+      if (swipe.done || drag || (turn && !swipe.turning) || !current) return;
+      swipe.x += dx;
+      if (!swipe.turning) {
+        if (Math.abs(swipe.x) < 6) return;
+        const dir = swipe.x > 0 ? "next" : "prev"; // fingers moving left, like dragging the page left
+        stopPeek();
+        if (!animate()) {
+          swipe.done = true;
+          select(neighbour(current, dir).id, { mode: "swap", dir });
+          return;
+        }
+        swipe.turning = true;
+        swipe.dir = dir;
+        beginTurn(dir, neighbour(current, dir));
+        swipe.travel = turn.stacked ? spread.clientWidth * 0.9 : turn.leaf.offsetWidth * 1.2;
+      }
+      const p = Math.min(1, Math.max(0, (swipe.dir === "next" ? swipe.x : -swipe.x) / swipe.travel));
+      setTurn(p);
+      if (p >= 1) {
+        // All the way over: land it, and let the rest of this swipe's momentum run out
+        swipe.turning = false;
+        swipe.done = true;
+        endTurn(true);
+      }
+    },
+    { passive: false }
+  );
+
   /* ---------- The page-turn hint ----------
      The one motion nobody asked for, and a documented exception to the Answer-Only Motion
      Rule: once the book has sat in view, untouched, for a few seconds, the right-hand page
