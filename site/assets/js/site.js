@@ -33,37 +33,9 @@
     el.textContent = String(new Date().getFullYear());
   });
 
-  /* ---------- How-it-works plate: pin the slip under its word on wide screens ---------- */
-
-  const mini = $(".minigloss");
-  const miniWord = $(".plate__hl");
-  const anchorMini = () => {
-    if (!mini || !miniWord) return;
-    if (narrow.matches) {
-      mini.classList.remove("is-anchored");
-      mini.style.left = mini.style.top = "";
-      return;
-    }
-    const page = mini.parentElement;
-    const pr = page.getBoundingClientRect();
-    const wr = miniWord.getClientRects();
-    const r = wr[wr.length - 1];
-    if (!r) return;
-    const left = Math.min(Math.max(r.left - pr.left + r.width / 2 - mini.offsetWidth / 2, 12), pr.width - mini.offsetWidth - 12);
-    mini.style.left = Math.round(left) + "px";
-    mini.style.top = Math.round(r.bottom - pr.top + 12) + "px";
-    mini.classList.add("is-anchored");
-  };
-  if (mini) {
-    anchorMini();
-    if ("ResizeObserver" in window) new ResizeObserver(anchorMini).observe(mini.parentElement);
-    narrow.addEventListener("change", anchorMini);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(anchorMini);
-  }
-
   /* ---------- Reveals: blocks below the fold fade up as they come into view ---------- */
 
-  const revealable = $$(".leaf__runhead, .leaf h2, .preface__body > p, .plate, .steps > li, .colophon__lead > *, .colophon__facts > div, .closing__inner > *");
+  const revealable = $$(".leaf__runhead, .leaf h2, .preface__body > p, .preface__coda, .step > *, .colophon__lead > *, .colophon__facts > div, .bookplate, .closing__inner > *");
   if (revealable.length && "IntersectionObserver" in window) {
     const revealer = new IntersectionObserver(
       (entries) => {
@@ -156,7 +128,11 @@
     title.className = "spine__title";
     title.lang = p.lang;
     title.textContent = p.tab;
-    b.append(title);
+    // The book you're reading keeps its ribbon marker hanging out of the tail
+    const ribbon = document.createElement("span");
+    ribbon.className = "spine__ribbon";
+    ribbon.setAttribute("aria-hidden", "true");
+    b.append(title, ribbon);
     return b;
   };
 
@@ -168,7 +144,17 @@
     b.setAttribute("aria-selected", "false");
     b.setAttribute("aria-controls", "spread");
     b.tabIndex = -1;
-    b.addEventListener("click", (e) => select(p.id, { mode: e.detail === 0 ? "swap" : "turn" }));
+    b.addEventListener("click", (e) => {
+      select(p.id, { mode: e.detail === 0 ? "swap" : "turn" });
+      // On phones the shelf sits under the book, and the slip open in it closes as the book
+      // changes, so the new page can end up above the screen: bring its top back into view
+      if (docked()) {
+        requestAnimationFrame(() => {
+          const top = spread.getBoundingClientRect().top;
+          if (top < 0) window.scrollTo({ top: window.scrollY + top - 16, behavior: animate() ? "smooth" : "auto" });
+        });
+      }
+    });
     spinesEl.append(b);
 
     // The same shelf at the foot of the page opens a volume in the demo
@@ -229,12 +215,14 @@
 
   // Arriving at a volume (on load, or after a turn), the start word's gloss opens after a
   // one-second pause, so the page is seen before the slip lands on it. A word the reader
-  // opens, or another turn, in the meantime wins.
+  // opens, or another turn, in the meantime wins. On phones the slip docks inside the page
+  // and pushes the shelf down, so there it only opens on load, never after a change of book.
   const START_PAUSE_MS = 1000;
   let startTimer = 0;
   const cancelStart = () => window.clearTimeout(startTimer);
-  function scheduleStart() {
+  function scheduleStart(onLoad = false) {
     cancelStart();
+    if (docked() && !onLoad) return;
     startTimer = window.setTimeout(() => {
       if (!turn && active < 0) openStart(true);
     }, START_PAUSE_MS);
@@ -250,7 +238,7 @@
       showPassage(p);
       requestAnimationFrame(() => {
         layoutLines();
-        scheduleStart();
+        scheduleStart(true);
       });
       return;
     }
@@ -978,7 +966,7 @@
     glossSave.classList.toggle("is-saved", on);
     glossSave.classList.toggle("is-full", full);
     glossSave.setAttribute("aria-disabled", String(full));
-    glossSaveLabel.textContent = on ? "Saved" : full ? "Facing page full" : "Save to facing page";
+    glossSaveLabel.textContent = on ? "Saved" : full ? "Page full" : "Save word";
     glossSaveHint.textContent = on ? " (select to remove)" : full ? " (five words per book; remove one to save another)" : "";
   }
 

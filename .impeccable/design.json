@@ -963,7 +963,7 @@
       "kind": "custom",
       "refersTo": "gloss-slip",
       "description": "The paper slip laid beside a selected word: headword, meaning, the sentence in English, and the save button (unsaved and saved).",
-      "html": "<div class=\"ds-desk\"><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">lettori</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">readers</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> “A king!” my little readers will say at once.</p><button class=\"ds-gloss__save\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10v17l-5-3.6-5 3.6z\"/></svg>Save to facing page</button></div><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">ragazzi</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">children, kids</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> No, children, you’ve got it wrong.</p><button class=\"ds-gloss__save is-saved\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg>Saved</button></div></div>",
+      "html": "<div class=\"ds-desk\"><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">lettori</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">readers</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> “A king!” my little readers will say at once.</p><button class=\"ds-gloss__save\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10v17l-5-3.6-5 3.6z\"/></svg>Save word</button></div><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">ragazzi</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">children, kids</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> No, children, you’ve got it wrong.</p><button class=\"ds-gloss__save is-saved\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg>Saved</button></div></div>",
       "css": ".ds-desk { display: flex; flex-wrap: wrap; gap: 24px; padding: 28px; background: var(--paper, #fbfaf6); } .ds-gloss { position: relative; width: min(284px, 100%); padding: 15px 16px 14px; border-radius: 7px; background: var(--paper-bright, #ffffff); color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); box-shadow: 0 0 0 1px rgb(28 27 25 / 0.08), 0 4px 10px -2px rgb(28 27 25 / 0.14), 0 22px 44px -14px rgb(28 27 25 / 0.4); } .ds-gloss p { margin: 0; } .ds-gloss__head { display: flex; align-items: baseline; gap: 8px; padding-right: 30px; } .ds-gloss__word { font: 700 1.3125rem/1.2 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--cloth-ink, #1f4e3d); } .ds-gloss__close { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: var(--ink-2, #57544c); cursor: pointer; transition: background-color 140ms ease, color 140ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-gloss__close:active { transform: scale(0.94); } @media (hover: hover) and (pointer: fine) { .ds-gloss__close:hover { background: var(--paper-2, #eeede8); color: var(--ink, #1c1b19); } } .ds-icon { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; } .ds-gloss__meaning { margin-top: 8px !important; font: 500 1.1875rem/1.3 var(--font-text, \"Alegreya\", Georgia, serif); } .ds-gloss__context { margin-top: 12px !important; padding-top: 10px; border-top: 1px solid var(--rule, #dcd8cd); font: 400 0.9375rem/1.45 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--ink-2, #57544c); } .ds-gloss__label { font: 500 0.8125rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--ink, #1c1b19); margin-right: 4px; } .ds-gloss__save { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; margin-top: 14px; padding: 8px 14px 8px 12px; border: 0; border-radius: 6px; background: var(--cloth, #1f4e3d); color: var(--on-cloth, #f6f3ea); font: 700 0.9375rem/1 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease, color 200ms ease, box-shadow 200ms ease; } .ds-gloss__save:active { transform: scale(0.97); } .ds-gloss__save.is-saved { background: transparent; color: var(--cloth-ink, #1f4e3d); box-shadow: inset 0 0 0 1.5px var(--cloth-ink, #1f4e3d); } .ds-gloss__save:focus-visible, .ds-gloss__close:focus-visible { outline: 2px solid var(--cloth-ink, #1f4e3d); outline-offset: 3px; }"
     },
     {
@@ -1046,7 +1046,7 @@
       },
       {
         "name": "The Oldstyle Rule",
-        "body": "Numerals are oldstyle everywhere text is read: body, folios, line numbers. Lining numerals appear only inside the circular callouts and step discs, where they must centre.",
+        "body": "Numerals are oldstyle everywhere text is read: body, folios, line numbers. Lining numerals appear only inside the circular step discs, where they must centre.",
         "section": "typography"
       },
       {
@@ -1071,7 +1071,7 @@
       },
       {
         "name": "The Seven-Pixel Ceiling Rule",
-        "body": "No corner is rounder than a slip of paper (7px). Pills and soft rounded cards don't exist here. Full circles are only for numbered callouts.",
+        "body": "No corner is rounder than a slip of paper (7px). Pills and soft rounded cards don't exist here. Full circles are only for the step discs.",
         "section": "shapes"
       },
       {
@@ -1088,13 +1088,13 @@
     "dos": [
       "Do let the cloth own every full-bleed surface on the landing page and the 404 (hero, colophon, closing, footer), and put paper only on objects laid on it: spread pages, leaves, the plate leaf, gloss slips.",
       "Do colour anything cloth-coloured through `--cloth`, `--cloth-deep`, `--cloth-ink`, `--on-cloth`, `--on-cloth-2` and `--stamp`, so one `data-cloth` change recolours it with the rest of the page.",
-      "Do use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, callouts, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.",
+      "Do use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, step discs, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.",
       "Do give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.",
       "Do set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.",
       "Do keep the demo honest: public-domain passages credited in the footer, glosses limited to what on-device translation gives (word, translation, sentence translation), the plate labelled as an illustration.",
       "Do show the store and contact links as pending (outlined, unlinked, \"Coming soon\") until `config.js` has a real value.",
       "Do use the ease-out curve (cubic-bezier(0.23, 1, 0.32, 1)) for anything that moves, gate hover behind `(hover: hover) and (pointer: fine)`, and give every animation a reduced-motion version that drops transform and blur.",
-      "Do keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts."
+      "Do keep numerals oldstyle in running text, folios and line references, and lining only inside the round step discs."
     ],
     "donts": [
       "Don't put a coloured stripe on the side or top edge of a leaf, plate, gloss slip or any card-like container to mark category or emphasis. The rules this world does use are book furniture: gilt spine bands, the shelf plank, full-measure hairlines between colophon facts, and the rule opening the privacy summary.",
@@ -1105,7 +1105,7 @@
       "Don't make a pending button look clickable: no fill, no hover, no press, no `href`.",
       "Don't set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.",
       "Don't stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.",
-      "Don't round anything past 7px or use pill shapes. Circles are only for the numbered callouts and step discs.",
+      "Don't round anything past 7px or use pill shapes. Circles are only for the step discs.",
       "Don't add ambient or looping motion, or scroll-triggered motion beyond the one reveal. Every other animation answers a reader's action, except the bounded page-turn hint.",
       "Don't add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset."
     ]

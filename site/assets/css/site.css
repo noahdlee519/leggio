@@ -96,7 +96,7 @@
 
 /* Focus rings: light on cloth, cloth-ink on paper */
 .cloth, [data-sync-cloth], .footer { --ring: var(--on-cloth); }
-.leaf, .spread, .plate__leaf, .doc { --ring: var(--cloth-ink); }
+.leaf, .spread, .doc { --ring: var(--cloth-ink); }
 /* The German footer sits on the darker ochre board: full-strength lettering keeps it above 4.5:1 */
 [data-cloth="de"] .footer, .footer[data-cloth="de"] { --on-cloth: #140e03; --on-cloth-2: #140e03; }
 
@@ -241,17 +241,25 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .button--on-paper.is-live:hover { background: var(--house-deep); }
 }
 
-/* Before the store listing exists: honest, quiet, not clickable */
+/* Before the store listing exists, a store link is a plain notice, not a button: there is
+   nothing to press yet, so nothing is shaped (or coloured) like something to press. Gilt
+   stays with the links that work. The header drops it. */
 .button.is-pending {
-  background: transparent;
-  color: var(--on-cloth);
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--on-cloth) 42%, transparent);
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  justify-content: flex-start;
+  background: none;
+  box-shadow: none;
+  color: var(--on-cloth-2);
+  font: 500 1rem/1.3 var(--font-sc);
+  letter-spacing: 0.06em;
+  text-align: left;
   cursor: default;
+  transition: color 600ms ease;
 }
-.button--on-paper.is-pending {
-  color: var(--ink);
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 30%, transparent);
-}
+.closing .button.is-pending { justify-content: center; }
+.nav .button.is-pending { display: none; }
 
 /* ---------- Header ---------- */
 
@@ -301,8 +309,9 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 @media (hover: hover) and (pointer: fine) {
   .nav__links > a:not(.button):hover { background-size: 100% 1px; }
 }
+/* On phones, once the store button is in the header, Privacy gives way: How it works stays */
 @media (max-width: 560px) {
-  .nav__links .nav__how { display: none; }
+  .nav__links:has(.is-live) a[href="/privacy/"] { display: none; }
 }
 
 /* ---------- Hero ---------- */
@@ -338,7 +347,14 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   transition: color 600ms ease;
 }
 
-.hero__actions { margin-top: 36px; }
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 32px;
+  margin-top: 36px;
+}
+.hero__actions .textlink { margin-top: 0; }
 
 /* ---------- The book ---------- */
 
@@ -935,6 +951,21 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 }
 .spine__title:lang(ja) { font-family: var(--font-jp); font-weight: 600; letter-spacing: 0.12em; }
 .spine[aria-selected="true"] { transform: translateY(-16px); }
+/* A ribbon marker hangs from the tail of the book being read, into the gap its lift leaves,
+   so the chosen volume stands out even though it wears the same cloth as the page */
+.spine__ribbon {
+  position: absolute;
+  top: calc(100% - 3px);
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 21px;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.spine[aria-selected="true"] .spine__ribbon,
+.shelf--closing .spine.is-current .spine__ribbon { opacity: 1; }
 .spine:active { transform: translateY(-2px) scale(0.98); }
 .spine[aria-selected="true"]:active { transform: translateY(-16px) scale(0.98); }
 @media (hover: hover) and (pointer: fine) {
@@ -958,10 +989,17 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   transition: color 600ms ease;
 }
 .shelf__note {
-  max-width: 34ch;
+  max-width: 36ch;
   padding-bottom: 8px;
-  font: 400 0.9375rem/1.45 var(--font-ui);
-  color: var(--on-cloth-2);
+  font: 400 1.0625rem/1.45 var(--font-ui);
+  color: var(--on-cloth);
+  transition: color 600ms ease;
+}
+.shelf__try {
+  margin-right: 0.2em;
+  font: 700 1.0625rem/1 var(--font-sc);
+  letter-spacing: 0.06em;
+  color: var(--stamp);
   transition: color 600ms ease;
 }
 
@@ -983,9 +1021,14 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .preface__grid {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-rows: auto 1fr;
   gap: clamp(32px, 5vw, 80px);
   align-items: start;
 }
+/* The body runs down the right; the dictionary entry closes the left column, level with it */
+.preface__grid h2 { grid-column: 1; grid-row: 1; }
+.preface__body { grid-column: 2; grid-row: 1 / span 2; }
+.preface__coda { grid-column: 1; grid-row: 2; align-self: end; }
 .section-title,
 .leaf h2,
 .closing h2 {
@@ -1003,8 +1046,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .preface__body p + p { margin-top: 1.1em; }
 /* The coda: leggio as it stands in an Italian–English dictionary. One run-in entry
    with a hanging indent, below a hairline, the headword in the cloth's ink. */
-.preface__body .preface__coda {
-  margin-top: 1.6em;
+.preface__coda {
   padding: 1.05em 0 0 1.4em;
   border-top: 1px solid var(--rule);
   text-indent: -1.4em;
@@ -1040,17 +1082,28 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 /* ---------- How it works ---------- */
 
 #how h2 { max-width: 16ch; }
-.howto__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(40px, 6vw, 96px);
-  align-items: center;
-  margin-top: clamp(40px, 5vw, 64px);
-}
 
-/* A plate: a page from a PDF, tipped in on a board of the volume's cloth */
-.plate {
-  padding: clamp(18px, 3.5vw, 40px);
+/* A page of plates: each step under a real screenshot of Leggio, tipped in on a board
+   of the volume's cloth. The three share one shape and nearly one zoom, so they read
+   as a set, and the whole section fits about one screen. */
+.steps {
+  list-style: none;
+  padding: 0;
+  margin-top: clamp(40px, 5vw, 64px);
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 3.5vw, 48px);
+}
+.step {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+  counter-increment: step;
+}
+.plate { margin: 0; }
+.plate__board {
+  padding: clamp(10px, 1.4vw, 18px);
   border-radius: 4px;
   background-color: var(--cloth);
   background-image: var(--cloth-tex);
@@ -1058,105 +1111,36 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12), inset 0 10px 24px -14px rgb(0 0 0 / 0.5);
   transition: background-color 600ms ease;
 }
-.plate__leaf {
-  position: relative;
-  padding: 22px clamp(20px, 4vw, 44px) 40px;
+.plate__shot {
+  display: block;
+  width: 100%;
+  height: auto;
   border-radius: 2px;
   background: var(--paper-bright);
-  color: #202020;
-  font-size: 1.0625rem;
-  line-height: 1.62;
-  box-shadow: 0 2px 0 #e6e3da, 0 18px 30px -18px rgb(0 0 0 / 0.55);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.1), 0 2px 0 rgb(0 0 0 / 0.06), 0 18px 30px -18px rgb(0 0 0 / 0.6);
 }
-.plate__runhead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
-  font: 500 0.875rem/1.2 var(--font-ui);
+.plate figcaption {
+  margin-top: 12px;
+  font: italic 400 0.9375rem/1.4 var(--font-text);
   color: var(--ink-2);
 }
-.plate__file { display: inline-flex; align-items: center; gap: 10px; min-width: 0; }
-.plate__runhead .folio { font-family: var(--font-text); }
-.plate__chapter {
-  text-align: center;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-.plate__hl {
-  padding: 0 2px;
-  border-radius: 3px;
-  background: color-mix(in srgb, var(--cloth) 17%, transparent);
-  color: inherit;
-  text-decoration: underline 1.5px var(--cloth-ink);
-  text-underline-offset: 0.24em;
-}
-.callout {
-  display: inline-grid;
-  place-items: center;
-  flex: none;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--cloth-ink);
-  color: #f6f3ea;
-  font: 700 0.875rem/1 var(--font-ui);
-  font-variant-numeric: lining-nums;
-  box-shadow: 0 0 0 3px var(--paper-bright);
-  transition: background-color 600ms ease;
-}
-.callout--gloss {
-  position: absolute;
-  top: -13px;
-  left: -13px;
-}
-.minigloss {
-  position: relative;
-  width: 220px;
-  margin: 18px 0 0;
-  padding: 14px 14px 12px;
-  border-radius: 7px;
-  background: var(--paper-bright);
-  box-shadow: 0 0 0 1px rgb(28 27 25 / 0.08), 0 4px 10px -2px rgb(28 27 25 / 0.14), 0 22px 44px -14px rgb(28 27 25 / 0.4);
-  font-size: 0.9375rem;
-  line-height: 1.35;
-}
-.minigloss.is-anchored { position: absolute; margin: 0; z-index: 2; }
-.minigloss__word { font-weight: 700; font-size: 1.125rem; color: var(--cloth-ink); }
-.minigloss__meaning { margin-top: 2px; font-weight: 500; font-size: 1.0625rem; }
-.minigloss__save {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  padding: 6px 10px;
-  border-radius: 5px;
-  box-shadow: inset 0 0 0 1.5px var(--cloth-ink);
+.plate__no {
+  margin-right: 0.3em;
+  font: normal 500 0.875rem/1 var(--font-sc);
+  letter-spacing: 0.06em;
   color: var(--cloth-ink);
-  font: 700 0.8125rem/1 var(--font-ui);
+  transition: color 600ms ease;
 }
-.minigloss__save .icon { width: 15px; height: 15px; }
-.callout--save { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); }
 
-.steps {
-  list-style: none;
-  padding: 0;
-  counter-reset: step;
-  display: grid;
-  gap: clamp(28px, 3.5vw, 40px);
-}
-.steps li {
+.step__text {
   position: relative;
   padding-left: 48px;
-  counter-increment: step;
 }
-.steps li::before {
+.step__text::before {
   content: counter(step);
   position: absolute;
   left: 0;
-  top: 0.1em;
+  top: 0.15em;
   display: grid;
   place-items: center;
   width: 30px;
@@ -1175,7 +1159,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 }
 .steps p {
   margin-top: 8px;
-  max-width: 42ch;
+  max-width: 38ch;
   font-size: 1.125rem;
   line-height: 1.58;
   color: var(--ink-2);
@@ -1220,6 +1204,10 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .textlink:hover .icon { transform: translateX(3px); }
   .textlink:hover { text-decoration: underline; }
 }
+.colophon__side {
+  display: grid;
+  gap: clamp(40px, 5vw, 64px);
+}
 .colophon__facts {
   border-top: 1px solid color-mix(in srgb, var(--stamp) 60%, transparent);
 }
@@ -1239,6 +1227,52 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   font-size: 1.1875rem;
   line-height: 1.45;
   color: var(--on-cloth);
+}
+
+/* An ex-libris plate stamped in gilt on the cloth: whatever you read and save is yours */
+.bookplate {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  justify-self: center;
+  width: 200px;
+  height: 224px;
+  margin: 0;
+  color: var(--stamp);
+  filter: drop-shadow(0 1px 0 rgb(0 0 0 / 0.35));
+  transition: color 600ms ease;
+}
+.bookplate__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+}
+.bookplate__ex {
+  margin-right: -0.2em; /* balances the tracking */
+  font: 700 0.9375rem/1 var(--font-sc);
+  letter-spacing: 0.2em;
+}
+.bookplate__mark {
+  width: 64px;
+  height: 64px;
+  margin-top: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.bookplate__rule {
+  width: 84px;
+  height: 10px;
+  margin-top: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.1;
 }
 
 /* ---------- Closing ---------- */
@@ -1456,15 +1490,30 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
 /* ---------- Responsive ---------- */
 
+@media (min-width: 900px) {
+  /* Plate, heading and description share rows across the three steps, so the
+     descriptions start level even when one heading takes two lines */
+  .steps { grid-template-rows: auto auto auto; row-gap: 0; }
+  .step { grid-row: span 3; grid-template-rows: subgrid; gap: 0; }
+  .step .plate { margin-bottom: 22px; }
+  .step__text { display: grid; grid-row: span 2; grid-template-rows: subgrid; }
+}
+
+@media (max-width: 899px) {
+  /* The plates stack, each still above its step */
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .plate { max-width: 420px; }
+}
+
 @media (max-width: 1099px) {
   .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 56px; }
   .hero__copy { max-width: 40rem; }
   .hero__lede { max-width: 44ch; }
   .preface__grid,
-  .howto__grid,
   .colophon__grid { grid-template-columns: minmax(0, 1fr); }
+  .preface__grid { grid-template-rows: none; }
+  .preface__grid > * { grid-column: auto; grid-row: auto; }
   .preface__grid h2 { max-width: 18ch; }
-  .howto__grid .plate { max-width: 720px; }
 }
 
 @media (max-width: 860px) {
@@ -1509,18 +1558,18 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .shelf__note { max-width: none; }
   .shelf__more { position: static; margin: 12px 0 0; text-align: right; }
   .shelf--closing { width: 100%; } /* as wide as the hero's shelf, so its volumes match */
+  .shelf.shelf--closing { margin-top: 64px; } /* clear of the notice above, with the lifted spine */
 
   .leaf { border-radius: 2px; }
-  .minigloss { width: auto; max-width: 260px; }
-  .callout--save { right: -38px; }
   .colophon__facts > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .bookplate { display: none; } /* on a phone it would fill a screen and say nothing new */
   .footer__grid { grid-template-columns: minmax(0, 1fr); }
   .button { width: 100%; }
   .nav .button { width: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cloth, .spread::before, .wordmark, .hero h1, .hero__lede, .chapter, .notes__word, .shelf__note, .spines, .footer, .plate, .callout, .steps li::before, .ornament { transition-duration: 1ms; }
+  .cloth, .spread::before, .wordmark, .hero h1, .hero__lede, .chapter, .notes__word, .shelf__note, .spines, .footer, .plate__board, .plate__no, .step__text::before, .entry__head, .entry__n, .bookplate, .ornament { transition-duration: 1ms; }
   .gloss, .gloss.is-open { transform: none; filter: none; transition: opacity 120ms ease; }
   .spine, .spine[aria-selected="true"], .spine:not([aria-selected="true"]):hover { transition: none; }
   .notes li.is-new { animation: fade-in 200ms ease both; }

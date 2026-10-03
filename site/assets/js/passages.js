@@ -144,7 +144,7 @@ window.LEGGIO_PASSAGES = [
     year: "1913",
     chapter: "Combray",
     folios: ["1", "2"],
-    start: "bougie",
+    start: "couché",
     saved: ["Longtemps", "vite"],
     sentences: [
       {

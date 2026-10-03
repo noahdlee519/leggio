@@ -201,11 +201,9 @@ components:
     height: "52px"
   button-primary-pending:
     backgroundColor: "transparent"
-    textColor: "{colors.on-cloth-it}"
-    typography: "{typography.button}"
-    rounded: "{rounded.control}"
-    padding: "14px 24px"
-    height: "52px"
+    textColor: "{colors.on-cloth-it-2}"
+    typography: "{typography.label-term}"
+    padding: "0"
   button-nav:
     backgroundColor: "{colors.on-cloth-it}"
     textColor: "{colors.cloth-it-ink}"
@@ -253,16 +251,12 @@ components:
   plate:
     backgroundColor: "{colors.cloth-it}"
     rounded: "{rounded.plate}"
-    padding: "clamp(18px, 3.5vw, 40px)"
-  plate-leaf:
-    backgroundColor: "{colors.paper-bright}"
-    rounded: "{rounded.sheet}"
-    padding: "22px clamp(20px, 4vw, 44px) 40px"
-  callout:
+    padding: "clamp(10px, 1.4vw, 18px)"
+  step-disc:
     backgroundColor: "{colors.cloth-it-ink}"
     textColor: "{colors.on-cloth-it}"
     rounded: "{rounded.round}"
-    size: "26px"
+    size: "30px"
   colophon-term:
     textColor: "{colors.stamp-it}"
     typography: "{typography.label-term}"
@@ -303,7 +297,7 @@ Motion answers something the reader did. The build has no ambient or looping ani
 
 - **Curve.** One curve for anything that moves: `ease-out` (cubic-bezier(0.23, 1, 0.32, 1)). Colour-only changes use plain `ease`. The one exception is the played page turn, which travels across the screen and uses a cubic ease-in-out.
 - **Page turn (the signature moment).** Covered in full under Components › Page Turn. In short: the leaf follows the pointer 1:1 while dragged, a played turn takes 820ms ease-in-out, and releasing finishes or lays the leaf back down in 180–520ms ease-out.
-- **Changing cloth (600ms ease).** Background, text, stamp and border colours cross-fade together whenever the volume changes: the body cloth, spread boards, plate board, footer, headline, lede, chapter lines, callouts, step numbers and ornament.
+- **Changing cloth (600ms ease).** Background, text, stamp and border colours cross-fade together whenever the volume changes: the body cloth, spread boards, plate board, footer, headline, lede, chapter lines, plate captions, step numbers, ribbon, bookplate and ornament.
 - **Swapping the text (170ms).** Passage, notes, running heads, chapter, attribution and line numbers fade to 0 with a 3px blur. The script waits 170ms, swaps the text, then fades back in.
 - **Gloss slip.** Opens in 180ms (opacity, blur 2px to 0) with a 240ms ease-out settle from `translateY(4px) scale(0.96)`, scaled from the selected word as its origin. Closes faster: 120ms opacity and 140ms transform, then it is hidden after 140ms. Moving between words while a slip is open repositions it with no animation.
 - **Ink-in (560ms ease-out).** A newly saved entry on the facing page is revealed left to right with `clip-path: inset(0 100% 0 0)` while its opacity rises from 0.4 to 1, like ink going onto the page.
@@ -334,10 +328,10 @@ The primary colour is whichever cloth is active. Components read it through six 
 
 - **Cloth** is the full-bleed ground (body, colophon, closing, 404, the privacy header), the spine body, the plate board and the gloss save button.
 - **Deep** is the spread's boards and the footer. It is also mixed 80% with black to make the 3px shelf plank under the spines.
-- **Cloth-ink** is the cloth as a legible ink on paper: chapter lines, gloss and note headwords, the headword and sense numbers of the preface's dictionary entry, underlines on active and saved words, callout and step discs, and focus rings on paper.
+- **Cloth-ink** is the cloth as a legible ink on paper: chapter lines, gloss and note headwords, the headword and sense numbers of the preface's dictionary entry, underlines on active and saved words, step discs, and focus rings on paper.
 - **On-cloth** is headline and body lettering on cloth, the nav links, and the nav button's fill.
 - **Focus rings** default to house green (the `ring` token) on plain paper. On cloth they take on-cloth; on paper laid over cloth (leaves, spread, plate, the privacy document) they take cloth-ink.
-- **On-cloth-2** is secondary lettering on cloth: the lede, the shelf note, colophon paragraphs and footer text.
+- **On-cloth-2** is secondary lettering on cloth: the lede, colophon paragraphs and footer text.
 - **Stamp** is gilt: the wordmark, spine titles and gilt bands, colophon terms and their hairlines, the text link, the ornament, and selection highlight on cloth.
 
 ### Secondary: the house green
@@ -347,7 +341,7 @@ The primary colour is whichever cloth is active. Components read it through six 
 ### Neutral
 
 - **India Paper** (#fbfaf6): the ground of every page and leaf, and of the privacy reading column. Near-white, not cream.
-- **Slip White** (#ffffff): brighter paper for things laid on top of a page: gloss slips, the plate's PDF leaf, the primary button, the skip link, the callout halo.
+- **Slip White** (#ffffff): brighter paper for things laid on top of a page: gloss slips, the plates' screenshot ground, the primary button, the skip link.
 - **Tissue** (#eeede8): the scrollbar track and the hover wash of the slip's corner tools.
 - **Printer's Black** (#1c1b19): all reading text on paper.
 - **Pencil** (#57544c): secondary text on paper: running heads, folios, line numbers, attributions, the gloss context sentence, step descriptions, contents links.
@@ -389,9 +383,9 @@ The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` 
 - **Running head** (Alegreya SC 500, 0.8125rem, 0.06em, pencil) and **chapter** (Alegreya SC 500, 0.9375rem, 0.08em, centred, cloth-ink).
 - **Label-term** (Alegreya SC 700, 1rem, 0.06em): colophon terms in stamp. Siblings: spine titles (700, 1rem/1, 0.06em; the Japanese title uses the JP face at 600 and 0.12em), the privacy "Contents" title (700, 0.9375rem, 0.08em, house) and the gloss's inline "This sentence" label (500, 0.8125rem).
 - **Wordmark** (Alegreya SC 700, 1.4rem, 0.05em, stamp).
-- **Button** (Alegreya Sans 700, 1.0625rem/1.15, 0.01em; 0.95rem in the nav) and **label-control** (Alegreya Sans 700, 0.9375rem/1, for the save button). Callout and step numerals are 0.875 to 0.9375rem at 700.
+- **Button** (Alegreya Sans 700, 1.0625rem/1.15, 0.01em; 0.95rem in the nav) and **label-control** (Alegreya Sans 700, 0.9375rem/1, for the save button). Step numerals are 0.9375rem at 700.
 - **Nav** (Alegreya Sans 500, 1.0625rem) for header and footer links, the text link (700) and the privacy meta line. The contents links are 500 at 0.96875rem/1.35.
-- **Caption** (Alegreya Sans 400, 0.9375rem/1.45): the shelf note. The footer tagline is 400 at 1rem.
+- **Caption** (Alegreya Sans 400, 1.0625rem/1.45, on-cloth): the shelf note, led by a run-in "Try it." in gilt Alegreya SC 700. Plate captions are Alegreya italic 0.9375rem in pencil after a small-caps "Plate I." in cloth-ink. The footer tagline is 400 at 1rem.
 - **Fine print** (Alegreya Sans 400, 0.875rem/1.55, max 88ch): footer credits. Book titles in it are Alegreya italic, and the Japanese title stays upright in the JP face.
 - **Numeral** (Alegreya 400, 0.8125rem, oldstyle): folios, margin line numbers and the "l. 3" references on the facing page. Attributions are Alegreya italic at 0.875rem.
 
@@ -401,7 +395,7 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 
 **The Three Alegreyas Rule.** Alegreya reads, Alegreya SC furnishes the page, Alegreya Sans operates the controls. No fourth family except the Japanese subset. Fonts are self-hosted, so adding Japanese copy means regenerating the subset.
 
-**The Oldstyle Rule.** Numerals are oldstyle everywhere text is read: body, folios, line numbers. Lining numerals appear only inside the circular callouts and step discs, where they must centre.
+**The Oldstyle Rule.** Numerals are oldstyle everywhere text is read: body, folios, line numbers. Lining numerals appear only inside the circular step discs, where they must centre.
 
 **The Furniture Rule.** Small caps are page furniture: running heads split across the measure with a folio opposite, centred chapter lines, definition terms, spine titles, the wordmark. They are never a small label stacked directly on top of a headline.
 
@@ -425,7 +419,7 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 - **1099px:** every two-column grid becomes one column. The hero copy is capped at 40rem and the plate at 720px.
 - **860px:** the privacy policy drops its sticky contents column. The contents become a two-column list above the text, without the rail.
 - **639px (phones):** the spread stacks, original page above facing page, and the gutter turns horizontal. The gloss slip docks inside the original page. Spines stretch to share the shelf (max 64px wide, 118px tall); the closing shelf spans the full width too, so its volumes match the hero's. Colophon facts stack. Every button goes full width except the nav button.
-- **560px:** "How it works" leaves the nav.
+- **560px:** once the store button is live in the nav, "Privacy" leaves it; "How it works" stays. (While pending, the nav has no store button, so both links fit.)
 - **Hover:** all hover styling is behind `(hover: hover) and (pointer: fine)`.
 
 ### Named Rules
@@ -452,7 +446,6 @@ Supporting devices:
 - **Recessed board** (`inset 0 0 0 1px rgb(0 0 0 / 0.12), inset 0 10px 24px -14px rgb(0 0 0 / 0.5)`): the plate's cloth board, pressed in so the leaf can be tipped in.
 - **Tipped-in leaf** (`0 2px 0 #e6e3da, 0 18px 30px -18px rgb(0 0 0 / 0.55)`): the PDF page on the plate.
 - **Primary button** (`0 1px 0 rgb(255 255 255 / 0.6) inset, 0 14px 28px -14px rgb(0 0 0 / 0.55), 0 2px 4px rgb(0 0 0 / 0.12)`). When live, its hover deepens the drop to `0 18px 32px -14px rgb(0 0 0 / 0.6)`.
-- **Callout halo** (`0 0 0 3px var(--paper-bright)`): separates numbered discs from the page under them.
 
 ### Named Rules
 
@@ -467,7 +460,7 @@ Corners are nearly square, as paper and board are. Radii run from 2px to 7px, ea
 - **Board** (5px): the spread's boards and the miniature slip's "Saved" chip.
 - **Control** (6px): buttons, the save button, the slip's corner tools, the skip link.
 - **Slip** (7px): gloss slips. This is the largest radius in the system.
-- **Round** (50%): numbered callouts (26px) and step discs (30px) only.
+- **Round** (50%): step discs (30px) only.
 
 Spines are 3px at the head and 1px at the tail (`3px 3px 1px 1px`). Each has two gilt bands, one top and one bottom, inset 7px: double 1.5px rules 2px apart at 85% opacity, in the stamp colour.
 
@@ -477,7 +470,7 @@ Borders are typographic rules, not boxes: hairlines between colophon facts, a co
 
 ### Named Rules
 
-**The Seven-Pixel Ceiling Rule.** No corner is rounder than a slip of paper (7px). Pills and soft rounded cards don't exist here. Full circles are only for numbered callouts.
+**The Seven-Pixel Ceiling Rule.** No corner is rounder than a slip of paper (7px). Pills and soft rounded cards don't exist here. Full circles are only for the step discs.
 
 ## Components
 
@@ -487,9 +480,10 @@ Buttons are solid, quiet, and honest about whether they work.
 - **Shape:** gently squared (6px), at least 52px tall, padded 14px 24px, in Alegreya Sans 700.
 - **Primary, on cloth:** Slip White with cloth-ink lettering, raised by the button shadow. This is the store button in the hero and the closing.
 - **Nav, on cloth:** a small button (40px, 9px 16px, 0.95rem) filled with on-cloth and lettered in cloth-ink.
-- **Pending (no store listing yet):** the script removes `href`. The button becomes transparent, lettered in on-cloth, and outlined by a 1.5px inset ring of on-cloth at 42%. The cursor is the default arrow, and there is no hover and no press. Its label reads "Coming soon", or "Coming soon to the Chrome Web Store" for the large buttons.
+- **Pending (no store listing yet):** the script removes `href`, and the button stops being shaped or coloured like one: no fill, ring, padding or height, just a notice in on-cloth-2 Alegreya SC 500 at 1rem (0.06em), left-aligned in the hero and centred in the closing. Gilt stays with links that work, so the notice never reads as one. It reads "Coming soon to the Chrome Web Store". The default arrow cursor, no hover, no press. The nav drops its pending button entirely.
+- **Hero's next step:** beside the store button (or notice), a gilt text link, "See how it works →", to the plates. Button and link sit in one wrapping row (18px × 32px gaps).
 - **Live (`config.js` has a store URL):** the label changes to "Add to Chrome" or "Add Leggio to Chrome", the button gets `.is-live`, presses scale to 0.97, and the primary deepens its shadow on hover.
-- **Phones:** full width, except in the nav.
+- **Phones:** live buttons go full width, except in the nav.
 - **Focus:** a 2px outline, offset 3px, 3px radius, in the ring colour (on-cloth on cloth).
 
 ### Navigation
@@ -507,8 +501,8 @@ An open bilingual edition, drawn near life size.
 - **Chapter line:** centred small caps in cloth-ink ("Capitolo primo"; "Saved words, by line" on the facing page).
 - **Words:** every word is a button, with a roving tabindex and arrow-key movement. Hover adds a 10% cloth wash. The active word gets a 17% cloth wash plus a solid 1.5px cloth-ink underline, offset 0.24em. Saved words carry a dotted cloth-ink underline. Focus is a 2px cloth-ink outline.
 - **Margin line numbers** mark every fifth line, and the attribution sits at the foot in Alegreya italic in pencil ("Carlo Collodi, 1883").
-- **Facing page:** holds at most five saved words per book; at the limit the Save button reads "Facing page full" (muted, aria-disabled) and an italic note explains how to remove one. Saved words appear as a glossary, one per line (7px apart): "l. N" (the line they came from, oldstyle, pencil), then the headword in bold cloth-ink, then the meaning in ink on the same line. A new entry inks in. The empty state is an italic pencil note, max 24ch.
-- **Changing volume:** by pointer, the page turns (see Page Turn). By keyboard or with reduced motion, the text blur-fades for 170ms while the cloth cross-fades for 600ms. Arriving at a volume (on load, or when a turn lands) opens the gloss for its start word after a one-second pause, animated as usual. A word the reader opens, or another turn, in that second cancels it.
+- **Facing page:** holds at most five saved words per book; at the limit the Save button reads "Page full" (muted, aria-disabled) and an italic note explains how to remove one. Saved words appear as a glossary, one per line (7px apart): "l. N" (the line they came from, oldstyle, pencil), then the headword in bold cloth-ink, then the meaning in ink on the same line. A new entry inks in. The empty state is an italic pencil note, max 24ch.
+- **Changing volume:** by pointer, the page turns (see Page Turn). By keyboard or with reduced motion, the text blur-fades for 170ms while the cloth cross-fades for 600ms. Arriving at a volume (on load, or when a turn lands) opens the gloss for its start word after a one-second pause, animated as usual. A word the reader opens, or another turn, in that second cancels it. On phones, where the slip docks in the page and pushes the shelf down, it opens on load only, never after a change of book; and when a spine is tapped there and the book's top has gone above the screen (the open slip closing shrinks the page), the window scrolls it back into view, 16px clear. Each start word is chosen so its slip fits inside the book on wide screens (French opens on "couché", in the short first sentence).
 
 ### Page Turn (signature)
 
@@ -531,7 +525,7 @@ The book (and so the slip) is layered above the shelf (`z-index: 2` over 1), so 
 A slip of brighter paper laid beside the word.
 - **Build:** Slip White, 7px radius, slip shadow, min(284px, 100% − 16px) wide (240px for vertical Japanese), padded 15px 16px 14px.
 - **Contents:** the headword (Alegreya 700, cloth-ink), and in the top-right corner the same three tools as the extension's slip: Listen, Copy and Close. They are 32px squares, 6px radius, with line icons in pencil and a Tissue wash on hover. Listen reads the word aloud with a voice installed on the device, never a network voice, so the site still makes no third-party requests. When the device has no voice for that language, it fades to 0.4 and says so. Copy puts the meaning on the clipboard, and its icon turns to a check in cloth-ink for 1.2s. Below it, the meaning. Then a hairline rule and the "This sentence" small-caps label with an English rendering of the sentence, clamped to four lines (three on phones).
-- **Save:** a 40px button with a 6px radius, filled with the cloth and lettered in on-cloth, with a bookmark icon, reading "Save to facing page". Once saved it becomes an outline: transparent, a 1.5px inset cloth-ink ring and a check icon, reading "Saved". Selecting it again removes the word, and a live region announces both actions.
+- **Save:** a 40px button with a 6px radius, filled with the cloth and lettered in on-cloth, with a bookmark icon, reading "Save word" (the extension's own label). Once saved it becomes an outline: transparent, a 1.5px inset cloth-ink ring and a check icon, reading "Saved". Selecting it again removes the word, and a live region announces both actions.
 - **Placement, wide screens:** absolutely positioned inside the spread and clamped to the original page's bounds with 10px padding. It tries below, above, right, then left of the word; vertical Japanese tries left, right, below, then above. It scales from the word it belongs to. It closes on Escape (returning focus to the word), on its × button, on a pointerdown outside it, or on a second tap of the same word.
 - **Docked variant, 639px and below:** the slip moves into a dock inside the original page, directly under the passage. There it is relatively positioned, full width, with an 18px top margin, and its transform origin is at the top centre. It closes instantly, and tapping outside does not close it.
 
@@ -540,9 +534,9 @@ A slip of brighter paper laid beside the word.
 ### Spines and Shelf
 
 A shelf of volumes is the language switcher.
-- **Spine:** 46×132px (flexible, up to 64×118 on phones), in its own language's cloth, whatever cloth the page is wearing. It has cylindrical shading over the weave, gilt head and tail bands, and a vertical Alegreya SC title in stamp (Italiano, Español, Français, Deutsch, 日本語).
+- **Spine:** 46×132px (flexible, up to 64×118 on phones), in its own language's cloth, whatever cloth the page is wearing. It has cylindrical shading over the weave, gilt head and tail bands, and a vertical Alegreya SC title in stamp (Italiano, Español, Français, Deutsch, 日本語). The chosen volume wears the page's own cloth, so it also carries a ribbon marker: an 8×21px tail in its stamp colour with a V-cut end, hanging from the foot of the spine into the gap its lift leaves (fades in over 260ms).
 - **Shelf:** spines 5px apart, standing on a 3px plank (cloth-deep mixed 80% with black). The selected spine stands 16px proud, hover lifts a spine 6px, and a press scales it to 0.98.
-- **Hero shelf:** an ARIA tablist controlling the spread, with arrow, Home and End keys. Its focus ring is on-cloth. Beside it is a caption telling the reader to drag or swipe the page, or pick a book.
+- **Hero shelf:** an ARIA tablist controlling the spread, with arrow, Home and End keys. Its focus ring is on-cloth. Beside it is a caption, "Try it. Select any word in the book to see what it means. Drag the page, or pick a book, to change language."
 - **Language count:** "+34 more languages" in gilt Alegreya SC 700 at 0.9375rem, pinned to the top right of the spines (below them, right-aligned, on phones). 34 is the 39 languages in Chrome's Translator list minus the five volumes shown.
 - **Closing shelf:** the same spines centred under the closing call to action. Choosing one opens that volume and scrolls the spread into view.
 
@@ -551,22 +545,23 @@ A shelf of volumes is the language switcher.
 Paper pages laid on the cloth: the preface and "Notes on use".
 - India Paper, 3px radius (2px on phones), gutter shade from the left, leaf shadow.
 - A running head across the full measure, with the section name in Alegreya SC on the left and a roman-numeral folio (vii, viii) on the right, then a large gap before the headline.
-- Headlines are in ink. The preface pairs a 5-column headline with a 7-column body, ending on a coda: *leggio* as it stands in an Italian–English dictionary.
+- Headlines are in ink. The preface pairs a 5-column headline with a 7-column body. Its coda, *leggio* as it stands in an Italian–English dictionary, closes the left column under the headline, set to the foot of the grid so it ends level with (or just past) the body, which fills what used to be an empty column. Below 1100px it follows the body.
 
-### Plate and Steps
+### Plates and Steps
 
-A figure from "Notes on use": a PDF page tipped in on a board of the volume's cloth.
-- **Board:** cloth with weave, 4px radius, recessed-board inset shadow, fluid padding.
-- **Leaf:** Slip White, 2px radius, tipped-in shadow. Its running head is Alegreya Sans (a file name and folio). The text is Italian. One word is highlighted with a 17% cloth wash and a 1.5px cloth-ink underline, and a miniature slip (220px, slip shadow) is pinned under it on wide screens, with an outlined "Saved" chip.
-- **Callouts:** 26px discs in cloth-ink with light numerals (lining) and a 3px Slip White halo. They number the file, the slip and the save.
-- **Steps:** a counter list whose 30px cloth-ink discs match the callouts. Each step has a title-step heading and a 1.125rem pencil description (max 42ch).
-- The figure is labelled as an illustration, and the miniature slip is hidden from assistive technology.
+"How to read with Leggio" is a page of plates: three real screenshots of the extension, each above its step.
+- **Plates:** Plate I, an Italian web page (Pinocchio on Wikisource) with a word's slip and the edition's woodcut; Plate II, the slip in Leggio's PDF reader with its "This sentence" translation; Plate III, the "Your words" panel. All three are cropped from 2× captures to one shape (15:16) with the slips at nearly one zoom, so they read as a set and the interface text stays legible, and served as WebP at 375 and 750px. Where a crop cuts through lines of page text (both edges of Plate I, the left of Plate II), the cut fades into the page's white over 70–160px, never across the slip, so no chopped word reads as broken. Nothing in them is mocked up.
+- **Board:** each screenshot is tipped in on a board of the volume's cloth: weave, 4px radius, recessed inset shadow, clamp(10px, 1.4vw, 18px) padding. The screenshot has a 2px radius, a hairline and a tipped-in drop shadow.
+- **Caption:** "Plate I." in cloth-ink Alegreya SC, then what it shows in italic pencil ("A web page", "A PDF in Leggio's reader", "Your words").
+- **Steps:** a counter list; each step is a 30px cloth-ink disc, a title-step heading and a 1.125rem pencil description (max 38ch), under its plate.
+- **Layout:** three columns (gap clamp(28px, 3.5vw, 48px)) so the section fits about one screen. Plate, heading and description share rows across the three (CSS subgrid), so the descriptions start level even when a heading wraps. Below 900px they stack, each plate at most 420px wide.
 
 ### Colophon
 
 The privacy promise, printed on the cloth as facts.
 - Lead: a headline in on-cloth (max 14ch), paragraphs in on-cloth-2 (max 48ch), and a text link to the policy.
 - **Facts:** a definition list with a stamp hairline at 60% above it and a stamp hairline at 35% under each row. Each row is a 10.5rem term column (Alegreya SC 700, stamp) beside a value (1.1875rem, on-cloth), padded 20px top and bottom. The rows stack on phones.
+- **Bookplate:** under the facts, centred in their column, an ex-libris plate stamped in gilt on the cloth (200×224px): a double frame with concave corners (1.6px outer, 0.8px inner), "Ex libris" in Alegreya SC 700 tracked 0.2em, the wordmark's book-on-lectern at 64px, and the ornament rule. A 1px dark drop shadow presses it into the cloth. It says the reading is yours without another sentence, so it is hidden on phones, where it would fill a screen.
 
 ### Closing
 
@@ -593,13 +588,13 @@ A full-cloth page titled "This page is out of print", with the wordmark, a line 
 ### Do:
 - **Do** let the cloth own every full-bleed surface on the landing page and the 404 (hero, colophon, closing, footer), and put paper only on objects laid on it: spread pages, leaves, the plate leaf, gloss slips.
 - **Do** colour anything cloth-coloured through `--cloth`, `--cloth-deep`, `--cloth-ink`, `--on-cloth`, `--on-cloth-2` and `--stamp`, so one `data-cloth` change recolours it with the rest of the page.
-- **Do** use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, callouts, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.
+- **Do** use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, step discs, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.
 - **Do** give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.
 - **Do** set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.
 - **Do** keep the demo honest: public-domain passages credited in the footer, glosses limited to what on-device translation gives (word, translation, sentence translation), the plate labelled as an illustration.
-- **Do** show the store and contact links as pending (outlined, unlinked, "Coming soon") until `config.js` has a real value.
+- **Do** show the store link as a pending notice (unlinked, unboxed, "Coming soon to the Chrome Web Store") and the contact link as pending until `config.js` has a real value.
 - **Do** use the ease-out curve (cubic-bezier(0.23, 1, 0.32, 1)) for anything that moves, gate hover behind `(hover: hover) and (pointer: fine)`, and give every animation a reduced-motion version that drops transform and blur.
-- **Do** keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts.
+- **Do** keep numerals oldstyle in running text, folios and line references, and lining only inside the round step discs.
 
 ### Don't:
 - **Don't** put a coloured stripe on the side or top edge of a leaf, plate, gloss slip or any card-like container to mark category or emphasis. The rules this world does use are book furniture: gilt spine bands, the shelf plank, full-measure hairlines between colophon facts, and the rule opening the privacy summary.
@@ -610,6 +605,6 @@ A full-cloth page titled "This page is out of print", with the wordmark, a line 
 - **Don't** make a pending button look clickable: no fill, no hover, no press, no `href`.
 - **Don't** set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.
 - **Don't** stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.
-- **Don't** round anything past 7px or use pill shapes. Circles are only for the numbered callouts and step discs.
+- **Don't** round anything past 7px or use pill shapes. Circles are only for the step discs.
 - **Don't** add ambient or looping motion, or scroll-triggered motion beyond the one reveal. Every other animation answers a reader's action, except the bounded page-turn hint.
 - **Don't** add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset.
