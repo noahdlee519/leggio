@@ -1247,11 +1247,13 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+/* The services' own marks (one-colour, from Simple Icons), in the plaque's gilt */
+.translator__icon--logo { width: 30px; height: 30px; margin-block: 2px 8px; fill: currentColor; stroke: none; }
 .translator__name {
   font: 700 1rem/1.25 var(--font-sc);
   letter-spacing: 0.03em;
-  text-wrap: balance;
 }
+.translator__line { display: block; } /* every name takes two lines, so the plaques match */
 .translator__how {
   font: italic 400 0.9375rem/1.35 var(--font-text);
   text-wrap: balance;
@@ -1557,6 +1559,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
     text-align: left;
   }
   .translator__icon { grid-row: span 2; margin: 0; align-self: center; }
+  .translator__line { display: inline; }
   .footer__grid { grid-template-columns: minmax(0, 1fr); }
   .button { width: 100%; }
   .nav .button { width: auto; }
