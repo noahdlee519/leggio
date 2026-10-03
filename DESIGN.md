@@ -297,7 +297,7 @@ Motion answers something the reader did. The build has no ambient or looping ani
 
 - **Curve.** One curve for anything that moves: `ease-out` (cubic-bezier(0.23, 1, 0.32, 1)). Colour-only changes use plain `ease`. The one exception is the played page turn, which travels across the screen and uses a cubic ease-in-out.
 - **Page turn (the signature moment).** Covered in full under Components › Page Turn. In short: the leaf follows the pointer 1:1 while dragged, a played turn takes 820ms ease-in-out, and releasing finishes or lays the leaf back down in 180–520ms ease-out.
-- **Changing cloth (600ms ease).** Background, text, stamp and border colours cross-fade together whenever the volume changes: the body cloth, spread boards, plate board, footer, headline, lede, chapter lines, plate captions, step numbers, ribbon, bookplate and ornament.
+- **Changing cloth (600ms ease).** Background, text, stamp and border colours cross-fade together whenever the volume changes: the body cloth, spread boards, plate board, footer, headline, lede, chapter lines, step numbers, ribbon, translator plaques and ornament.
 - **Swapping the text (170ms).** Passage, notes, running heads, chapter, attribution and line numbers fade to 0 with a 3px blur. The script waits 170ms, swaps the text, then fades back in.
 - **Gloss slip.** Opens in 180ms (opacity, blur 2px to 0) with a 240ms ease-out settle from `translateY(4px) scale(0.96)`, scaled from the selected word as its origin. Closes faster: 120ms opacity and 140ms transform, then it is hidden after 140ms. Moving between words while a slip is open repositions it with no animation.
 - **Ink-in (560ms ease-out).** A newly saved entry on the facing page is revealed left to right with `clip-path: inset(0 100% 0 0)` while its opacity rises from 0.4 to 1, like ink going onto the page.
@@ -385,7 +385,7 @@ The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` 
 - **Wordmark** (Alegreya SC 700, 1.4rem, 0.05em, stamp).
 - **Button** (Alegreya Sans 700, 1.0625rem/1.15, 0.01em; 0.95rem in the nav) and **label-control** (Alegreya Sans 700, 0.9375rem/1, for the save button). Step numerals are 0.9375rem at 700.
 - **Nav** (Alegreya Sans 500, 1.0625rem) for header and footer links, the text link (700) and the privacy meta line. The contents links are 500 at 0.96875rem/1.35.
-- **Caption** (Alegreya Sans 400, 1.0625rem/1.45, on-cloth): the shelf note, led by a run-in "Try it." in gilt Alegreya SC 700. Plate captions are Alegreya italic 0.9375rem in pencil after a small-caps "Plate I." in cloth-ink. The footer tagline is 400 at 1rem.
+- **Caption** (Alegreya Sans 400, 1.0625rem/1.45, on-cloth): the shelf note, led by a run-in "Try it." in gilt Alegreya SC 700. The footer tagline is 400 at 1rem.
 - **Fine print** (Alegreya Sans 400, 0.875rem/1.55, max 88ch): footer credits. Book titles in it are Alegreya italic, and the Japanese title stays upright in the JP face.
 - **Numeral** (Alegreya 400, 0.8125rem, oldstyle): folios, margin line numbers and the "l. 3" references on the facing page. Attributions are Alegreya italic at 0.875rem.
 
@@ -481,7 +481,6 @@ Buttons are solid, quiet, and honest about whether they work.
 - **Primary, on cloth:** Slip White with cloth-ink lettering, raised by the button shadow. This is the store button in the hero and the closing.
 - **Nav, on cloth:** a small button (40px, 9px 16px, 0.95rem) filled with on-cloth and lettered in cloth-ink.
 - **Pending (no store listing yet):** the script removes `href`, and the button stops being shaped or coloured like one: no fill, ring, padding or height, just a notice in on-cloth-2 Alegreya SC 500 at 1rem (0.06em), left-aligned in the hero and centred in the closing. Gilt stays with links that work, so the notice never reads as one. It reads "Coming soon to the Chrome Web Store". The default arrow cursor, no hover, no press. The nav drops its pending button entirely.
-- **Hero's next step:** beside the store button (or notice), a gilt text link, "See how it works →", to the plates. Button and link sit in one wrapping row (18px × 32px gaps).
 - **Live (`config.js` has a store URL):** the label changes to "Add to Chrome" or "Add Leggio to Chrome", the button gets `.is-live`, presses scale to 0.97, and the primary deepens its shadow on hover.
 - **Phones:** live buttons go full width, except in the nav.
 - **Focus:** a 2px outline, offset 3px, 3px radius, in the ring colour (on-cloth on cloth).
@@ -534,7 +533,7 @@ A slip of brighter paper laid beside the word.
 ### Spines and Shelf
 
 A shelf of volumes is the language switcher.
-- **Spine:** 46×132px (flexible, up to 64×118 on phones), in its own language's cloth, whatever cloth the page is wearing. It has cylindrical shading over the weave, gilt head and tail bands, and a vertical Alegreya SC title in stamp (Italiano, Español, Français, Deutsch, 日本語). The chosen volume wears the page's own cloth, so it also carries a ribbon marker: an 8×21px tail in its stamp colour with a V-cut end, hanging from the foot of the spine into the gap its lift leaves (fades in over 260ms).
+- **Spine:** 46×132px (flexible, up to 64×118 on phones), in its own language's cloth, whatever cloth the page is wearing. It has cylindrical shading over the weave, gilt head and tail bands, and a vertical Alegreya SC title in stamp (Italiano, Español, Français, Deutsch, 日本語). The chosen volume wears the page's own cloth, so it also carries a ribbon marker: an 11×21px tail in its stamp colour with a V-cut end, coming out from under the foot of the spine (it starts 1px below the edge, shaded where the book's shadow falls on it, so it reads as behind the book, not on it) and hanging into the gap its lift leaves (fades in over 260ms).
 - **Shelf:** spines 5px apart, standing on a 3px plank (cloth-deep mixed 80% with black). The selected spine stands 16px proud, hover lifts a spine 6px, and a press scales it to 0.98.
 - **Hero shelf:** an ARIA tablist controlling the spread, with arrow, Home and End keys. Its focus ring is on-cloth. Beside it is a caption, "Try it. Select any word in the book to see what it means. Drag the page, or pick a book, to change language."
 - **Language count:** "+34 more languages" in gilt Alegreya SC 700 at 0.9375rem, pinned to the top right of the spines (below them, right-aligned, on phones). 34 is the 39 languages in Chrome's Translator list minus the five volumes shown.
@@ -549,10 +548,9 @@ Paper pages laid on the cloth: the preface and "Notes on use".
 
 ### Plates and Steps
 
-"How to read with Leggio" is a page of plates: three real screenshots of the extension, each above its step.
+"How to read with Leggio" is a page of plates: three real screenshots of the extension, each above its step, uncaptioned (the step says what it shows).
 - **Plates:** Plate I, an Italian web page (Pinocchio on Wikisource) with a word's slip and the edition's woodcut; Plate II, the slip in Leggio's PDF reader with its "This sentence" translation; Plate III, the "Your words" panel. All three are cropped from 2× captures to one shape (15:16) with the slips at nearly one zoom, so they read as a set and the interface text stays legible, and served as WebP at 375 and 750px. Where a crop cuts through lines of page text (both edges of Plate I, the left of Plate II), the cut fades into the page's white over 70–160px, never across the slip, so no chopped word reads as broken. Nothing in them is mocked up.
 - **Board:** each screenshot is tipped in on a board of the volume's cloth: weave, 4px radius, recessed inset shadow, clamp(10px, 1.4vw, 18px) padding. The screenshot has a 2px radius, a hairline and a tipped-in drop shadow.
-- **Caption:** "Plate I." in cloth-ink Alegreya SC, then what it shows in italic pencil ("A web page", "A PDF in Leggio's reader", "Your words").
 - **Steps:** a counter list; each step is a 30px cloth-ink disc, a title-step heading and a 1.125rem pencil description (max 38ch), under its plate.
 - **Layout:** three columns (gap clamp(28px, 3.5vw, 48px)) so the section fits about one screen. Plate, heading and description share rows across the three (CSS subgrid), so the descriptions start level even when a heading wraps. Below 900px they stack, each plate at most 420px wide.
 
@@ -561,11 +559,11 @@ Paper pages laid on the cloth: the preface and "Notes on use".
 The privacy promise, printed on the cloth as facts.
 - Lead: a headline in on-cloth (max 14ch), paragraphs in on-cloth-2 (max 48ch), and a text link to the policy.
 - **Facts:** a definition list with a stamp hairline at 60% above it and a stamp hairline at 35% under each row. Each row is a 10.5rem term column (Alegreya SC 700, stamp) beside a value (1.1875rem, on-cloth), padded 20px top and bottom. The rows stack on phones.
-- **Bookplate:** under the facts, centred in their column, an ex-libris plate stamped in gilt on the cloth (200×224px): a double frame with concave corners (1.6px outer, 0.8px inner), "Ex libris" in Alegreya SC 700 tracked 0.2em, the wordmark's book-on-lectern at 64px, and the ornament rule. A 1px dark drop shadow presses it into the cloth. It says the reading is yours without another sentence, so it is hidden on phones, where it would fill a screen.
+- **Translators:** under the facts, three gilt-framed plaques in a row, one per translator Leggio can use: "Chrome's built-in AI" (a chip mark; "On your device, free"), "DeepL" and "Google Cloud Translation" (a key mark; "With your own API key"). Each is a 1.5px stamp border with a 0.75px inner rule 6px in (3px radius), a 34px line mark, the name in Alegreya SC 700 at 1rem and the use in italic on-cloth-2, both balanced. They are set in the site's own letters, not the services' logos (their brand rules restrict logo use, and Leggio uses Google Cloud Translation, not the Google Translate app). On phones each plaque becomes a row: mark, then name over use.
 
 ### Closing
 
-Centred on the cloth: the ornament rule in stamp, a display-closing headline, a lede, the primary store button, and the closing shelf.
+Centred on the cloth: the ornament rule in stamp, a display-closing headline, the primary store button (or its pending notice), and the closing shelf.
 
 ### Privacy Document
 

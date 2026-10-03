@@ -347,14 +347,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   transition: color 600ms ease;
 }
 
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 18px 32px;
-  margin-top: 36px;
-}
-.hero__actions .textlink { margin-top: 0; }
+.hero__actions { margin-top: 36px; }
 
 /* ---------- The book ---------- */
 
@@ -955,12 +948,13 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
    so the chosen volume stands out even though it wears the same cloth as the page */
 .spine__ribbon {
   position: absolute;
-  top: calc(100% - 3px);
-  left: calc(50% - 4px);
-  width: 8px;
+  top: calc(100% + 1px); /* starts under the spine's edge, never over it */
+  left: calc(50% - 5.5px);
+  width: 11px;
   height: 21px;
-  background: currentColor;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+  /* the book's shadow falls on the ribbon where it comes out from under the book */
+  background: linear-gradient(rgb(0 0 0 / 0.5), rgb(0 0 0 / 0.12) 5px, transparent 9px), currentColor;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 76%, 0 100%);
   opacity: 0;
   transition: opacity 260ms ease;
 }
@@ -1119,18 +1113,6 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   background: var(--paper-bright);
   box-shadow: 0 0 0 1px rgb(0 0 0 / 0.1), 0 2px 0 rgb(0 0 0 / 0.06), 0 18px 30px -18px rgb(0 0 0 / 0.6);
 }
-.plate figcaption {
-  margin-top: 12px;
-  font: italic 400 0.9375rem/1.4 var(--font-text);
-  color: var(--ink-2);
-}
-.plate__no {
-  margin-right: 0.3em;
-  font: normal 500 0.875rem/1 var(--font-sc);
-  letter-spacing: 0.06em;
-  color: var(--cloth-ink);
-  transition: color 600ms ease;
-}
 
 .step__text {
   position: relative;
@@ -1229,50 +1211,52 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   color: var(--on-cloth);
 }
 
-/* An ex-libris plate stamped in gilt on the cloth: whatever you read and save is yours */
-.bookplate {
-  position: relative;
+/* The translators Leggio can use, as gilt-framed plaques under the facts: on the device by
+   default, or DeepL or Google Cloud Translation with the reader's own key. Set in the
+   site's own letters, not the services' logos. */
+.translators {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.translator {
   display: grid;
   justify-items: center;
-  align-content: center;
-  justify-self: center;
-  width: 200px;
-  height: 224px;
-  margin: 0;
+  align-content: start;
+  gap: 6px;
+  padding: 22px 14px 20px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  outline: 0.75px solid currentColor;
+  outline-offset: -6px;
   color: var(--stamp);
+  text-align: center;
   filter: drop-shadow(0 1px 0 rgb(0 0 0 / 0.35));
   transition: color 600ms ease;
 }
-.bookplate__frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.translator__icon {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 6px;
   fill: none;
   stroke: currentColor;
-}
-.bookplate__ex {
-  margin-right: -0.2em; /* balances the tracking */
-  font: 700 0.9375rem/1 var(--font-sc);
-  letter-spacing: 0.2em;
-}
-.bookplate__mark {
-  width: 64px;
-  height: 64px;
-  margin-top: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 0.8;
+  stroke-width: 1.2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.bookplate__rule {
-  width: 84px;
-  height: 10px;
-  margin-top: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.1;
+.translator__name {
+  font: 700 1rem/1.25 var(--font-sc);
+  letter-spacing: 0.03em;
+  text-wrap: balance;
+}
+.translator__how {
+  font: italic 400 0.9375rem/1.35 var(--font-text);
+  text-wrap: balance;
+  color: var(--on-cloth-2);
+  transition: color 600ms ease;
 }
 
 /* ---------- Closing ---------- */
@@ -1562,14 +1546,24 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
   .leaf { border-radius: 2px; }
   .colophon__facts > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-  .bookplate { display: none; } /* on a phone it would fill a screen and say nothing new */
+  /* On phones each plaque is a row: its mark, then its name over how it's used */
+  .translators { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .translator {
+    grid-template-columns: 30px minmax(0, 1fr);
+    justify-items: start;
+    column-gap: 16px;
+    row-gap: 2px;
+    padding: 16px 18px;
+    text-align: left;
+  }
+  .translator__icon { grid-row: span 2; margin: 0; align-self: center; }
   .footer__grid { grid-template-columns: minmax(0, 1fr); }
   .button { width: 100%; }
   .nav .button { width: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cloth, .spread::before, .wordmark, .hero h1, .hero__lede, .chapter, .notes__word, .shelf__note, .spines, .footer, .plate__board, .plate__no, .step__text::before, .entry__head, .entry__n, .bookplate, .ornament { transition-duration: 1ms; }
+  .cloth, .spread::before, .wordmark, .hero h1, .hero__lede, .chapter, .notes__word, .shelf__note, .spines, .footer, .plate__board, .step__text::before, .entry__head, .entry__n, .translator, .translator__how, .ornament { transition-duration: 1ms; }
   .gloss, .gloss.is-open { transform: none; filter: none; transition: opacity 120ms ease; }
   .spine, .spine[aria-selected="true"], .spine:not([aria-selected="true"]):hover { transition: none; }
   .notes li.is-new { animation: fade-in 200ms ease both; }

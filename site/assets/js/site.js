@@ -35,7 +35,7 @@
 
   /* ---------- Reveals: blocks below the fold fade up as they come into view ---------- */
 
-  const revealable = $$(".leaf__runhead, .leaf h2, .preface__body > p, .preface__coda, .step > *, .colophon__lead > *, .colophon__facts > div, .bookplate, .closing__inner > *");
+  const revealable = $$(".leaf__runhead, .leaf h2, .preface__body > p, .preface__coda, .step > *, .colophon__lead > *, .colophon__facts > div, .translator, .closing__inner > *");
   if (revealable.length && "IntersectionObserver" in window) {
     const revealer = new IntersectionObserver(
       (entries) => {

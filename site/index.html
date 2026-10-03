@@ -52,9 +52,6 @@
           <p class="hero__lede">Leggio is a free Chrome extension for language learners. Select a word and translate it with one hotkey.</p>
           <div class="hero__actions">
             <a class="button button--primary" data-store-link data-label-live="Add to Chrome" data-label-pending="Coming soon to the Chrome Web Store">Coming soon to the Chrome Web Store</a>
-            <a class="textlink" href="#how">See how it works
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
           </div>
         </div>
 
@@ -164,7 +161,6 @@
               <div class="plate__board">
                 <img class="plate__shot" src="/assets/img/plate-web-375.webp" srcset="/assets/img/plate-web-375.webp 375w, /assets/img/plate-web-750.webp 750w" sizes="(max-width: 899px) min(calc(100vw - 96px), 420px), 330px" width="375" height="400" loading="lazy" decoding="async" alt="An Italian web page of Pinocchio with the word falegname selected, and Leggio’s slip beside it: Italian to English, falegname, carpenter, and a Save word button.">
               </div>
-              <figcaption><span class="plate__no">Plate I.</span> A web page</figcaption>
             </figure>
             <div class="step__text">
               <h3>Open something worth reading</h3>
@@ -176,7 +172,6 @@
               <div class="plate__board">
                 <img class="plate__shot" src="/assets/img/plate-slip-375.webp" srcset="/assets/img/plate-slip-375.webp 375w, /assets/img/plate-slip-750.webp 750w" sizes="(max-width: 899px) min(calc(100vw - 96px), 420px), 330px" width="375" height="400" loading="lazy" decoding="async" alt="A PDF in Leggio’s reader with the word legno selected. Its slip reads: legno, wood. This sentence: C’era una volta un pezzo di legno. Once upon a time there was a piece of wood.">
               </div>
-              <figcaption><span class="plate__no">Plate II.</span> A PDF in Leggio’s reader</figcaption>
             </figure>
             <div class="step__text">
               <h3>Select what stops you</h3>
@@ -188,7 +183,6 @@
               <div class="plate__board">
                 <img class="plate__shot" src="/assets/img/plate-words-375.webp" srcset="/assets/img/plate-words-375.webp 375w, /assets/img/plate-words-750.webp 750w" sizes="(max-width: 899px) min(calc(100vw - 96px), 420px), 330px" width="375" height="400" loading="lazy" decoding="async" alt="Leggio’s Your words panel: saved Italian words with their meanings, accendere light and riscaldare heat, each with the sentence it came from.">
               </div>
-              <figcaption><span class="plate__no">Plate III.</span> Your words</figcaption>
             </figure>
             <div class="step__text">
               <h3>Keep the words worth keeping</h3>
@@ -216,15 +210,23 @@
         <div><dt>Account</dt><dd>None. Install it and start reading</dd></div>
         <div><dt>Tracking</dt><dd>None. No analytics, no ads</dd></div>
       </dl>
-      <figure class="bookplate" aria-hidden="true">
-        <svg class="bookplate__frame" viewBox="0 0 200 224">
-          <path stroke-width="1.6" d="M15 1H185A14 14 0 0 0 199 15V209A14 14 0 0 0 185 223H15A14 14 0 0 0 1 209V15A14 14 0 0 0 15 1Z"/>
-          <path stroke-width="0.8" d="M18 8H182A10 10 0 0 0 192 18V206A10 10 0 0 0 182 216H18A10 10 0 0 0 8 206V18A10 10 0 0 0 18 8Z"/>
-        </svg>
-        <span class="bookplate__ex">Ex libris</span>
-        <svg class="bookplate__mark" viewBox="0 0 24 24"><path d="M3.5 6.2c3-1 5.8-.6 8.5 1.1 2.7-1.7 5.5-2.1 8.5-1.1v9.4c-3-1-5.8-.6-8.5 1.1-2.7-1.7-5.5-2.1-8.5-1.1z"/><path d="M12 7.3v9.4M12 16.7V21M8.5 21h7"/></svg>
-        <svg class="bookplate__rule" viewBox="0 0 120 12"><path d="M0 6h50M70 6h50"/><path d="M60 1l5 5-5 5-5-5z"/></svg>
-      </figure>
+      <ul class="translators" aria-label="Translators Leggio can use">
+        <li class="translator">
+          <svg class="translator__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/></svg>
+          <span class="translator__name">Chrome’s built-in AI</span>
+          <span class="translator__how">On your device, free</span>
+        </li>
+        <li class="translator">
+          <svg class="translator__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15.5" r="4.5"/><path d="M11.3 12.2L20 3.5M16.6 6.9l2.6 2.6M14.2 9.3l2 2"/></svg>
+          <span class="translator__name">DeepL</span>
+          <span class="translator__how">With your own API key</span>
+        </li>
+        <li class="translator">
+          <svg class="translator__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15.5" r="4.5"/><path d="M11.3 12.2L20 3.5M16.6 6.9l2.6 2.6M14.2 9.3l2 2"/></svg>
+          <span class="translator__name">Google Cloud Translation</span>
+          <span class="translator__how">With your own API key</span>
+        </li>
+      </ul>
       </div>
     </div>
   </section>
@@ -233,7 +235,6 @@
     <div class="container closing__inner">
       <svg class="ornament" viewBox="0 0 120 12" aria-hidden="true"><path d="M0 6h50M70 6h50"/><path d="M60 1l5 5-5 5-5-5z"/></svg>
       <h2 id="closing-title">Pick up the book you’ve been putting off</h2>
-      <p>Leggio will keep the translation beside it.</p>
       <a class="button button--primary" data-store-link data-label-live="Add Leggio to Chrome" data-label-pending="Coming soon to the Chrome Web Store">Coming soon to the Chrome Web Store</a>
       <div class="shelf shelf--closing">
         <div class="spines" id="closing-spines" role="group" aria-label="Open a demo volume"></div>
