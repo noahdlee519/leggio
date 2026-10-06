@@ -69,9 +69,9 @@ The landing page's demo shows a "select a word, see its translation and the sent
 The book in the hero is a working demo: pick a volume from the shelf (each language has its own cloth colour, like a series of bilingual editions), select any word, and save it to the facing page. The translations are written by hand for the demo, and the texts are credited in the footer. Each book's facing page holds up to five saved words. The texts are public domain:
 
 - Carlo Collodi, *Le avventure di Pinocchio* (1883)
-- Miguel de Cervantes, *Don Quijote* (1605)
+- Božena Němcová, *Babička* (1855)
 - Marcel Proust, *Du côté de chez Swann* (1913)
-- Franz Kafka, *Die Verwandlung* (1915)
+- Multatuli, *Max Havelaar* (1860)
 - Natsume Sōseki, *吾輩は猫である* (1905), set vertically as in a Japanese book
 
 The shelf's "+34 more languages" label counts the 39 languages in Chrome's built-in Translator list (Chinese Simplified and Traditional counted separately) minus the five shown. If Leggio supports a different set, change the number in `site/index.html`.

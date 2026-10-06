@@ -10,7 +10,7 @@ related_targets: ["site/privacy/index.html"]
 Scope: `site/index.html` (Persuade) and `site/privacy/index.html` (Read, inherits the world).
 Audience: language learners past the beginner stage who read real material in desktop Chrome.
 Job: understand Leggio in seconds, believe it keeps them reading in the original and keeps their text private, and add it to Chrome (store link pending, "coming soon" state until then).
-Proof: a working demo on public-domain openings (Collodi, Cervantes, Proust, Kafka, Sōseki) with authored glosses, labelled as a demo. No testimonials, counts or pricing exist; none may be invented.
+Proof: a working demo on public-domain openings (Collodi, Němcová, Proust, Multatuli, Sōseki) with authored glosses, labelled as a demo. No testimonials, counts or pricing exist; none may be invented.
 Constraints: static HTML/CSS/JS, no third-party requests, Vercel/Netlify, WCAG 2.2 AA, CJK text in the demo.
 Chosen direction: Facing pages (user choice; the rolled assigned direction was "The part on the stand").
 Memorable moment: tapping a word writes its gloss onto the facing page at its line number.
@@ -20,7 +20,7 @@ Open: store URL, contact email, exact interaction model and feature list from LE
 
 THESIS: A parallel-text edition that only translates what you ask for. Refuses the extension-page default (browser mockup, three feature cards, gradient) and the cream-paper serif bookish default.
 
-OWN-WORLD: Saturated bookcloth owns the page, one cloth per language like a series colour-coded by source language (Italian bottle green, Spanish carmine, French Prussian blue, German ochre, Japanese murasaki). Bright white India-paper pages with gutter shade, black ink, gilt stamped lettering. Alegreya, Alegreya SC running heads, Alegreya Sans for controls. Margin line numbers, spines as the language switcher, colophon for privacy.
+OWN-WORLD: Saturated bookcloth owns the page, one cloth per language like a series colour-coded by source language (Italian bottle green, Czech carmine, French Prussian blue, Dutch ochre, Japanese murasaki). Bright white India-paper pages with gutter shade, black ink, gilt stamped lettering. Alegreya, Alegreya SC running heads, Alegreya Sans for controls. Margin line numbers, spines as the language switcher, colophon for privacy.
 
 STORY: The visitor sees a real passage in the original, taps a word, reads its meaning, saves it to the facing page, understands the translation is a support and runs on-device, and adds Leggio to Chrome.
 

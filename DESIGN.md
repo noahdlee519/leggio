@@ -17,24 +17,24 @@ colors:
   on-cloth-it: "#f6f3ea"
   on-cloth-it-2: "rgb(246 243 234 / 0.8)"
   stamp-it: "#e4c57e"
-  cloth-es: "#8a1c2b"
-  cloth-es-deep: "#67131f"
-  cloth-es-ink: "#8a1c2b"
-  on-cloth-es: "#f8f1ea"
-  on-cloth-es-2: "rgb(248 241 234 / 0.82)"
-  stamp-es: "#efcf8c"
+  cloth-cs: "#8a1c2b"
+  cloth-cs-deep: "#67131f"
+  cloth-cs-ink: "#8a1c2b"
+  on-cloth-cs: "#f8f1ea"
+  on-cloth-cs-2: "rgb(248 241 234 / 0.82)"
+  stamp-cs: "#efcf8c"
   cloth-fr: "#1c3963"
   cloth-fr-deep: "#132946"
   cloth-fr-ink: "#1c3963"
   on-cloth-fr: "#f3f2ee"
   on-cloth-fr-2: "rgb(243 242 238 / 0.8)"
   stamp-fr: "#e6c987"
-  cloth-de: "#c5962c"
-  cloth-de-deep: "#a47b1d"
-  cloth-de-ink: "#6f500e"
-  on-cloth-de: "#1f1708"
-  on-cloth-de-2: "rgb(31 23 8 / 0.93)"
-  stamp-de: "#2a1e07"
+  cloth-nl: "#c5962c"
+  cloth-nl-deep: "#a47b1d"
+  cloth-nl-ink: "#6f500e"
+  on-cloth-nl: "#1f1708"
+  on-cloth-nl-2: "rgb(31 23 8 / 0.93)"
+  stamp-nl: "#2a1e07"
   cloth-ja: "#4a2c5a"
   cloth-ja-deep: "#351f41"
   cloth-ja-ink: "#4a2c5a"
@@ -277,7 +277,7 @@ components:
 
 **Creative North Star: "The Parallel-Text Edition"**
 
-Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and glossary leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt (or blind-stamped, on the ochre German volume). The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.
+Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and glossary leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt (or blind-stamped, on the ochre Dutch volume). The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.
 
 The page is composed from book furniture rather than web components. The language switcher is a shelf of spines. Saved words go to the facing page, keyed by line number. Privacy is a colophon of plain facts. The ornament that closes the page is a printer's rule with a lozenge. Nothing is a card, and nothing is a feature grid. Density is low and readerly: long measures of 34 to 68ch, generous leaf margins, one idea per surface.
 
@@ -286,7 +286,7 @@ The world refuses two defaults by name: the browser-extension landing page (brow
 **Key Characteristics:**
 - Five language cloths, one per volume; the whole page recolours when the reader picks a spine.
 - Woven cloth texture built from SVG turbulence, luminance-only, blended over a flat cloth colour.
-- Near-white paper pages with gutter shade, stacked page edges and real page furniture.
+- Near-white paper pages with gutter shade and real page furniture.
 - Three members of one type family: Alegreya to read, Alegreya SC for page furniture, Alegreya Sans for controls. A Noto Serif JP subset covers the Japanese.
 - Every word in the demo is a button; its gloss is a paper slip that never covers the facing page.
 - Honest states: the demo credits its public-domain texts in the footer, and the store link stays visibly pending until it exists.
@@ -305,7 +305,7 @@ Motion answers something the reader did. The build has no ambient or looping ani
 - **Presses.** Live buttons scale to 0.97 on `:active`, the slip's corner tools to 0.94. Buttons move in 160ms ease-out, and their colour and shadow change in 200ms ease.
 - **Small responses.** Word highlight 140ms. Nav underline grows from the left in 220ms ease-out. The text-link arrow nudges 3px in 200ms. The privacy contents rail changes in 160ms.
 - **Arrival (on open, every page).** The cloth is there from the first frame; the type and the book settle onto it. The nav fades in (600ms). The headline, lede and actions follow at 80, 160 and 240ms, each fading in while rising 10px (760ms ease-out). The book lands at 160ms, rising 16px over 800ms, so it has arrived before its first gloss opens at one second. The privacy title, its meta line and the document, and the 404's lines, use the same 80ms steps. It is pure CSS (`settle`, filling backwards only), so nothing waits on script and every element ends fully visible with no transform left behind.
-- **Opening the book (on open, landing page).** The book arrives shut: only the right half of the case shows, with a cloth cover over the facing page (the case's cloth-deep and weave, a hinge shade at the spine, a gilt double rule, and the volume's title in Alegreya SC 700 over its author in italic). 650ms after load the cover swings over the spine (1000ms ease-in-out) and lands as the left board, straight to the passage: its inside carries the passage's own left page, set where that page lies, so no other page is ever shown. It is the page turn's own leaf, shades and cast. The left half of the case appears as the cover passes upright. The start word's gloss opens a second after it lands, and the arrow and the page-lift hint count from then. On stacked (phone) pages only the cover lifts away (900ms). Any pointer, key, wheel or touch finishes it at once, as does a resize that changes the book's width. It never plays with reduced motion, in a hidden tab, or when the book isn't in view at load.
+- **Opening the book (on open, landing page).** The book arrives shut: only the right half of the case shows, with a cloth cover over the facing page (the case's cloth-deep, one flat colour with no weave, a gilt double rule, and the volume's title in Alegreya SC 700 over its author in italic). 650ms after load the cover swings over the spine (1000ms ease-in-out) and lands as the left board, straight to the passage: its inside carries the passage's own left page, set where that page lies, so no other page is ever shown. It is the page turn's own leaf, shades and cast. The left half of the case appears as the cover passes upright. The start word's gloss opens a second after it lands, and the arrow and the page-lift hint count from then. On stacked (phone) pages only the cover lifts away (900ms). Any pointer, key, wheel or touch finishes it at once, as does a resize that changes the book's width. It never plays with reduced motion, in a hidden tab, or when the book isn't in view at load.
 - **Reveals (on scroll, landing page).** Below the fold, each block fades in while rising 18px as it comes into view (700ms opacity, 900ms transform, ease-out): the leaves' running heads and headlines, the preface paragraphs, the plate, each step, the colophon's lead and facts, and each part of the closing. Blocks arriving together follow one another 90ms apart (at most 360ms). The two paper leaves themselves grow into place: they start at 94% (from their top centre) and transparent, and settle in 650ms (opacity 420ms), with their contents arriving as above. The translator plaques fade in one after another, 150ms apart, rising 8px (opacity 520ms, transform 620ms). Which blocks wait is measured once the fonts have loaded. A block plays once, and is then handed back to its own styles. site.js only hides blocks that start below the fold, so nothing in view at load ever blinks, and without script nothing is hidden. The privacy policy has no reveals: it is read, not browsed.
 - **Reduced motion.** There is no 3D turn: corners, spines and swipes change volume with the plain swap. Cloth changes become effectively instant (1ms). The slip keeps only a 120ms opacity fade, with no transform or blur. Spines stop moving. Ink-in becomes a 200ms fade. The swap skips its blur and its 170ms delay. Smooth scrolling (the root `scroll-behavior` and the closing shelf's `scrollIntoView`) turns off. Arrival and reveals keep their fade but drop the rise and the growth, in 400ms. The book doesn't open; it is simply there, open.
 
@@ -322,9 +322,9 @@ The primary colour is whichever cloth is active. Components read it through six 
 | Volume | Cloth | Deep (boards, footer) | Cloth-ink (cloth colour on paper) | On-cloth (lettering) | On-cloth-2 (secondary lettering) | Stamp (gilt) |
 |---|---|---|---|---|---|---|
 | Italiano: **Bottle Green** | #1f4e3d | #163b2e | #1f4e3d | #f6f3ea | rgb(246 243 234 / 0.8) | #e4c57e |
-| Español: **Carmine** | #8a1c2b | #67131f | #8a1c2b | #f8f1ea | rgb(248 241 234 / 0.82) | #efcf8c |
+| Čeština: **Carmine** | #8a1c2b | #67131f | #8a1c2b | #f8f1ea | rgb(248 241 234 / 0.82) | #efcf8c |
 | Français: **Prussian Blue** | #1c3963 | #132946 | #1c3963 | #f3f2ee | rgb(243 242 238 / 0.8) | #e6c987 |
-| Deutsch: **Ochre** | #c5962c | #a47b1d | #6f500e (Umber) | #1f1708 (Lamp Black) | rgb(31 23 8 / 0.93) | #2a1e07 (blind stamp) |
+| Nederlands: **Ochre** | #c5962c | #a47b1d | #6f500e (Umber) | #1f1708 (Lamp Black) | rgb(31 23 8 / 0.93) | #2a1e07 (blind stamp) |
 | 日本語: **Murasaki** | #4a2c5a | #351f41 | #4a2c5a | #f5f0f2 | rgb(245 240 242 / 0.8) | #e8cc94 |
 
 - **Cloth** is the full-bleed ground (body, colophon, closing, 404, the privacy header), the spine body, the plate board and the gloss save button.
@@ -352,7 +352,7 @@ The primary colour is whichever cloth is active. Components read it through six 
 
 ### The cloth material
 
-The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` fractal-noise layers make the threads: the warp at `baseFrequency .95 .05` (seed 4) and the weft at `.05 .95` (seed 9), each with 2 octaves and stitched tiles. They are averaged (`arithmetic k2 .5 k3 .5`), fully desaturated, and compressed into a mid-grey band (`slope .95, intercept .025`) at full alpha. The tile is laid as `background-image` over a flat `background-color: var(--cloth)` with `background-blend-mode: soft-light`. Because the texture carries luminance only, the hue always comes from the cloth token. That is what lets the page cross-fade from green to carmine while the weave stays still. The same texture appears on every cloth surface: the body, the spread's boards (over `--cloth-deep`), the spines (under a cylindrical shading gradient), the plate board and the footer.
+The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` fractal-noise layers make the threads: the warp at `baseFrequency .95 .05` (seed 4) and the weft at `.05 .95` (seed 9), each with 2 octaves and stitched tiles. They are averaged (`arithmetic k2 .5 k3 .5`), fully desaturated, and compressed into a mid-grey band (`slope .95, intercept .025`) at full alpha. The tile is laid as `background-image` over a flat `background-color: var(--cloth)` with `background-blend-mode: soft-light`. Because the texture carries luminance only, the hue always comes from the cloth token. That is what lets the page cross-fade from green to carmine while the weave stays still. The same texture appears on the cloth the page is made of: the body, the plate boards and the footer. The book itself is smooth so it stands apart from the cloth it lies on: the spread's boards and the opening cover are one flat cloth-deep, and the spines carry only their cylindrical shading, like leather over boards.
 
 ### Named Rules
 
@@ -360,7 +360,7 @@ The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` 
 
 **The Cloth-Ink Rule.** Cloth colour set on paper always goes through `--cloth-ink`, never `--cloth`. For four volumes the two are the same. Ochre (#c5962c) is too light to read on paper, so its cloth-ink is umber (#6f500e).
 
-**The Ochre Exception.** German is the one light cloth, so its lettering and stamp invert to near-black (#1f1708, #2a1e07): a blind stamp instead of gilt. On the darker ochre footer board the lettering goes full-strength (#140e03) for both primary and secondary text, to stay above 4.5:1. Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.
+**The Ochre Exception.** Dutch is the one light cloth, so its lettering and stamp invert to near-black (#1f1708, #2a1e07): a blind stamp instead of gilt. On the darker ochre footer board the lettering goes full-strength (#140e03) for both primary and secondary text, to stay above 4.5:1. Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.
 
 ## Typography
 
@@ -435,12 +435,12 @@ Depth is physical, not interface. Anything with a shadow is a real object: the b
 
 Supporting devices:
 - **Gutter shade.** Pages darken toward the binding with a gradient: `rgb(40 30 10 / 0.12–0.14)` at the gutter, fading to 0.03 at 26px and clear by 60px. Leaves use 0.1 fading to 0.02 at 30px and clear by 72px. On phones the shade runs top and bottom where the pages meet.
-- **Page edges.** A 7px strip of alternating 1px lines (#f6f4ee / #dedad0) sits under the spread. Leaves carry the same idea as three 1px zero-blur rules (#e4e1d8, paper, #dedad0) directly beneath them: the thickness of the paper, never a sideways offset. These greys are literal values, not tokens.
-- **Boards.** The spread sits on its cloth boards, which run 9 to 13px past the pages, with a 5px radius, in cloth-deep plus the weave.
+- **Page edges.** The open spread shows no stack of pages under it: it is the one open page, nothing more. Leaves carry three 1px zero-blur rules (#e4e1d8, paper, #dedad0) directly beneath them: the thickness of the paper, never a sideways offset. These greys are literal values, not tokens.
+- **Boards.** The spread sits on its boards, which run 9 to 13px past the pages, with a 5px radius, in flat cloth-deep (no weave).
 
 ### Shadow Vocabulary
 
-- **Book block** (`filter: drop-shadow(0 34px 34px rgb(0 0 0 / 0.28)) drop-shadow(0 6px 10px rgb(0 0 0 / 0.18))`): the open spread, including its boards and page edges.
+- **Book block** (`filter: drop-shadow(0 34px 34px rgb(0 0 0 / 0.28)) drop-shadow(0 6px 10px rgb(0 0 0 / 0.18))`): the open spread, including its boards.
 - **Leaf** (`0 1px 0 #e4e1d8, 0 2px 0 var(--paper), 0 3px 0 #dedad0, 0 30px 50px -28px rgb(0 0 0 / 0.5), 0 8px 16px -8px rgb(0 0 0 / 0.25)`): page edges plus a pooled drop.
 - **Slip** (`0 0 0 1px rgb(28 27 25 / 0.08), 0 4px 10px -2px rgb(28 27 25 / 0.14), 0 22px 44px -14px rgb(28 27 25 / 0.4)`): the gloss slip and the plate's miniature slip. A hairline edge, a contact shadow and a lift.
 - **Spine** (`0 0 0 1px rgb(0 0 0 / 0.2), 0 8px 16px -8px rgb(0 0 0 / 0.55)`), plus a cylindrical shading gradient across the spine's face.
@@ -507,7 +507,7 @@ An open bilingual edition, drawn near life size.
 
 ### Page Turn (signature)
 
-Turning a page moves to the next volume (Italiano → Español → Français → Deutsch → 日本語 → back to Italiano); turning back goes the other way.
+Turning a page moves to the next volume (Italiano → Čeština → Français → Nederlands → 日本語 → back to Italiano); turning back goes the other way.
 - **Leaf.** A 3D leaf hinged on the gutter (`perspective: 2400px`, `transform-style: preserve-3d`). Its front is a snapshot of the page being lifted and its back is the next volume's page on that side, so when it lands it simply becomes the new page. The page it lands on stays in place underneath until it is covered, and the next volume's other page is already rendered where the leaf lifts away. The leaf lifts toward the reader by up to 28px (`translateZ`, following sin p).
 - **Light.** One ink for all turn shading, `rgb(24 18 8 / a)`. The front darkens toward its free edge (up to 0.42 alpha, reaching full strength by half-way). The back is shaded toward the gutter (0.38) and clears as it lands. The uncovered page carries a cast shadow from the gutter (0.34 falling to transparent), strongest mid-turn.
 - **Gesture.** A horizontal drag of at least 10px, and at least 1.3× more horizontal than vertical, starts a turn; vertical movement stays a scroll (`touch-action: pan-y`). Dragging left turns forward, right turns back. The leaf follows the pointer across 1.6 page widths. On release it finishes if it is past half-way or flicked faster than 0.3px/ms, and otherwise lays back down, over 180–520ms ease-out scaled to the distance left. Pointer capture holds the drag, and a drag never also counts as a click on the word it started on.
@@ -535,7 +535,7 @@ A slip of brighter paper laid beside the word.
 ### Spines and Shelf
 
 A shelf of volumes is the language switcher.
-- **Spine:** 46×132px (flexible, up to 64×118 on phones), in its own language's cloth, whatever cloth the page is wearing. It has cylindrical shading over the weave, gilt head and tail bands, and a vertical Alegreya SC title in stamp (Italiano, Español, Français, Deutsch, 日本語). The chosen volume wears the page's own cloth, so it also carries a ribbon marker: an 11×21px tail in its stamp colour with a V-cut end, coming out from under the foot of the spine (it starts 1px below the edge, shaded where the book's shadow falls on it, so it reads as behind the book, not on it) and hanging into the gap its lift leaves (fades in over 260ms).
+- **Spine:** 46×132px (flexible, up to 64×118 on phones), in its own language's cloth, whatever cloth the page is wearing. It is smooth (no weave), with cylindrical shading, gilt head and tail bands, and a vertical Alegreya SC title in stamp (Italiano, Čeština, Français, Nederlands, 日本語; a name longer than eight letters, Nederlands, is set at 0.875rem and 0.03em so it fits a phone's spine). The chosen volume wears the page's own cloth, so it also carries a ribbon marker: an 11×21px tail in its stamp colour with a V-cut end, coming out from under the foot of the spine (it starts 1px below the edge, shaded where the book's shadow falls on it, so it reads as behind the book, not on it) and hanging into the gap its lift leaves (fades in over 260ms).
 - **Shelf:** spines 5px apart, standing on a 3px plank (cloth-deep mixed 80% with black). The selected spine stands 16px proud, hover lifts a spine 6px, and a press scales it to 0.98.
 - **Hero shelf:** an ARIA tablist controlling the spread, with arrow, Home and End keys. Its focus ring is on-cloth. Beside it is a caption, "Try it. Select any word in the book to see what it means. Drag the page, or pick a book, to change language."
 - **Language count:** "+34 more languages" in gilt Alegreya SC 700 at 0.9375rem, pinned to the top right of the spines (below them, right-aligned, on phones). 34 is the 39 languages in Chrome's Translator list minus the five volumes shown.

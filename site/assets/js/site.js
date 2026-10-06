@@ -164,7 +164,7 @@
     b.className = "spine";
     b.dataset.cloth = p.id;
     const title = document.createElement("span");
-    title.className = "spine__title";
+    title.className = "spine__title" + (p.tab.length > 8 ? " spine__title--long" : ""); // Nederlands
     title.lang = p.lang;
     title.textContent = p.tab;
     // The book you're reading keeps its ribbon marker hanging out of the tail
@@ -1173,7 +1173,7 @@
   /* Listen and copy, as in the extension's slip. Listening uses only voices installed on
      the device (never a browser's network voice), so the site still makes no requests
      beyond itself. */
-  const LANGUAGE = { it: "Italian", es: "Spanish", fr: "French", de: "German", ja: "Japanese" };
+  const LANGUAGE = { it: "Italian", cs: "Czech", fr: "French", nl: "Dutch", ja: "Japanese" };
   const hasSpeech = "speechSynthesis" in window;
   const localVoice = (lang) => {
     const voices = hasSpeech ? speechSynthesis.getVoices().filter((v) => v.localService && v.lang.toLowerCase().split(/[-_]/)[0] === lang) : [];
