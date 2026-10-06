@@ -652,6 +652,74 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .turn--prev .turn__shade--front { background: linear-gradient(to right, rgb(24 18 8 / 0.42), rgb(24 18 8 / 0.1) 55%, rgb(24 18 8 / 0.04)); }
 .turn--next .turn__shade--back { background: linear-gradient(to right, rgb(24 18 8 / 0.38), rgb(24 18 8 / 0.08) 60%, transparent); }
 .turn--prev .turn__shade--back { background: linear-gradient(to left, rgb(24 18 8 / 0.38), rgb(24 18 8 / 0.08) 60%, transparent); }
+/* Opening the book on arrival (see site.js). Shut: only the right half of the case shows and
+   the pages wait; then the cover and a few leaves turn over the spine. */
+.spread.is-closed::before,
+.spread.is-closed::after { clip-path: inset(0 0 0 50%); } /* the case and the page edges, right half only */
+.spread.is-shut > .page,
+.spread.is-opening > .page--original,
+.spread.is-arriving > .dogear,
+.spread.is-arriving > .drag-hint,
+.spread.is-arriving > .gloss { visibility: hidden; }
+/* The cover: the case's cloth, with the volume's title and author stamped in gilt in a double
+   rule, and a little shade where it hinges at the spine */
+.turn__cover {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 40px 36px;
+  border-radius: 2px 5px 5px 2px;
+  background-color: var(--cloth-deep);
+  background-image: linear-gradient(to right, rgb(0 0 0 / 0.28), rgb(0 0 0 / 0.06) 18px, transparent 40px), var(--cloth-tex);
+  background-blend-mode: normal, soft-light;
+  color: var(--stamp);
+  text-align: center;
+}
+.turn__cover::before {
+  content: "";
+  position: absolute;
+  inset: 18px 18px 18px 22px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+  outline: 0.75px solid currentColor;
+  outline-offset: -6px;
+  opacity: 0.8;
+}
+.turn__cover-title {
+  max-width: 13ch;
+  font: 700 clamp(1.25rem, 1rem + 0.8vw, 1.625rem)/1.15 var(--font-sc);
+  letter-spacing: 0.05em;
+  text-wrap: balance;
+  filter: drop-shadow(0 1px 0 rgb(0 0 0 / 0.35));
+}
+.turn__cover-author { font: italic 400 1rem/1.3 var(--font-text); opacity: 0.85; }
+/* Its inside: the case's turn-in round a pasted-down endpaper, where the page will lie */
+.turn__inside {
+  border-radius: 5px 2px 2px 5px;
+  background-color: var(--cloth-deep);
+  background-image: var(--cloth-tex);
+  background-blend-mode: soft-light;
+}
+.turn__inside::after {
+  content: "";
+  position: absolute;
+  inset: 9px 0 13px 12px;
+  background: var(--paper);
+  box-shadow: inset -14px 0 18px -14px rgb(40 30 10 / 0.25);
+}
+/* The leaves riffled past: paper with the grey of lines of type */
+.turn__blank {
+  border-radius: 2px;
+  background: var(--paper);
+}
+.turn__blank::before {
+  content: "";
+  position: absolute;
+  inset: 16% 15% 20%;
+  background: repeating-linear-gradient(to bottom, transparent 0 17px, rgb(28 27 25 / 0.11) 17px 20px, transparent 20px 29px);
+}
+
 /* The shadow the lifted leaf casts on the page it uncovers */
 .turn--next .turn__cast { inset: auto; background: linear-gradient(to right, rgb(24 18 8 / 0.34), rgb(24 18 8 / 0.08) 40%, transparent 75%); }
 .turn--prev .turn__cast { inset: auto; background: linear-gradient(to left, rgb(24 18 8 / 0.34), rgb(24 18 8 / 0.08) 40%, transparent 75%); }
@@ -1421,6 +1489,111 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   color: #5a4306;
 }
 
+/* ---------- Install (before the store listing) ---------- */
+
+.install-hero__lede { max-width: 46ch; font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); }
+.install-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  margin-top: 32px;
+}
+.install-hero__file {
+  font: 500 1rem/1.4 var(--font-ui);
+  color: var(--on-cloth-2);
+}
+
+.install { padding-block: clamp(48px, 7vw, 88px) clamp(80px, 10vw, 128px); }
+/* Four steps, each a numbered disc in house green beside its heading and instructions */
+.install-steps {
+  list-style: none;
+  padding: 0;
+  counter-reset: step;
+  display: grid;
+  gap: clamp(28px, 4vw, 40px);
+}
+.install-steps li {
+  position: relative;
+  padding-left: 52px;
+  counter-increment: step;
+}
+.install-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--house);
+  color: #f6f3ea;
+  font: 700 1rem/1 var(--font-ui);
+  font-variant-numeric: lining-nums;
+}
+.doc__body .install-steps h2 {
+  margin: 0 0 6px;
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+}
+.doc__body .install-steps li + li { margin-top: 0; }
+.install-steps b,
+.install-notes b { font-weight: 700; }
+
+/* The address to type, with a copy button beside it */
+.doc__body .install-address {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+.install-address code {
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 1px var(--rule);
+  font: 500 1.0625rem/1.2 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color: var(--ink);
+}
+.install-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--house) 55%, transparent);
+  color: var(--house);
+  font: 700 0.9375rem/1 var(--font-ui);
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms var(--ease-out);
+}
+.install-copy .icon { width: 17px; height: 17px; }
+.install-copy:active { transform: scale(0.97); }
+.install-copy.is-copied { background: color-mix(in srgb, var(--house) 10%, transparent); }
+@media (hover: hover) and (pointer: fine) {
+  .install-copy:hover { background: color-mix(in srgb, var(--house) 8%, transparent); }
+}
+.install-copy:focus-visible { outline: 2px solid var(--house); outline-offset: 3px; }
+
+.install-notes {
+  margin-top: clamp(48px, 6vw, 72px);
+  padding-top: clamp(28px, 3.5vw, 36px);
+  border-top: 1px solid var(--rule);
+}
+.doc__body .install-notes h2 { margin-top: 0; }
+.install-notes kbd {
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: var(--paper-bright);
+  box-shadow: inset 0 0 0 1px var(--rule), 0 1px 0 var(--rule);
+  font: 700 0.9em/1.2 var(--font-ui);
+}
+
 /* ---------- 404 ---------- */
 
 .notfound {
@@ -1468,6 +1641,20 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   opacity: 1;
   transform: none;
   transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+/* The paper leaves grow from a little smaller into their place; the translator plaques
+   fade in one after another (site.js counts them off, 150ms apart) */
+.reveal.reveal--grow { transform: scale(0.94); transform-origin: 50% 0; }
+.reveal.reveal--grow.is-in {
+  transform: none;
+  transition: opacity 420ms var(--ease-out), transform 650ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.reveal--fade { transform: translateY(8px); }
+.reveal.reveal--fade.is-in {
+  transform: none;
+  transition: opacity 520ms ease, transform 620ms var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
 @media print {
@@ -1578,7 +1765,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .dogear::before, .dogear::after { transition: none; }
   .drag-hint { transition-duration: 200ms; }
   .site-header > .nav, .hero__copy > *, .hero__book, .doc-hero .container > *, .doc, .notfound > * { --settle-rise: 0px; animation-duration: 400ms; }
-  .reveal { transform: none; }
-  .reveal.is-in { transition: opacity 400ms ease; transition-delay: var(--reveal-delay, 0ms); }
+  .reveal, .reveal.reveal--grow, .reveal.reveal--fade { transform: none; }
+  .reveal.is-in, .reveal.reveal--grow.is-in, .reveal.reveal--fade.is-in { transition: opacity 400ms ease; transition-delay: var(--reveal-delay, 0ms); }
 }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }

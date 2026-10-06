@@ -13,8 +13,14 @@
     if (cfg.chromeStoreUrl) {
       el.href = cfg.chromeStoreUrl;
       el.rel = "noopener";
+      el.removeAttribute("download");
       el.textContent = el.dataset.labelLive || "Add to Chrome";
       el.classList.add("is-live");
+    } else if (cfg.installUrl) {
+      // Before the store listing: the install page (or, on it, the download itself)
+      el.href = el.dataset.earlyHref || cfg.installUrl;
+      el.textContent = el.dataset.labelEarly || "Download for Chrome";
+      el.classList.add("is-live", "is-early");
     } else {
       el.removeAttribute("href");
       el.textContent = el.dataset.labelPending || "Coming soon";
@@ -29,42 +35,75 @@
     el.classList.remove("is-pending", "doc__pending");
   });
 
+  // Copy buttons (the install page's chrome://extensions, which no page may link to)
+  $$("[data-copy]").forEach((btn) => {
+    const label = btn.querySelector("span");
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+        if (label) label.textContent = "Copied";
+        btn.classList.add("is-copied");
+        window.setTimeout(() => {
+          if (label) label.textContent = "Copy";
+          btn.classList.remove("is-copied");
+        }, 1600);
+      } catch (err) {
+        /* clipboard refused: the address is right there to select */
+      }
+    });
+  });
+
   $$("[data-year]").forEach((el) => {
     el.textContent = String(new Date().getFullYear());
   });
 
-  /* ---------- Reveals: blocks below the fold fade up as they come into view ---------- */
+  /* ---------- Reveals: blocks below the fold arrive as they come into view ----------
+     Most fade up. The paper leaves grow from a little smaller to their full size, and the
+     translator plaques fade in one after another. */
 
-  const revealable = $$(".leaf__runhead, .leaf h2, .preface__body > p, .preface__coda, .step > *, .colophon__lead > *, .colophon__facts > div, .translator, .closing__inner > *");
+  const revealable = [
+    ...$$(".leaf").map((el) => [el, "grow"]),
+    ...$$(".translator").map((el) => [el, "fade"]),
+    ...$$(".leaf__runhead, .leaf h2, .preface__body > p, .preface__coda, .step > *, .colophon__lead > *, .colophon__facts > div, .closing__inner > *").map((el) => [el, ""]),
+  ];
   if (revealable.length && "IntersectionObserver" in window) {
     const revealer = new IntersectionObserver(
       (entries) => {
+        let n = 0;
+        let plaques = 0;
         entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left)
-          .forEach((entry, i) => {
+          .forEach((entry) => {
             const el = entry.target;
             revealer.unobserve(el);
-            const delay = Math.min(i, 4) * 90; // blocks arriving together follow one another
+            // Blocks arriving together follow one another; the plaques keep their own count
+            const delay = el.classList.contains("reveal--fade") ? plaques++ * 150 : el.classList.contains("reveal--grow") ? 0 : Math.min(n++, 4) * 90;
             el.style.setProperty("--reveal-delay", delay + "ms");
             el.classList.add("is-in");
             // Once it has arrived, hand the block back to its own styles and transitions
             setTimeout(() => {
-              el.classList.remove("reveal", "is-in");
+              el.classList.remove("reveal", "reveal--grow", "reveal--fade", "is-in");
               el.style.removeProperty("--reveal-delay");
             }, delay + 950);
           });
       },
       { rootMargin: "0px 0px -8% 0px" }
     );
-    // Only blocks that start below the fold; anything already in view is left alone
-    const fold = window.innerHeight * 0.92;
-    revealable
-      .filter((el) => el.getBoundingClientRect().top > fold)
-      .forEach((el) => {
-        el.classList.add("reveal");
-        revealer.observe(el);
-      });
+    // Only blocks that start below the fold; anything already in view is left alone. Measured
+    // once the type has loaded, since the fonts move everything below the hero.
+    const arm = () => {
+      const fold = window.innerHeight * 0.92;
+      revealable
+        .filter(([el]) => el.getBoundingClientRect().top > fold)
+        .forEach(([el, kind]) => {
+          el.classList.add("reveal");
+          if (kind) el.classList.add("reveal--" + kind);
+          revealer.observe(el);
+        });
+    };
+    const fontsReady = document.fonts?.ready ?? Promise.resolve();
+    Promise.race([fontsReady, new Promise((r) => setTimeout(r, 1000))]).then(arm);
   }
 
   /* ---------- The demo book ---------- */
@@ -236,9 +275,11 @@
     if (initial) {
       applyChrome(p, { announce: false });
       showPassage(p);
+      const opens = prepareOpening();
       requestAnimationFrame(() => {
         layoutLines();
-        scheduleStart(true);
+        if (opens) beginOpening();
+        else scheduleStart(true);
       });
       return;
     }
@@ -571,6 +612,151 @@
     { passive: false }
   );
 
+  /* ---------- Opening the book ----------
+     On arrival the book is closed, its cloth cover on the right, lettered with the volume's
+     title. It opens on its own: the cover swings over the spine and a few leaves riffle after
+     it, as if opened at a random page, the last one landing as the passage. The start word's
+     gloss follows a second later. It is the same leaf a turn uses. Any input finishes it at
+     once; it never plays with reduced motion, or when the book isn't in view at load. On
+     stacked (phone) pages only the cover lifts away. */
+
+  const OPEN_AT_MS = 650; // after load: the closed book has faded in and been seen
+  const OPEN_KEYS = [
+    [0, 900], // [delay, duration] for the cover,
+    [380, 640], // two leaves riffled past,
+    [520, 640],
+    [660, 800], // and the leaf that lands as the passage's page
+  ];
+  const OPEN_STACKED_MS = 900;
+  let opening = null;
+  let openingEnds = 0; // when the opening will be over, so the arrow and the page-lift wait for it
+  const openingLeft = () => Math.max(0, openingEnds - performance.now());
+
+  function prepareOpening() {
+    const r = spread.getBoundingClientRect();
+    const inView = r.top < window.innerHeight * 0.8 && r.bottom > 0;
+    if (!animate() || !inView || document.hidden) return false;
+    // Closed until the leaves are built: the pages hidden, and (side by side) only the right
+    // half of the case showing, like a book lying shut
+    spread.classList.add("is-arriving", "is-shut");
+    if (!docked()) spread.classList.add("is-opening", "is-closed");
+    openingEnds = performance.now() + OPEN_AT_MS + (docked() ? OPEN_STACKED_MS : 1460) + 200;
+    return true;
+  }
+
+  const make2 = (cls, text, lang) => {
+    const d = make(cls);
+    if (text) d.textContent = text;
+    if (lang) d.lang = lang;
+    return d;
+  };
+
+  function beginOpening() {
+    const start = () => {
+      if (!spread.classList.contains("is-arriving")) return; // the visitor already skipped it
+      const [L, R] = pageBoxes();
+      const stacked = Math.abs(L.x - R.x) < 2;
+      if (!stacked && R.el !== pageFacing) return endOpening(); // vertical Japanese binds on the right
+      const overlay = make("turn turn--next turn--opening");
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.inert = true;
+      const leaves = [];
+      const addLeaf = (box, front, back, backHeight) => {
+        const leaf = place(make("turn__leaf"), box);
+        leaf.style.transformOrigin = "0 50%";
+        const frontShade = make("turn__shade turn__shade--front");
+        front.append(frontShade);
+        let backShade = null;
+        if (back) {
+          backShade = make("turn__shade turn__shade--back");
+          back.append(backShade);
+          if (backHeight) {
+            back.style.bottom = "auto";
+            back.style.height = backHeight + "px";
+          }
+          leaf.append(front, back);
+        } else {
+          leaf.append(front);
+        }
+        const cast = stacked ? null : place(make("turn__cast"), R);
+        leaves.push({ leaf, frontShade, backShade, cast, stacked, dir: "next", autoplay: false, chrome: true, p: 0 });
+      };
+      const cover = make("turn__face turn__cover");
+      cover.append(make2("turn__cover-title", current.title, current.lang), make2("turn__cover-author", current.author));
+
+      if (stacked) {
+        // The whole stacked spread under one cover, over the case's margins
+        addLeaf({ x: -7, y: -7, w: spread.clientWidth + 14, h: spread.clientHeight + 17 }, cover, null);
+      } else {
+        // The cover is the case: it overhangs the page as the boards do (9px, 12px, 13px)
+        addLeaf({ x: R.x, y: R.y - 9, w: R.w + 12, h: R.h + 22 }, cover, make("turn__face turn__face--back turn__inside"));
+        addLeaf(R, make("turn__face turn__blank"), make("turn__face turn__face--back turn__blank"));
+        addLeaf(R, make("turn__face turn__blank"), make("turn__face turn__face--back turn__blank"));
+        const last = make("turn__face turn__face--back");
+        last.append(fill(snapshot(pageOriginal, current.id)));
+        addLeaf(R, make("turn__face turn__blank"), last, L.h);
+      }
+      // The pile on the right has the cover on top; on the left, whatever lands last is
+      leaves.forEach((t, i) => {
+        if (t.cast) overlay.append(t.cast);
+        overlay.append(t.leaf);
+        setTurn(0, t);
+      });
+      const order = (t, i) => {
+        const z = t.p < 0.5 ? 100 - 2 * i : 200 + 2 * i;
+        t.leaf.style.zIndex = z;
+        if (t.cast) t.cast.style.zIndex = z - 1;
+      };
+      leaves.forEach(order);
+      spread.append(overlay);
+      spread.classList.remove("is-shut");
+
+      opening = { overlay, raf: 0, width: spread.clientWidth };
+      const t0 = performance.now() + Math.max(0, OPEN_AT_MS - (performance.now() - loadedAt));
+      const keys = stacked ? [[0, OPEN_STACKED_MS]] : OPEN_KEYS;
+      const total = Math.max(...keys.map(([d, ms]) => d + ms));
+      openingEnds = t0 + total;
+      const step = (now) => {
+        if (!opening) return;
+        const at = now - t0;
+        leaves.forEach((t, i) => {
+          const [delay, ms] = keys[i];
+          const k = Math.min(1, Math.max(0, (at - delay) / ms));
+          setTurn(easeInOut(k), t);
+          order(t, i);
+        });
+        // Past upright, the cover is over the spine: the left half of the case is open
+        if (leaves[0].p >= 0.5) spread.classList.remove("is-closed");
+        if (at >= total) return endOpening();
+        opening.raf = requestAnimationFrame(step);
+      };
+      opening.raf = requestAnimationFrame(step);
+    };
+    // Measure once the type has settled, so every leaf matches the page it stands for
+    const fontsReady = document.fonts?.ready ?? Promise.resolve();
+    Promise.race([fontsReady, new Promise((r) => setTimeout(r, 1200))]).then(() => requestAnimationFrame(start));
+  }
+
+  function endOpening() {
+    if (opening) {
+      cancelAnimationFrame(opening.raf);
+      opening.overlay.remove();
+      opening = null;
+    }
+    if (!spread.classList.contains("is-arriving")) return;
+    spread.classList.remove("is-arriving", "is-shut", "is-opening", "is-closed");
+    openingEnds = performance.now();
+    scheduleStart(true);
+  }
+  const loadedAt = performance.now();
+  // The reader's hand takes over: any input, or a resize that moves the pages, finishes it
+  ["pointerdown", "keydown", "wheel", "touchstart"].forEach((type) =>
+    window.addEventListener(type, () => spread.classList.contains("is-arriving") && endOpening(), { capture: true, passive: true })
+  );
+  window.addEventListener("resize", () => {
+    if (opening && Math.abs(spread.clientWidth - opening.width) > 2) endOpening();
+  });
+
   /* ---------- The page-turn hint ----------
      The one motion nobody asked for, and a documented exception to the Answer-Only Motion
      Rule: once the book has sat in view, untouched, for a few seconds, the right-hand page
@@ -597,20 +783,20 @@
   function schedulePeek() {
     window.clearTimeout(peekTimer);
     if (peeksPlayed >= PEEK_IDLE_MS.length || !bookInView || !animate() || document.hidden) return;
-    peekTimer = window.setTimeout(playPeek, PEEK_IDLE_MS[peeksPlayed]);
+    peekTimer = window.setTimeout(playPeek, PEEK_IDLE_MS[peeksPlayed] + openingLeft());
   }
 
   /* The drag hint's other half: a small curved arrow, blind-stamped into the paper by the
      folded corner. It fades in a few seconds after the book comes into view (with reduced
      motion too: it doesn't move) and fades away for good at the first turn. */
   const dragHint = $("#drag-hint");
-  const ARROW_AFTER_MS = 2200; // after the gloss opens (1s), before the page lifts (3.5s)
+  const ARROW_AFTER_MS = 2200; // after the gloss opens (1s), before the page lifts (3.5s); both count from the book's opening
   let arrowTimer = 0;
   let arrowRetired = false;
 
   function scheduleArrow() {
     if (!dragHint || arrowRetired || arrowTimer || dragHint.classList.contains("is-shown")) return;
-    arrowTimer = window.setTimeout(() => dragHint.classList.add("is-shown"), ARROW_AFTER_MS);
+    arrowTimer = window.setTimeout(() => dragHint.classList.add("is-shown"), ARROW_AFTER_MS + openingLeft());
   }
 
   function retireHints() {
@@ -635,7 +821,7 @@
   }
 
   function playPeek() {
-    if (peek || turn || drag || !current || spread.classList.contains("is-swapping")) return schedulePeek();
+    if (peek || turn || drag || !current || spread.classList.contains("is-swapping") || spread.classList.contains("is-arriving")) return schedulePeek();
     const [L, R] = pageBoxes();
     // Only a right-hand facing page lifts: not stacked pages, and not the page the gloss is on
     // (vertical Japanese binds on the right, which puts the original there)
