@@ -20,7 +20,7 @@ Open: store URL, contact email, exact interaction model and feature list from LE
 
 THESIS: A parallel-text edition that only translates what you ask for. Refuses the extension-page default (browser mockup, three feature cards, gradient) and the cream-paper serif bookish default.
 
-OWN-WORLD: Saturated bookcloth owns the page, one cloth per language like a series colour-coded by source language (Italian bottle green, Czech carmine, French Prussian blue, Dutch ochre, Japanese murasaki). Bright white India-paper pages with gutter shade, black ink, gilt stamped lettering. Alegreya, Alegreya SC running heads, Alegreya Sans for controls. Margin line numbers, spines as the language switcher, colophon for privacy.
+OWN-WORLD: Saturated bookcloth owns the page, one cloth per language like a series colour-coded by source language (Italian bottle green, Czech carmine, French Prussian blue, Dutch burnt orange, Japanese murasaki). Bright white India-paper pages with gutter shade, black ink, gilt stamped lettering. Alegreya, Alegreya SC running heads, Alegreya Sans for controls. Margin line numbers, spines as the language switcher, colophon for privacy.
 
 STORY: The visitor sees a real passage in the original, taps a word, reads its meaning, saves it to the facing page, understands the translation is a support and runs on-device, and adds Leggio to Chrome.
 

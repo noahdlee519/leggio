@@ -29,12 +29,12 @@ colors:
   on-cloth-fr: "#f3f2ee"
   on-cloth-fr-2: "rgb(243 242 238 / 0.8)"
   stamp-fr: "#e6c987"
-  cloth-nl: "#c5962c"
-  cloth-nl-deep: "#a47b1d"
-  cloth-nl-ink: "#6f500e"
-  on-cloth-nl: "#1f1708"
-  on-cloth-nl-2: "rgb(31 23 8 / 0.93)"
-  stamp-nl: "#2a1e07"
+  cloth-nl: "#a84a14"
+  cloth-nl-deep: "#84390e"
+  cloth-nl-ink: "#a84a14"
+  on-cloth-nl: "#fbf1e6"
+  on-cloth-nl-2: "rgb(251 241 230 / 0.92)"
+  stamp-nl: "#fbe6b6"
   cloth-ja: "#4a2c5a"
   cloth-ja-deep: "#351f41"
   cloth-ja-ink: "#4a2c5a"
@@ -277,7 +277,7 @@ components:
 
 **Creative North Star: "The Parallel-Text Edition"**
 
-Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and glossary leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt (or blind-stamped, on the ochre Dutch volume). The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.
+Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and glossary leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt. The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.
 
 The page is composed from book furniture rather than web components. The language switcher is a shelf of spines. Saved words go to the facing page, keyed by line number. Privacy is a colophon of plain facts. The ornament that closes the page is a printer's rule with a lozenge. Nothing is a card, and nothing is a feature grid. Density is low and readerly: long measures of 34 to 68ch, generous leaf margins, one idea per surface.
 
@@ -324,7 +324,7 @@ The primary colour is whichever cloth is active. Components read it through six 
 | Italiano: **Bottle Green** | #1f4e3d | #163b2e | #1f4e3d | #f6f3ea | rgb(246 243 234 / 0.8) | #e4c57e |
 | Čeština: **Carmine** | #8a1c2b | #67131f | #8a1c2b | #f8f1ea | rgb(248 241 234 / 0.82) | #efcf8c |
 | Français: **Prussian Blue** | #1c3963 | #132946 | #1c3963 | #f3f2ee | rgb(243 242 238 / 0.8) | #e6c987 |
-| Nederlands: **Ochre** | #c5962c | #a47b1d | #6f500e (Umber) | #1f1708 (Lamp Black) | rgb(31 23 8 / 0.93) | #2a1e07 (blind stamp) |
+| Nederlands: **Burnt Orange** | #a84a14 | #84390e | #a84a14 | #fbf1e6 | rgb(251 241 230 / 0.92) | #fbe6b6 (pale gilt) |
 | 日本語: **Murasaki** | #4a2c5a | #351f41 | #4a2c5a | #f5f0f2 | rgb(245 240 242 / 0.8) | #e8cc94 |
 
 - **Cloth** is the full-bleed ground (body, colophon, closing, 404, the privacy header), the spine body, the plate board and the gloss save button.
@@ -358,9 +358,9 @@ The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` 
 
 **The One Cloth Rule.** One cloth per language, and the page wears the cloth of the open volume. Any element coloured by the cloth reads from the six cloth properties, never from a literal hex, so a single `data-cloth` change recolours everything in one 600ms move.
 
-**The Cloth-Ink Rule.** Cloth colour set on paper always goes through `--cloth-ink`, never `--cloth`. For four volumes the two are the same. Ochre (#c5962c) is too light to read on paper, so its cloth-ink is umber (#6f500e).
+**The Cloth-Ink Rule.** Cloth colour set on paper always goes through `--cloth-ink`, never `--cloth`. Today all five are dark enough to read on paper, so the two are the same; a lighter cloth would need a darker ink.
 
-**The Ochre Exception.** Dutch is the one light cloth, so its lettering and stamp invert to near-black (#1f1708, #2a1e07): a blind stamp instead of gilt. On the darker ochre footer board the lettering goes full-strength (#140e03) for both primary and secondary text, to stay above 4.5:1. Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.
+**The Orange Margin.** Burnt orange is the lightest cloth, so it runs closest to the line: its lettering is #fbf1e6 (5.2:1), its secondary lettering is held at 92% rather than 80% to stay above 4.5:1, and its gilt is paler (#fbe6b6, 4.7:1). Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.
 
 ## Typography
 
@@ -596,7 +596,7 @@ A full-cloth page titled "This page is out of print", with the wordmark, a line 
 ### Do:
 - **Do** let the cloth own every full-bleed surface on the landing page and the 404 (hero, colophon, closing, footer), and put paper only on objects laid on it: spread pages, leaves, the plate leaf, gloss slips.
 - **Do** colour anything cloth-coloured through `--cloth`, `--cloth-deep`, `--cloth-ink`, `--on-cloth`, `--on-cloth-2` and `--stamp`, so one `data-cloth` change recolours it with the rest of the page.
-- **Do** use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, step discs, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.
+- **Do** use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, step discs, focus rings on paper).
 - **Do** give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.
 - **Do** set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.
 - **Do** keep the demo honest: public-domain passages credited in the footer, glosses limited to what on-device translation gives (word, translation, sentence translation), the plate labelled as an illustration.
@@ -611,7 +611,7 @@ A full-cloth page titled "This page is out of print", with the wordmark, a line 
 - **Don't** let a gloss slip cover the facing page, at any width.
 - **Don't** make the demo, or any copy around it, claim more than the extension does. No invented features, languages, user counts, testimonials, reviews, pricing or screenshots, and no suggestion that the demo's glosses come from the live translator.
 - **Don't** make a pending button look clickable: no fill, no hover, no press, no `href`.
-- **Don't** set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.
+- **Don't** brighten the orange cloth toward a flag orange: below about #a84a14 light lettering on it falls under 4.5:1.
 - **Don't** stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.
 - **Don't** round anything past 7px or use pill shapes. Circles are only for the step discs.
 - **Don't** add ambient or looping motion, or scroll-triggered motion beyond the one reveal. Every other animation answers a reader's action, except the bounded page-turn hint.

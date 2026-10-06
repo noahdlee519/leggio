@@ -442,8 +442,8 @@
       },
       "cloth-nl": {
         "role": "primary",
-        "displayName": "Ochre Cloth",
-        "canonical": "#c5962c",
+        "displayName": "Burnt Orange Cloth",
+        "canonical": "#a84a14",
         "oklch": "oklch(70.0% 0.129 83.2)",
         "tonalRamp": [
           "#110a00",
@@ -458,15 +458,15 @@
       },
       "cloth-nl-deep": {
         "role": "primary",
-        "displayName": "Ochre Board",
-        "canonical": "#a47b1d",
+        "displayName": "Burnt Orange Board",
+        "canonical": "#84390e",
         "oklch": "oklch(60.8% 0.116 82.9)",
         "tonalRamp": [
           "#110a00",
           "#322201",
           "#563d01",
           "#7d5b05",
-          "#a47b1d",
+          "#84390e",
           "#c89e47",
           "#eec26d",
           "#ffecca"
@@ -474,8 +474,8 @@
       },
       "cloth-nl-ink": {
         "role": "primary",
-        "displayName": "Umber (Dutch cloth-ink)",
-        "canonical": "#6f500e",
+        "displayName": "Burnt Orange (Dutch cloth-ink)",
+        "canonical": "#a84a14",
         "oklch": "oklch(45.3% 0.088 80.7)",
         "tonalRamp": [
           "#110a00",
@@ -490,8 +490,8 @@
       },
       "on-cloth-nl": {
         "role": "neutral",
-        "displayName": "Lamp Black (Dutch lettering)",
-        "canonical": "#1f1708",
+        "displayName": "Cream (Dutch lettering)",
+        "canonical": "#fbf1e6",
         "oklch": "oklch(21.0% 0.029 82.0)",
         "tonalRamp": [
           "#110a00",
@@ -506,8 +506,8 @@
       },
       "on-cloth-nl-2": {
         "role": "neutral",
-        "displayName": "Secondary Lettering on Ochre",
-        "canonical": "rgb(31 23 8 / 0.93)",
+        "displayName": "Secondary Lettering on Burnt Orange",
+        "canonical": "rgb(251 241 230 / 0.92)",
         "oklch": "oklch(21.0% 0.029 82.0)",
         "tonalRamp": [
           "#110a00",
@@ -523,8 +523,8 @@
       },
       "stamp-nl": {
         "role": "secondary",
-        "displayName": "Blind Stamp (Dutch)",
-        "canonical": "#2a1e07",
+        "displayName": "Pale Gilt (Dutch)",
+        "canonical": "#fbe6b6",
         "oklch": "oklch(24.4% 0.041 81.3)",
         "tonalRamp": [
           "#120a00",
@@ -972,7 +972,7 @@
       "refersTo": "spine",
       "description": "The language switcher: five clothbound spines on a plank, each in its own language's cloth with gilt bands; the open volume stands 16px proud.",
       "html": "<div class=\"ds-cloth\"><div class=\"ds-spines\" role=\"tablist\" aria-label=\"Demo language\"><button class=\"ds-spine ds-spine--it\" role=\"tab\" aria-selected=\"true\"><span>Italiano</span></button><button class=\"ds-spine ds-spine--cs\" role=\"tab\" aria-selected=\"false\"><span>Čeština</span></button><button class=\"ds-spine ds-spine--fr\" role=\"tab\" aria-selected=\"false\"><span>Français</span></button><button class=\"ds-spine ds-spine--nl\" role=\"tab\" aria-selected=\"false\"><span>Nederlands</span></button><button class=\"ds-spine ds-spine--ja\" role=\"tab\" aria-selected=\"false\"><span lang=\"ja\">日本語</span></button></div></div>",
-      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-spines { display: inline-flex; align-items: flex-end; gap: 5px; padding: 20px 0 6px; border-bottom: 3px solid color-mix(in srgb, var(--cloth-deep, #163b2e) 80%, black); } .ds-spine { --c: #1f4e3d; --s: #e4c57e; position: relative; display: flex; align-items: center; justify-content: center; width: 46px; height: 132px; padding: 16px 0; border: 0; border-radius: 3px 3px 1px 1px; background-color: var(--c); background-image: linear-gradient(90deg, rgb(0 0 0 / 0.16), rgb(255 255 255 / 0.12) 22%, rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.08) 72%, rgb(0 0 0 / 0.3)), var(--cloth-tex, none); background-blend-mode: normal, soft-light; color: var(--s); writing-mode: vertical-rl; cursor: pointer; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2), 0 8px 16px -8px rgb(0 0 0 / 0.55); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-spine span { font: 700 1rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; } .ds-spine span:lang(ja) { font-family: var(--font-jp, 'Hiragino Mincho ProN', 'Yu Mincho', serif); font-weight: 600; letter-spacing: 0.12em; } .ds-spine::before, .ds-spine::after { content: ''; position: absolute; left: 7px; right: 7px; height: 0; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; padding-top: 2px; opacity: 0.85; } .ds-spine::before { top: 7px; } .ds-spine::after { bottom: 7px; } .ds-spine--it { --c: #1f4e3d; --s: #e4c57e; } .ds-spine--cs { --c: #8a1c2b; --s: #efcf8c; } .ds-spine--fr { --c: #1c3963; --s: #e6c987; } .ds-spine--nl { --c: #c5962c; --s: #2a1e07; } .ds-spine--ja { --c: #4a2c5a; --s: #e8cc94; } .ds-spine[aria-selected='true'] { transform: translateY(-16px); } .ds-spine:active { transform: translateY(-2px) scale(0.98); } @media (hover: hover) and (pointer: fine) { .ds-spine:not([aria-selected='true']):hover { transform: translateY(-6px); } } .ds-spine:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; } @media (prefers-reduced-motion: reduce) { .ds-spine { transition: none; } }"
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-spines { display: inline-flex; align-items: flex-end; gap: 5px; padding: 20px 0 6px; border-bottom: 3px solid color-mix(in srgb, var(--cloth-deep, #163b2e) 80%, black); } .ds-spine { --c: #1f4e3d; --s: #e4c57e; position: relative; display: flex; align-items: center; justify-content: center; width: 46px; height: 132px; padding: 16px 0; border: 0; border-radius: 3px 3px 1px 1px; background-color: var(--c); background-image: linear-gradient(90deg, rgb(0 0 0 / 0.16), rgb(255 255 255 / 0.12) 22%, rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.08) 72%, rgb(0 0 0 / 0.3)), var(--cloth-tex, none); background-blend-mode: normal, soft-light; color: var(--s); writing-mode: vertical-rl; cursor: pointer; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2), 0 8px 16px -8px rgb(0 0 0 / 0.55); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-spine span { font: 700 1rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; } .ds-spine span:lang(ja) { font-family: var(--font-jp, 'Hiragino Mincho ProN', 'Yu Mincho', serif); font-weight: 600; letter-spacing: 0.12em; } .ds-spine::before, .ds-spine::after { content: ''; position: absolute; left: 7px; right: 7px; height: 0; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; padding-top: 2px; opacity: 0.85; } .ds-spine::before { top: 7px; } .ds-spine::after { bottom: 7px; } .ds-spine--it { --c: #1f4e3d; --s: #e4c57e; } .ds-spine--cs { --c: #8a1c2b; --s: #efcf8c; } .ds-spine--fr { --c: #1c3963; --s: #e6c987; } .ds-spine--nl { --c: #a84a14; --s: #fbe6b6; } .ds-spine--ja { --c: #4a2c5a; --s: #e8cc94; } .ds-spine[aria-selected='true'] { transform: translateY(-16px); } .ds-spine:active { transform: translateY(-2px) scale(0.98); } @media (hover: hover) and (pointer: fine) { .ds-spine:not([aria-selected='true']):hover { transform: translateY(-6px); } } .ds-spine:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; } @media (prefers-reduced-motion: reduce) { .ds-spine { transition: none; } }"
     },
     {
       "name": "Open Spread",
@@ -1009,7 +1009,7 @@
   ],
   "narrative": {
     "northStar": "The Parallel-Text Edition",
-    "overview": "Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and glossary leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt (or blind-stamped, on the ochre Dutch volume). The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.\n\nThe page is composed from book furniture rather than web components. The language switcher is a shelf of spines. Saved words go to the facing page, keyed by line number. Privacy is a colophon of plain facts. The ornament that closes the page is a printer's rule with a lozenge. Nothing is a card, and nothing is a feature grid. Density is low and readerly: long measures of 34 to 68ch, generous leaf margins, one idea per surface.\n\nThe world refuses two defaults by name: the browser-extension landing page (browser-window mockup, three feature cards, gradient hero) and the cream-paper-and-serif bookish default. The paper here is near-white, and the colour lives in the cloth.",
+    "overview": "Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and glossary leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt. The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.\n\nThe page is composed from book furniture rather than web components. The language switcher is a shelf of spines. Saved words go to the facing page, keyed by line number. Privacy is a colophon of plain facts. The ornament that closes the page is a printer's rule with a lozenge. Nothing is a card, and nothing is a feature grid. Density is low and readerly: long measures of 34 to 68ch, generous leaf margins, one idea per surface.\n\nThe world refuses two defaults by name: the browser-extension landing page (browser-window mockup, three feature cards, gradient hero) and the cream-paper-and-serif bookish default. The paper here is near-white, and the colour lives in the cloth.",
     "keyCharacteristics": [
       "Five language cloths, one per volume; the whole page recolours when the reader picks a spine.",
       "Woven cloth texture built from SVG turbulence, luminance-only, blended over a flat cloth colour.",
@@ -1031,12 +1031,12 @@
       },
       {
         "name": "The Cloth-Ink Rule",
-        "body": "Cloth colour set on paper always goes through `--cloth-ink`, never `--cloth`. For four volumes the two are the same. Ochre (#c5962c) is too light to read on paper, so its cloth-ink is umber (#6f500e).",
+        "body": "Cloth colour set on paper always goes through `--cloth-ink`, never `--cloth`. Today all five are dark enough to read on paper, so the two are the same; a lighter cloth would need a darker ink.",
         "section": "colors"
       },
       {
-        "name": "The Ochre Exception",
-        "body": "Dutch is the one light cloth, so its lettering and stamp invert to near-black (#1f1708, #2a1e07): a blind stamp instead of gilt. Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.",
+        "name": "The Orange Margin",
+        "body": "Burnt orange is the lightest cloth, so it runs closest to the line: its lettering is #fbf1e6 (5.2:1), its secondary lettering is held at 92% rather than 80% to stay above 4.5:1, and its gilt is paler (#fbe6b6, 4.7:1). Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.",
         "section": "colors"
       },
       {
@@ -1088,7 +1088,7 @@
     "dos": [
       "Do let the cloth own every full-bleed surface on the landing page and the 404 (hero, colophon, closing, footer), and put paper only on objects laid on it: spread pages, leaves, the plate leaf, gloss slips.",
       "Do colour anything cloth-coloured through `--cloth`, `--cloth-deep`, `--cloth-ink`, `--on-cloth`, `--on-cloth-2` and `--stamp`, so one `data-cloth` change recolours it with the rest of the page.",
-      "Do use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, step discs, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.",
+      "Do use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, step discs, focus rings on paper).",
       "Do give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.",
       "Do set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.",
       "Do keep the demo honest: public-domain passages credited in the footer, glosses limited to what on-device translation gives (word, translation, sentence translation), the plate labelled as an illustration.",
@@ -1103,7 +1103,7 @@
       "Don't let a gloss slip cover the facing page, at any width.",
       "Don't make the demo, or any copy around it, claim more than the extension does. No invented features, languages, user counts, testimonials, reviews, pricing or screenshots, and no suggestion that the demo's glosses come from the live translator.",
       "Don't make a pending button look clickable: no fill, no hover, no press, no `href`.",
-      "Don't set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.",
+      "Don't brighten the orange cloth toward a flag orange: below about #a84a14 light lettering on it falls under 4.5:1.",
       "Don't stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.",
       "Don't round anything past 7px or use pill shapes. Circles are only for the step discs.",
       "Don't add ambient or looping motion, or scroll-triggered motion beyond the one reveal. Every other animation answers a reader's action, except the bounded page-turn hint.",

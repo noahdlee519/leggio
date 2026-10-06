@@ -91,14 +91,12 @@
 [data-cloth="it"] { --cloth: #1f4e3d; --cloth-deep: #163b2e; --cloth-ink: #1f4e3d; --on-cloth: #f6f3ea; --on-cloth-2: rgb(246 243 234 / 0.8); --stamp: #e4c57e; }
 [data-cloth="cs"] { --cloth: #8a1c2b; --cloth-deep: #67131f; --cloth-ink: #8a1c2b; --on-cloth: #f8f1ea; --on-cloth-2: rgb(248 241 234 / 0.82); --stamp: #efcf8c; }
 [data-cloth="fr"] { --cloth: #1c3963; --cloth-deep: #132946; --cloth-ink: #1c3963; --on-cloth: #f3f2ee; --on-cloth-2: rgb(243 242 238 / 0.8); --stamp: #e6c987; }
-[data-cloth="nl"] { --cloth: #c5962c; --cloth-deep: #a47b1d; --cloth-ink: #6f500e; --on-cloth: #1f1708; --on-cloth-2: rgb(31 23 8 / 0.93); --stamp: #2a1e07; }
+[data-cloth="nl"] { --cloth: #a84a14; --cloth-deep: #84390e; --cloth-ink: #a84a14; --on-cloth: #fbf1e6; --on-cloth-2: rgb(251 241 230 / 0.92); --stamp: #fbe6b6; }
 [data-cloth="ja"] { --cloth: #4a2c5a; --cloth-deep: #351f41; --cloth-ink: #4a2c5a; --on-cloth: #f5f0f2; --on-cloth-2: rgb(245 240 242 / 0.8); --stamp: #e8cc94; }
 
 /* Focus rings: light on cloth, cloth-ink on paper */
 .cloth, [data-sync-cloth], .footer { --ring: var(--on-cloth); }
 .leaf, .spread, .doc { --ring: var(--cloth-ink); }
-/* The Dutch footer sits on the darker ochre board: full-strength lettering keeps it above 4.5:1 */
-[data-cloth="nl"] .footer, .footer[data-cloth="nl"] { --on-cloth: #140e03; --on-cloth-2: #140e03; }
 
 /* ---------- Base ---------- */
 
