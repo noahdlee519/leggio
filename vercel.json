@@ -47,12 +47,17 @@
       "permanent": true
     },
     {
-      "source": "/install/:path*",
+      "source": "/install",
       "destination": "https://chromewebstore.google.com/detail/leggio/daehfmnbiigjkpmjldpjeleepoidmfdl",
       "permanent": false
     },
     {
-      "source": "/install",
+      "source": "/install/",
+      "destination": "https://chromewebstore.google.com/detail/leggio/daehfmnbiigjkpmjldpjeleepoidmfdl",
+      "permanent": false
+    },
+    {
+      "source": "/install/:path+",
       "destination": "https://chromewebstore.google.com/detail/leggio/daehfmnbiigjkpmjldpjeleepoidmfdl",
       "permanent": false
     },
