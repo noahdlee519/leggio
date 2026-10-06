@@ -1505,7 +1505,17 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .install-steps b,
 .install-notes b { font-weight: 700; }
 
-/* The address to type, with a copy button beside it */
+/* Chrome's own puzzle-piece extensions icon, inline in the text */
+.install-ext {
+  display: inline-block;
+  width: 1.05em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  vertical-align: -0.15em;
+  fill: var(--ink-2);
+}
+
+/* The address to paste, with a copy button beside it */
 .doc__body .install-address {
   display: flex;
   flex-wrap: wrap;
