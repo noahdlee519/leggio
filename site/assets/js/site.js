@@ -13,14 +13,8 @@
     if (cfg.chromeStoreUrl) {
       el.href = cfg.chromeStoreUrl;
       el.rel = "noopener";
-      el.removeAttribute("download");
       el.textContent = el.dataset.labelLive || "Add to Chrome";
       el.classList.add("is-live");
-    } else if (cfg.installUrl) {
-      // Before the store listing: the install page (or, on it, the download itself)
-      el.href = el.dataset.earlyHref || cfg.installUrl;
-      el.textContent = el.dataset.labelEarly || "Download for Chrome";
-      el.classList.add("is-live", "is-early");
     } else {
       el.removeAttribute("href");
       el.textContent = el.dataset.labelPending || "Coming soon";
@@ -33,24 +27,6 @@
     el.href = "mailto:" + cfg.contactEmail;
     el.textContent = el.dataset.labelLive || cfg.contactEmail;
     el.classList.remove("is-pending", "doc__pending");
-  });
-
-  // Copy buttons (the install page's chrome://extensions, which no page may link to)
-  $$("[data-copy]").forEach((btn) => {
-    const label = btn.querySelector("span");
-    btn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(btn.dataset.copy);
-        if (label) label.textContent = "Copied";
-        btn.classList.add("is-copied");
-        window.setTimeout(() => {
-          if (label) label.textContent = "Copy";
-          btn.classList.remove("is-copied");
-        }, 1600);
-      } catch (err) {
-        /* clipboard refused: the address is right there to select */
-      }
-    });
   });
 
   $$("[data-year]").forEach((el) => {

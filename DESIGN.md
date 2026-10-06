@@ -482,7 +482,6 @@ Buttons are solid, quiet, and honest about whether they work.
 - **Primary, on cloth:** Slip White with cloth-ink lettering, raised by the button shadow. This is the store button in the hero and the closing.
 - **Nav, on cloth:** a small button (40px, 9px 16px, 0.95rem) filled with on-cloth and lettered in cloth-ink.
 - **Pending (no store listing yet):** the script removes `href`, and the button stops being shaped or coloured like one: no fill, ring, padding or height, just a notice in on-cloth-2 Alegreya SC 500 at 1rem (0.06em), left-aligned in the hero and centred in the closing. Gilt stays with links that work, so the notice never reads as one. It reads "Coming soon to the Chrome Web Store". The default arrow cursor, no hover, no press. The nav drops its pending button entirely.
-- **Early (no store URL, but `config.js` has an `installUrl`):** the buttons are live in look and press, and lead to the install page instead of the store. Labels: "Download" in the nav, "Download for Chrome" in the hero, "Download Leggio for Chrome" in the closing. On the install page itself the button is the download (`data-early-href`, with `download`). A store URL, once set, overrides this state everywhere.
 - **Live (`config.js` has a store URL):** the label changes to "Add to Chrome" or "Add Leggio to Chrome", the button gets `.is-live`, presses scale to 0.97, and the primary deepens its shadow on hover.
 - **Phones:** live buttons go full width, except in the nav.
 - **Focus:** a 2px outline, offset 3px, 3px radius, in the ring colour (on-cloth on cloth).
@@ -566,14 +565,6 @@ The privacy promise, printed on the cloth as facts.
 ### Closing
 
 Centred on the cloth: the ornament rule in stamp, a display-closing headline, the primary store button (or its pending notice), and the closing shelf.
-
-### Install Page
-
-While Leggio waits for its Chrome Web Store listing, /install/ offers the submitted build as a ZIP to load in Chrome's developer mode.
-- **Head:** the privacy page's cloth header without a store button (this is where it leads), then a cloth hero: "Install Leggio" in display-document, a 46ch lede ("on its way to the Chrome Web Store … about a minute"), the primary "Download Leggio" button and a file line in on-cloth-2 Alegreya Sans 500 ("Version 1.0.0 · ZIP, 4.3 MB · Free").
-- **Steps:** on India Paper at the document measure, four numbered steps with 32px house-green discs: unzip it, open Chrome's extensions page, turn on Developer mode, Load unpacked. The address `chrome://extensions` sits in a Tissue chip in the system monospace (no web page may link to it, so it is pasted into the search bar), with an outlined house-green Copy button that reads "Copied" for 1.6s. Step 3 ends on Chrome's puzzle-piece extensions icon, inline at the text size in pencil.
-- **Good to know:** below a hairline, a short list: Chrome 138 or later on a computer, how to try it (select a word, press T), that this copy won't update itself, and that saved words won't move to the store version on their own (export a CSV first).
-- The ZIP lives at /download/leggio-1.0.0.zip and is byte-for-byte the build submitted to the store.
 
 ### Privacy Document
 

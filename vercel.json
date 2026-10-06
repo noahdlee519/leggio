@@ -45,6 +45,21 @@
       ],
       "destination": "https://getleggio.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/install/:path*",
+      "destination": "https://chromewebstore.google.com/detail/leggio/daehfmnbiigjkpmjldpjeleepoidmfdl",
+      "permanent": false
+    },
+    {
+      "source": "/install",
+      "destination": "https://chromewebstore.google.com/detail/leggio/daehfmnbiigjkpmjldpjeleepoidmfdl",
+      "permanent": false
+    },
+    {
+      "source": "/download/:path*",
+      "destination": "https://chromewebstore.google.com/detail/leggio/daehfmnbiigjkpmjldpjeleepoidmfdl",
+      "permanent": false
     }
   ]
 }
