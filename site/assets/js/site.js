@@ -614,19 +614,14 @@
 
   /* ---------- Opening the book ----------
      On arrival the book is closed, its cloth cover on the right, lettered with the volume's
-     title. It opens on its own: the cover swings over the spine and a few leaves riffle after
-     it, as if opened at a random page, the last one landing as the passage. The start word's
-     gloss follows a second later. It is the same leaf a turn uses. Any input finishes it at
-     once; it never plays with reduced motion, or when the book isn't in view at load. On
-     stacked (phone) pages only the cover lifts away. */
+     title. It opens on its own, straight to the passage: the cover swings over the spine and
+     lands as the left board with the passage's page on it, uncovering the facing page. No
+     other page is ever shown. The start word's gloss follows a second later. It is the same
+     leaf a turn uses. Any input finishes it at once; it never plays with reduced motion, or
+     when the book isn't in view at load. On stacked (phone) pages the cover lifts away. */
 
   const OPEN_AT_MS = 650; // after load: the closed book has faded in and been seen
-  const OPEN_KEYS = [
-    [0, 900], // [delay, duration] for the cover,
-    [380, 640], // two leaves riffled past,
-    [520, 640],
-    [660, 800], // and the leaf that lands as the passage's page
-  ];
+  const OPEN_KEYS = [[0, 1000]]; // [delay, duration] for the cover
   const OPEN_STACKED_MS = 900;
   let opening = null;
   let openingEnds = 0; // when the opening will be over, so the arrow and the page-lift wait for it
@@ -640,7 +635,7 @@
     // half of the case showing, like a book lying shut
     spread.classList.add("is-arriving", "is-shut");
     if (!docked()) spread.classList.add("is-opening", "is-closed");
-    openingEnds = performance.now() + OPEN_AT_MS + (docked() ? OPEN_STACKED_MS : 1460) + 200;
+    openingEnds = performance.now() + OPEN_AT_MS + (docked() ? OPEN_STACKED_MS : 1000) + 200;
     return true;
   }
 
@@ -688,15 +683,13 @@
         // The whole stacked spread under one cover, over the case's margins
         addLeaf({ x: -7, y: -7, w: spread.clientWidth + 14, h: spread.clientHeight + 17 }, cover, null);
       } else {
-        // The cover is the case: it overhangs the page as the boards do (9px, 12px, 13px)
-        addLeaf({ x: R.x, y: R.y - 9, w: R.w + 12, h: R.h + 22 }, cover, make("turn__face turn__face--back turn__inside"));
-        addLeaf(R, make("turn__face turn__blank"), make("turn__face turn__face--back turn__blank"));
-        addLeaf(R, make("turn__face turn__blank"), make("turn__face turn__face--back turn__blank"));
-        const last = make("turn__face turn__face--back");
-        last.append(fill(snapshot(pageOriginal, current.id)));
-        addLeaf(R, make("turn__face turn__blank"), last, L.h);
+        // The cover is the case: it overhangs the page as the boards do (9px, 12px, 13px). Its
+        // inside carries the passage's own left page, set where that page lies, so it lands as
+        // the open book itself
+        const inside = make("turn__face turn__face--back turn__inside");
+        inside.append(place(snapshot(pageOriginal, current.id), { x: 12, y: 9, w: L.w, h: L.h }));
+        addLeaf({ x: R.x, y: R.y - 9, w: R.w + 12, h: R.h + 22 }, cover, inside);
       }
-      // The pile on the right has the cover on top; on the left, whatever lands last is
       leaves.forEach((t, i) => {
         if (t.cast) overlay.append(t.cast);
         overlay.append(t.leaf);
