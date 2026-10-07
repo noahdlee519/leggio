@@ -2,7 +2,7 @@
 
 The marketing site and privacy policy for **Leggio**, a Chrome extension that helps language learners read in the original.
 
-It's plain HTML, CSS and a little JavaScript, with no build step. Everything the site loads, fonts included, is served from the site itself, so it makes no third-party requests. That matches what the privacy policy says about the website.
+It's plain HTML, CSS and a little JavaScript, with no build step. Everything the site loads, fonts included, is served from the site itself, so it makes no third-party requests. The one outside service is Vercel Web Analytics, whose script and endpoint also live on the site's own domain (see [Analytics](#analytics)). The privacy policy describes both.
 
 ```
 site/                    ← the folder you deploy
@@ -47,11 +47,31 @@ Opening `index.html` directly from disk won't work because the site uses root-re
 
 **Vercel:** import the repository. `vercel.json` sets the output directory to `site`. Leave the framework preset as "Other" and the build command empty.
 
-**Netlify:** import the repository. `netlify.toml` sets the publish directory to `site`. The build command stays empty.
+**Netlify:** import the repository. `netlify.toml` sets the publish directory to `site`. The build command stays empty. Analytics only works on Vercel, so on Netlify remove the analytics script and its privacy policy text (see [Analytics](#analytics)).
 
 Both configs add a strict Content-Security-Policy (`'self'` only) and long cache headers for the fonts.
 
 For the Chrome Web Store listing, the privacy policy URL is `https://<your-domain>/privacy/`.
+
+## Analytics
+
+The site counts visits with [Vercel Web Analytics](https://vercel.com/docs/analytics): no cookies, an anonymous visitor ID that resets daily, and free on the Hobby plan up to 50,000 events a month. The extension itself has no analytics.
+
+1. In the Vercel dashboard, open the project, go to **Analytics** and click **Enable**.
+2. Redeploy (push any commit, or use **Redeploy** in the dashboard). Vercel only serves the analytics script after analytics is enabled and the site has been redeployed.
+3. Check it: open the live site, open Chrome DevTools → **Network**, reload, and look for `script.js` and `view` requests under `/_vercel/insights/` with status 200. Visits show up in the **Analytics** tab within a few minutes.
+
+Every page loads it with one line in its `<head>`:
+
+```html
+<script src="/_vercel/insights/script.js" defer></script>
+```
+
+It's in `index.html`, `privacy/index.html` and `404.html`. Add the same line to any new page. Vercel's guide also shows an inline `window.va` snippet. Leave it out: it's only needed for custom events, and the Content-Security-Policy blocks inline scripts.
+
+The script only exists on Vercel deployments, so it shows as a 404 in local preview (and on Netlify). That's expected and harmless.
+
+If you ever remove analytics, delete that line from every page and put back the "no analytics" wording on the site: the privacy policy (the short version and "This website"), and the Tracking fact on the landing page.
 
 ## Before you publish: check the privacy policy against the extension
 
@@ -60,7 +80,7 @@ The policy is written only from these facts: translation runs on-device with Chr
 1. **Saved words** (What Leggio stores): if you keep more than the word, such as its translation, the source sentence or the page title, list it.
 2. **Permissions**: the paragraph points to the Web Store listing. You can list your `manifest.json` permissions and what each one is for.
 3. **Deleting your data**: this says uninstalling removes everything. If Leggio stores anything outside its own extension storage, update it.
-4. **Effective date**: 28 September 2026. Change it whenever the policy changes.
+4. **Effective date**: 7 October 2026. Change it whenever the policy changes.
 
 The landing page's demo shows a "select a word, see its translation and the sentence's translation, save it" flow and says Leggio works on web pages and PDFs. If the extension's interaction is different (a side panel, hover, etc.), adjust the copy in `index.html` so the site describes it truthfully.
 
