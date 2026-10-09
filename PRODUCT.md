@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Static HTML, CSS and a little vanilla JS. No build step. Hosted on Vercel or Netlify as a static site. This repository holds the marketing site and the privacy policy only; the extension source lives elsewhere.
+Static HTML, CSS and a little vanilla JS. No build step. Hosted on Vercel or Netlify as a static site. This repository holds the marketing site and the privacy policy only; the extension source lives elsewhere. The site (not the extension) counts visits with Vercel Web Analytics, which is cookie-free and disclosed in the privacy policy.
 
 ## Users
 
