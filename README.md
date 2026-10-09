@@ -73,14 +73,11 @@ The script only exists on Vercel deployments, so it shows as a 404 in local prev
 
 If you ever remove analytics, delete that line from every page and put back the "no analytics" wording on the site: the privacy policy (the short version and "This website"), and the Tracking fact on the landing page.
 
-## Before you publish: check the privacy policy against the extension
+## Keeping the privacy policy accurate
 
-The policy is written only from these facts: translation runs on-device with Chrome's built-in Translator and Language Detector APIs; settings and saved words are stored locally; there are no accounts, servers, analytics or Chrome sync. Once you've checked the extension, you may want to say more:
+The privacy policy is the URL the Chrome Web Store listing points to, and reviewers check it against what the extension does and against the listing's privacy practices. It was checked against the extension's code at version 1.0.1 (the `leggio-extension` repo). It covers: on-device translation by default; the optional DeepL and Google Cloud engines, which receive the words and their sentences; the script on web pages; PDFs downloaded into Leggio's reader; OCR language data from cdn.jsdelivr.net; the clipboard shortcut; read-aloud through Chrome's voices, some of them online; what's stored (settings synced by Chrome sync, a local word list with each page's title and address, local API keys, an OCR cache); each permission; and this website's analytics.
 
-1. **Saved words** (What Leggio stores): if you keep more than the word, such as its translation, the source sentence or the page title, list it.
-2. **Permissions**: the paragraph points to the Web Store listing. You can list your `manifest.json` permissions and what each one is for.
-3. **Deleting your data**: this says uninstalling removes everything. If Leggio stores anything outside its own extension storage, update it.
-4. **Effective date**: 7 October 2026. Change it whenever the policy changes.
+The extension repo has its own copy in `store/privacy-policy.html`. When the extension changes what it stores, sends or asks permission for, update both, and change the effective date (now 9 October 2026).
 
 The landing page's demo shows a "select a word, see its translation and the sentence's translation, save it" flow and says Leggio works on web pages and PDFs. If the extension's interaction is different (a side panel, hover, etc.), adjust the copy in `index.html` so the site describes it truthfully.
 

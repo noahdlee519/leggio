@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Privacy policy · Leggio</title>
-  <meta name="description" content="How Leggio handles your data: translation runs on your device, saved words stay in your browser, and the extension has no accounts, servers or analytics.">
+  <meta name="description" content="How Leggio handles your data: by default, translation runs on your device, saved words stay on your computer, and the extension has no accounts, servers or analytics.">
   <meta name="theme-color" content="#1F4E3D">
   <meta property="og:type" content="article">
   <meta property="og:title" content="Leggio privacy policy">
-  <meta property="og:description" content="Translation runs on your device. Saved words stay in your browser. The extension has no accounts, servers or analytics.">
+  <meta property="og:description" content="By default, translation runs on your device. Saved words stay on your computer. The extension has no accounts, servers or analytics.">
   <meta property="og:image" content="/assets/img/og.png">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
@@ -39,7 +39,7 @@
     <section class="cloth doc-hero" data-cloth="it" aria-labelledby="doc-title">
       <div class="container">
         <h1 id="doc-title">Privacy policy</h1>
-        <p class="doc-hero__meta">Effective 7 October 2026. Covers the Leggio Chrome extension and this website.</p>
+        <p class="doc-hero__meta">Effective 9 October 2026. Covers the Leggio Chrome extension and this website.</p>
       </div>
     </section>
 
@@ -48,10 +48,12 @@
         <p class="doc__toc-title">Contents</p>
         <ol>
           <li><a href="#short">The short version</a></li>
-          <li><a href="#translation">Text you translate</a></li>
-          <li><a href="#stored">What Leggio stores</a></li>
-          <li><a href="#not-collected">What Leggio doesn’t collect</a></li>
-          <li><a href="#models">Chrome’s translation models</a></li>
+          <li><a href="#translation">Translation</a></li>
+          <li><a href="#web-pages">On web pages</a></li>
+          <li><a href="#pdfs">PDFs and scanned pages</a></li>
+          <li><a href="#listening">Listening to a word</a></li>
+          <li><a href="#stored">What Leggio keeps on your computer</a></li>
+          <li><a href="#not-done">What Leggio doesn’t do</a></li>
           <li><a href="#permissions">Permissions</a></li>
           <li><a href="#sharing">Sharing and selling</a></li>
           <li><a href="#deleting">Deleting your data</a></li>
@@ -66,61 +68,83 @@
         <section class="doc__summary" id="short" aria-labelledby="short-title">
           <h2 id="short-title">The short version</h2>
           <ul>
-            <li>Leggio translates text <strong>on your device</strong>, using the translation models built into Chrome. The text you translate is not sent to us or to anyone else.</li>
-            <li>Your settings and the words you save are kept <strong>in your browser, on your computer</strong>.</li>
-            <li>The Leggio extension has <strong>no accounts, no servers and no analytics</strong>. We don’t collect, sell or share your data.</li>
+            <li>By default, Leggio translates <strong>on your device</strong>, with the translator built into Chrome. The text you look up isn’t sent to us or to anyone else.</li>
+            <li>If you add your own API key for <strong>DeepL or Google Cloud Translation</strong> and choose that engine, the words you look up and their sentences are sent to that service to be translated.</li>
+            <li>Your <strong>word list stays on your computer</strong>. Your settings sync through your Google account if you use Chrome sync.</li>
+            <li>The Leggio extension has <strong>no accounts, no servers and no analytics</strong>. We never receive your data, and we don’t sell or share it.</li>
             <li>This website counts visits with <strong>anonymous, cookie-free analytics</strong>. See <a href="#website">This website</a>.</li>
           </ul>
         </section>
 
         <section id="translation" aria-labelledby="translation-title">
-          <h2 id="translation-title">Text you translate</h2>
-          <p>When you ask Leggio to translate a word or passage, Leggio passes that text to Chrome’s built-in Translator and Language Detector. Chrome runs the translation on your own computer. Leggio does not send the text, the page it came from or the page’s address to any server, ours or anyone else’s.</p>
-          <p>The same goes for PDFs: Leggio doesn’t upload the documents you read.</p>
+          <h2 id="translation-title">Translation</h2>
+          <p>When you select a word or phrase and press Leggio’s translate or save key, Leggio translates it together with the sentence it’s in, so it can show what the word means in that sentence.</p>
+          <p>By default, Leggio uses Chrome’s built-in Translator. Chrome runs the translation on your own computer, so the text isn’t sent to any server, ours or anyone else’s. The first time you translate between a pair of languages, Chrome downloads a translation model. Chrome handles that download itself, and the text you’re reading isn’t part of it. Chrome’s own data practices are covered by <a href="https://policies.google.com/privacy" rel="noopener">Google’s privacy policy</a>.</p>
+          <p>To tell which language a page is in, Leggio uses Chrome’s built-in Language Detector, or a small detector that comes with the extension. Both run on your computer.</p>
+          <p><strong>Optional engines.</strong> In Leggio’s settings you can add your own API key for DeepL or Google Cloud Translation and choose that engine instead. Then the words you look up or save, and the sentences they’re in, are sent to that service under your account to be translated. That provider’s terms and privacy policy apply (<a href="https://www.deepl.com/privacy" rel="noopener">DeepL</a>, <a href="https://policies.google.com/privacy" rel="noopener">Google</a>), and it may bill your account for the characters translated. Your API keys are stored only on your computer, aren’t synced, and are only ever sent to their own service.</p>
+        </section>
+
+        <section id="web-pages" aria-labelledby="web-pages-title">
+          <h2 id="web-pages-title">On web pages</h2>
+          <p>So that its keys work on the pages you read, Leggio adds a small script to web pages. It only listens for your translate and save keys. It doesn’t read or record the page, and does nothing else until you press one of them with text selected.</p>
+          <p>When you do, Leggio reads the text you selected and the sentence around it, and translates them as described above. Nothing else on the page is read. You can turn this off in Leggio’s settings, under “Use Leggio on web pages”.</p>
+        </section>
+
+        <section id="pdfs" aria-labelledby="pdfs-title">
+          <h2 id="pdfs-title">PDFs and scanned pages</h2>
+          <p>When you open a PDF, Leggio shows it in its own reader, inside your browser. For a PDF on a website, Leggio downloads it from that website, as Chrome’s own viewer would, including PDFs that need you to be signed in. For a PDF on your computer, Leggio reads the file where it is. Leggio doesn’t upload your PDFs anywhere.</p>
+          <p>Text recognition (OCR) for scanned pages runs on your computer. The first time it reads a language, Leggio downloads that language’s recognition data, a few megabytes, from cdn.jsdelivr.net. Nothing from your document is sent in that request.</p>
+          <p>In Chrome’s own PDF viewer, Leggio can’t see what you select, so you copy the text and press Leggio’s shortcut instead. Leggio then reads the clipboard once, to translate what you copied. It reads the clipboard only when you press that shortcut.</p>
+        </section>
+
+        <section id="listening" aria-labelledby="listening-title">
+          <h2 id="listening-title">Listening to a word</h2>
+          <p>When you press the speaker button, Chrome reads the word or sentence aloud. Depending on the language and your computer, Chrome uses a voice installed on your computer or one of Google’s online voices. With an online voice, Chrome sends that text to Google to be spoken, and <a href="https://policies.google.com/privacy" rel="noopener">Google’s privacy policy</a> applies.</p>
         </section>
 
         <section id="stored" aria-labelledby="stored-title">
-          <h2 id="stored-title">What Leggio stores</h2>
-          <p>Leggio keeps two kinds of information, both in Chrome’s extension storage on your computer:</p>
+          <h2 id="stored-title">What Leggio keeps on your computer</h2>
           <ul>
-            <li><strong>Your settings</strong>, such as the languages you read and translate into, and your preferences.</li>
-            <li><strong>Your saved words</strong>: your vocabulary list, meaning the words and phrases you choose to save and any details saved along with them.</li>
+            <li><strong>Your settings</strong>, such as your languages, keys and options, in Chrome’s extension storage. If you use Chrome sync, Chrome syncs them to your other computers through your Google account.</li>
+            <li><strong>Your word list</strong>: each word or phrase you save, its meaning, the sentence it came from and that sentence’s translation, when you saved it, and where you found it: the PDF’s name, address and page, or the web page’s title and address. It stays on this computer and isn’t synced.</li>
+            <li><strong>API keys</strong> for DeepL or Google Cloud, if you add any. They stay on this computer.</li>
+            <li><strong>Text recognized on scanned pages</strong>, so a scanned document opens quickly the next time.</li>
+            <li><strong>Which open tabs are showing a PDF</strong>, so Leggio can open it in its reader. This is cleared when you close Chrome.</li>
           </ul>
-          <p>This information never leaves your device. It isn’t synced to an account, and we can’t see it.</p>
+          <p>None of this is sent to us, and we can’t see it.</p>
         </section>
 
-        <section id="not-collected" aria-labelledby="not-collected-title">
-          <h2 id="not-collected-title">What Leggio doesn’t collect</h2>
-          <p>Leggio doesn’t collect any of the following:</p>
+        <section id="not-done" aria-labelledby="not-done-title">
+          <h2 id="not-done-title">What Leggio doesn’t do</h2>
           <ul>
-            <li>Your name, email address or any other account details. There are no accounts.</li>
-            <li>Your browsing history or the addresses of pages you visit.</li>
-            <li>The contents of pages or documents you read.</li>
-            <li>Your location.</li>
-            <li>Analytics, usage statistics, crash reports or any other telemetry.</li>
-            <li>Advertising identifiers. Leggio shows no ads.</li>
+            <li>It doesn’t send anything to us. There are no Leggio servers and no accounts.</li>
+            <li>It doesn’t collect analytics, usage statistics, crash reports or any other telemetry.</li>
+            <li>It doesn’t record your browsing history. It looks at the pages you open only to tell whether one is a PDF.</li>
+            <li>It doesn’t show ads or use advertising identifiers.</li>
           </ul>
-        </section>
-
-        <section id="models" aria-labelledby="models-title">
-          <h2 id="models-title">Chrome’s translation models</h2>
-          <p>The first time you translate between a pair of languages, Chrome may need to download a translation model. Chrome handles that download itself, as it does for its other built-in features. The text you’re reading is not part of that request. Chrome’s own data practices are covered by <a href="https://policies.google.com/privacy" rel="noopener">Google’s privacy policy</a>.</p>
         </section>
 
         <section id="permissions" aria-labelledby="permissions-title">
           <h2 id="permissions-title">Permissions</h2>
-          <p>The permissions Leggio requests are listed on its Chrome Web Store page, and Chrome shows them to you when you install it. Leggio uses them only to translate the text you select and to store your settings and saved words.</p>
+          <p>Chrome lists Leggio’s permissions when you install it. This is what each one is for:</p>
+          <ul>
+            <li><strong>Read and change all your data on all websites:</strong> so the translate and save keys work on the pages you read (see <a href="#web-pages">On web pages</a>), to download a PDF you open into Leggio’s reader, and, if you add a key, to reach DeepL or Google Cloud.</li>
+            <li><strong>Web requests and navigation:</strong> to notice when a tab is opening a PDF, so it opens in Leggio’s reader. Leggio doesn’t block or change any request, and keeps no record of them.</li>
+            <li><strong>Clipboard:</strong> read only when you press Leggio’s shortcut in Chrome’s own PDF viewer.</li>
+            <li><strong>Storage:</strong> for your settings and word list, as described above.</li>
+            <li><strong>Right-click menu:</strong> adds “Read with Leggio” to links.</li>
+          </ul>
         </section>
 
         <section id="sharing" aria-labelledby="sharing-title">
           <h2 id="sharing-title">Sharing and selling</h2>
-          <p>We don’t sell, rent or share your data, and we don’t use it for advertising, for creditworthiness or for any purpose unrelated to Leggio’s translation features. Because Leggio never sends your data to us, we have nothing to share.</p>
+          <p>We don’t sell, rent or share your data, and we don’t use it for advertising, for creditworthiness or for any purpose unrelated to Leggio’s translation features. Leggio never sends your data to us, so we have nothing to share. Text only goes to the services described above, and only to do what you asked: the translation engine you added a key for, and Google when Chrome reads a word aloud with an online voice.</p>
           <p>Leggio’s use of information complies with the <a href="https://developer.chrome.com/docs/webstore/program-policies/" rel="noopener">Chrome Web Store User Data Policy</a>, including its Limited Use requirements.</p>
         </section>
 
         <section id="deleting" aria-labelledby="deleting-title">
           <h2 id="deleting-title">Deleting your data</h2>
-          <p>Everything Leggio stores is on your computer, so you’re in control of it. Removing Leggio from Chrome (at <span lang="en">chrome://extensions</span>) deletes its settings and your saved words.</p>
+          <p>You can delete saved words one at a time, or all the words from one PDF or web page, and you can export your list as a CSV file first if you want to keep it. Removing Leggio from Chrome (at <span lang="en">chrome://extensions</span>) deletes everything it stored on your computer.</p>
         </section>
 
         <section id="children" aria-labelledby="children-title">
