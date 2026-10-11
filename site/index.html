@@ -242,7 +242,6 @@
           <h2 id="compare-title">Other ways to look a word up</h2>
           <div class="compare__intro">
             <p>Plenty of tools will translate a word for you. Here are twelve well-known ones beside Leggio, compared on what matters when you read in a language you’re learning: whether your reading stays on your computer, whether you get the word’s meaning in your sentence, and what it costs.</p>
-            <p>Many of them do things Leggio doesn’t, like translating whole pages or Netflix subtitles. This table sticks to reading.</p>
           </div>
         </div>
 
@@ -251,21 +250,14 @@
           <symbol id="compare-no" viewBox="0 0 24 24"><path d="M7 12h10"/></symbol>
         </svg>
         <div class="compare__table">
-          <p class="compare__caption" aria-hidden="true">Leggio and twelve other tools, as of October 2026</p>
           <p class="compare__hint" id="compare-hint">Scroll sideways to see every column.</p>
           <div class="compare__scroll" role="region" aria-labelledby="compare-caption" aria-describedby="compare-hint" tabindex="0">
             <table>
               <caption class="visually-hidden" id="compare-caption">Leggio and twelve other tools, as of October 2026</caption>
               <thead>
-                <tr class="compare__group">
-                  <td></td>
-                  <th scope="colgroup" colspan="4"><span>Cost and privacy</span></th>
-                  <th scope="colgroup" colspan="4"><span>Looking a word up</span></th>
-                  <th scope="colgroup" colspan="2"><span>Reading and keeping</span></th>
-                </tr>
                 <tr class="compare__heads">
                   <th scope="col">Tool</th>
-                  <th scope="col">Price</th>
+                  <th scope="col" aria-describedby="compare-note-prices">Price<sup class="compare__ref" aria-hidden="true">*</sup></th>
                   <th scope="col">On your device</th>
                   <th scope="col">No account</th>
                   <th scope="col">Your own API key</th>
@@ -281,7 +273,7 @@
                 <tr class="compare__ours">
                   <th scope="row">Leggio<span class="compare__kind">Chrome extension for reading</span></th>
                   <td><span class="compare__price compare__price--free">Free</span></td>
-                  <td><span class="mark mark--yes"><svg class="icon" aria-hidden="true"><use href="#compare-yes"/></svg><span class="visually-hidden">Yes</span></span></td>
+                  <td aria-describedby="compare-note-device"><span class="mark mark--yes"><svg class="icon" aria-hidden="true"><use href="#compare-yes"/></svg><span class="visually-hidden">Yes</span></span><sup class="compare__ref" aria-hidden="true">†</sup></td>
                   <td><span class="mark mark--yes"><svg class="icon" aria-hidden="true"><use href="#compare-yes"/></svg><span class="visually-hidden">Yes</span></span></td>
                   <td><span class="mark mark--yes"><svg class="icon" aria-hidden="true"><use href="#compare-yes"/></svg><span class="visually-hidden">Yes</span></span></td>
                   <td><span class="mark mark--yes"><svg class="icon" aria-hidden="true"><use href="#compare-yes"/></svg><span class="visually-hidden">Yes</span></span></td>
@@ -461,10 +453,9 @@
         <div class="compare__apparatus">
             <h3>Notes</h3>
             <ul class="compare__notes">
-              <li>Leggio translates on your computer with Chrome’s built-in AI. If you add your own DeepL or Google key, the words you look up go to that service instead.</li>
-              <li>Leggio recognises idioms in Italian, Spanish, French, German, Portuguese and Czech so far.</li>
+              <li class="compare__footnote" id="compare-note-prices"><span class="compare__sym" aria-hidden="true">*</span>Prices are the lowest monthly plan on each maker’s own site, and vary by country.</li>
+              <li class="compare__footnote" id="compare-note-device"><span class="compare__sym" aria-hidden="true">†</span>Leggio translates on your computer with Chrome’s built-in AI. If you add your own DeepL or Google key, the words you look up go to that service instead.</li>
               <li>“Partly” means only some of the time: for example, only if you select the whole phrase, only from the right-click menu, or only after importing the page into the tool’s own reader.</li>
-              <li>Prices are the lowest monthly plan on each maker’s own site, and vary by country.</li>
               <li>Checked against each tool’s own website in October 2026. Tools change, so if something here is out of date, please <a data-contact data-label-live="tell us" href="mailto:noahlee519@gmail.com">tell us</a>.</li>
             </ul>
             <details class="compare__fold compare__sources">

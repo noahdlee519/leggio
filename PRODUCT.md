@@ -38,7 +38,7 @@ Confirmed:
 - Translation runs on-device by default, using Chrome's built-in AI (Translator and Language Detector APIs); text does not leave the browser for translation. As an option, the learner can add their own DeepL or Google Cloud Translation API key, and then the text they look up goes to that service.
 - Free.
 - Interaction: select a word or phrase (on a web page, or in Leggio's own PDF reader) and press a key (T by default) to see its meaning in that sentence beside the sentence's translation; S saves it. In Chrome's own PDF viewer, copy the text and press Option+T / Alt+T.
-- Features: meaning in context; idioms recognised and explained in Italian, Spanish, French, German, Portuguese and Czech (from Wiktionary); read aloud with the computer's voices; scanned PDFs read with OCR in the browser; a word list with CSV export (for Anki, Excel or Google Sheets).
+- Features: meaning in context; idioms recognised and explained in every language Leggio translates (from Wiktionary; since 1.0.5); read aloud with the computer's voices; scanned PDFs read with OCR in the browser; a word list with CSV export (for Anki, Excel or Google Sheets).
 - Stores the user's settings locally (chrome.storage on the device).
 - Stores the learner's saved words / vocabulary list locally.
 - No accounts, no backend server, no analytics in the extension.
