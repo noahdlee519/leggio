@@ -43,12 +43,12 @@ Confirmed:
 - Stores the learner's saved words / vocabulary list locally.
 - No accounts, no backend server, no analytics in the extension.
 - Minimum Chrome version: 138 (desktop).
+- Public contact email: noahlee519@gmail.com (the owner's), used in the footer, the privacy policy and the comparison's "tell us" link.
 
 Open, not yet confirmed (do not invent):
 
 - Supported languages (they follow Chrome's built-in translator, or the service whose key the learner adds).
 - Chrome Web Store URL (the listing does not exist yet).
-- Public contact email for the privacy policy (the owner will supply one).
 
 ## Brand Commitments
 
