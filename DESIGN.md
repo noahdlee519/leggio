@@ -143,6 +143,12 @@ typography:
     fontWeight: 700
     lineHeight: 1.5
     letterSpacing: "0.06em"
+  table-head:
+    fontFamily: "'Alegreya SC', Alegreya, Georgia, serif"
+    fontSize: "0.875rem"
+    fontWeight: 700
+    lineHeight: 1.18
+    letterSpacing: "0.04em"
   wordmark:
     fontFamily: "'Alegreya SC', Alegreya, Georgia, serif"
     fontSize: "1.4rem"
@@ -275,6 +281,21 @@ components:
     textColor: "#5a4306"
     rounded: "{rounded.plate}"
     padding: "1px 6px"
+  compare-cell:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body}"
+    padding: "13px 8px"
+  compare-head:
+    textColor: "{colors.ink}"
+    typography: "{typography.table-head}"
+    padding: "0 8px 12px"
+  compare-mark-yes:
+    textColor: "{colors.cloth-it-ink}"
+    size: "22px"
+  compare-mark-no:
+    textColor: "{colors.ink-2}"
+    size: "18px"
 ---
 
 # Design System: Leggio
@@ -283,7 +304,7 @@ components:
 
 **Creative North Star: "The Parallel-Text Edition"**
 
-Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and "notes on use" leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt (or blind-stamped, on the ochre German volume). The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.
+Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface, "notes on use" and appendix leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt (or blind-stamped, on the ochre German volume). The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.
 
 The page is composed from book furniture rather than web components. The language switcher is a shelf of spines. Saved words go to the facing page, keyed by line number. Privacy is a colophon of plain facts. The ornament that closes the page is a printer's rule with a lozenge. Nothing is a card, and nothing is a feature grid. Density is low and readerly: long measures of 34 to 68ch, generous leaf margins, one idea per surface.
 
@@ -391,6 +412,7 @@ The weave is a single 240×240 SVG data URI (`--cloth-tex`). Two `feTurbulence` 
 - **Nav** (Alegreya Sans 500, 1.0625rem) for header and footer links, the text link (700) and the privacy meta line. The contents links are 500 at 0.96875rem/1.35.
 - **Caption** (Alegreya Sans 400, 0.9375rem/1.45): the shelf note. The on-device line is 500 at 1rem/1.4, and the footer tagline is 400 at 1rem.
 - **Fine print** (Alegreya Sans 400, 0.875rem/1.55, max 88ch): footer credits. Book titles in it are Alegreya italic, and the Japanese title stays upright in the JP face.
+- **Table head** (Alegreya SC 700, 0.875rem/1.18, 0.04em, ink): the comparison's column heads, set at the foot of their cell. The column groups above them and the row groups are Alegreya SC 500 at 0.8125 to 0.875rem with 0.08em, in cloth-ink, like a chapter line. Tool names are Alegreya 700 (1.1875rem for Leggio's own row) over a kind line in Alegreya Sans 400 at 0.8125rem, pencil. Prices are Alegreya Sans 500 at 0.9375rem. The key, definitions and notes under the table are Alegreya Sans at 0.875 to 0.9375rem in pencil, with Alegreya SC 700 terms.
 - **Numeral** (Alegreya 400, 0.8125rem, oldstyle): folios, margin line numbers and the "l. 3" references on the facing page. Attributions are Alegreya italic at 0.875rem.
 
 Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
@@ -413,14 +435,14 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 
 **Japanese binding.** A vertical volume is set `vertical-rl`, 16.5em tall (17em on phones), and bound on the right. The original page moves to the right of the spread, the facing page to the left, and running heads and gutter shading mirror. Arrow keys follow the columns (down or left moves to the next word), and closing punctuation is held to its word (kinsoku).
 
-**Leaves.** Each leaf is a page laid on the cloth inside the container. Padding is clamp(24px, 3.5vw, 36px) at the top, clamp(22px, 6vw, 88px) at the sides and clamp(56px, 8vw, 104px) at the bottom. A running head sits clamp(48px, 7vw, 96px) above the content. Leaves stack with clamp(40px, 6vw, 72px) between them.
+**Leaves.** Each leaf is a page laid on the cloth inside the container. There are three: the preface (vii), "Notes on use" (viii) and the appendix comparing Leggio with other tools (ix), which sits between the colophon and the closing. Padding is clamp(24px, 3.5vw, 36px) at the top, clamp(22px, 6vw, 88px) at the sides and clamp(56px, 8vw, 104px) at the bottom. A running head sits clamp(48px, 7vw, 96px) above the content. Leaves stack with clamp(40px, 6vw, 72px) between them.
 
 **Section rhythm.** Hero: clamp(24px, 5vw, 64px) top, clamp(64px, 8vw, 112px) bottom. Colophon: clamp(56px, 8vw, 104px) top, clamp(24px, 4vw, 40px) bottom. Closing: clamp(40px, 6vw, 72px) top, clamp(72px, 9vw, 120px) bottom, centred. Footer: 56px top, 44px bottom.
 
 **Breakpoints.**
 - **1099px:** every two-column grid becomes one column. The hero copy is capped at 40rem and the plate at 720px.
 - **860px:** the privacy policy drops its sticky contents column. The contents become a two-column list above the text, without the rail.
-- **639px (phones):** the spread stacks, original page above facing page, and the gutter turns horizontal. The gloss slip docks inside the original page. Spines stretch to share the shelf (max 64px wide, 118px tall). Colophon facts stack. Every button goes full width except the nav button.
+- **639px (phones):** the spread stacks, original page above facing page, and the gutter turns horizontal. The gloss slip docks inside the original page. Spines stretch to share the shelf (max 64px wide, 118px tall). Colophon facts stack. Every button goes full width except the nav button. The comparison table runs to the leaf's edges and scrolls sideways, with the tool names, their head and the group names held in place, and "What the columns mean" starts folded.
 - **560px:** "How it works" leaves the nav.
 - **Hover:** all hover styling is behind `(hover: hover) and (pointer: fine)`.
 
@@ -467,7 +489,7 @@ Corners are nearly square, as paper and board are. Radii run from 2px to 7px, ea
 
 Spines are 3px at the head and 1px at the tail (`3px 3px 1px 1px`). Each has two gilt bands, one top and one bottom, inset 7px: double 1.5px rules 2px apart at 85% opacity, in the stamp colour.
 
-Line work is consistent. Icons are inline SVG on a 24px grid, drawn at 20px (18px inside slips and links, 15px in the miniature slip), with a 1.6 stroke and round caps and joins, never filled. The wordmark is an open book on a reading stand, drawn the same way at 26px. The closing ornament is a 120×12 printer's rule: two 50px strokes around a small lozenge, in stamp, 1.2 stroke. The favicon is the same mark in stamp on a house-green rounded square (rx 7 on 32).
+Line work is consistent. Icons are inline SVG on a 24px grid, drawn at 20px (18px inside slips and links, 15px in the miniature slip), with a 1.6 stroke and round caps and joins, never filled. The comparison's marks are the one heavier line: a check (stroke 2, 22px) and a dash (stroke 2.4, 18px), so a "no" still reads above 3:1 on a 1x screen. The wordmark is an open book on a reading stand, drawn the same way at 26px. The closing ornament is a 120×12 printer's rule: two 50px strokes around a small lozenge, in stamp, 1.2 stroke. The favicon is the same mark in stamp on a house-green rounded square (rx 7 on 32).
 
 Borders are typographic rules, not boxes: hairlines between colophon facts, a contents rail, a heavier 2px rule opening the privacy summary, the 3px shelf plank.
 
@@ -537,9 +559,9 @@ A shelf of volumes is the language switcher.
 
 ### Leaves
 
-Paper pages laid on the cloth: the preface and "Notes on use".
+Paper pages laid on the cloth: the preface, "Notes on use" and the appendix.
 - India Paper, 3px radius (2px on phones), gutter shade from the left, leaf shadow.
-- A running head across the full measure, with the section name in Alegreya SC on the left and a roman-numeral folio (vii, viii) on the right, then a large gap before the headline.
+- A running head across the full measure, with the section name in Alegreya SC on the left and a roman-numeral folio (vii, viii, ix) on the right, then a large gap before the headline.
 - Headlines are in ink. The preface pairs a 5-column headline with a 7-column body, ending on a coda in cloth-ink.
 
 ### Plate and Steps
@@ -556,6 +578,20 @@ A figure from "Notes on use": a PDF page tipped in on a board of the volume's cl
 The privacy promise, printed on the cloth as facts.
 - Lead: a headline in on-cloth (max 14ch), paragraphs in on-cloth-2 (max 48ch), and a text link to the policy.
 - **Facts:** a definition list with a stamp hairline at 60% above it and a stamp hairline at 35% under each row. Each row is a 10.5rem term column (Alegreya SC 700, stamp) beside a value (1.1875rem, on-cloth), padded 20px top and bottom. The rows stack on phones.
+
+### Appendix Table (comparison)
+
+A table from the back of a book: Leggio beside other tools, on a leaf with the running head "Appendix" and folio ix.
+- **Opening:** a headline and two paragraphs on the preface's 5/7 grid. The table's title is a centred small-caps line in cloth-ink above it (a visually hidden `<caption>` carries the same words for assistive technology).
+- **Rules:** booktabs. A 1.5px ink rule above the heads and below the last row, a 1px ink rule under the heads, and Hairline rules between rows. No vertical rules, except the 1px Hairline after the tool names wherever the table may scroll (1099px and below).
+- **Heads:** column groups in cloth-ink small caps, each over a cloth-ink hairline at 45%; column heads in table-head type, set at the foot of their cell; centred.
+- **Rows:** grouped under small-caps group lines in cloth-ink ("Translators", "Tools for learners"). Each tool name sits over a line saying what kind of tool it is. Leggio's row comes first, in a 10% wash of cloth-ink on paper, with its name in cloth-ink: the same idea as a selected word, quieter. Hover (fine pointers) washes a row at 5%.
+- **Cells:** a drawn check in cloth-ink for yes, a drawn dash in pencil for no, and "partly" in Alegreya italic in pencil. Each mark carries visually hidden text ("Yes", "No"). A limitation or a "partly" gets a note reference: a bold Alegreya Sans letter, 0.75rem, raised, in cloth-ink, linking to its note.
+- **Price:** "Free" in bold cloth-ink; otherwise the plan in ink over the lowest monthly price in pencil, shown only when the maker's own pricing page or app store listing gives it.
+- **Under the table:** two columns on the 5/7 grid. On the left, a key and "What the columns mean" (a definition list between Hairline rules, in a disclosure). On the right, the lettered notes, a line saying when and how the facts were checked with a link to report changes, and a Sources disclosure. Disclosures open with a cloth-ink chevron that turns 90°.
+- **Phones:** the table bleeds to the leaf's edges and scrolls sideways inside a focusable region with a "Scroll sideways" hint above it. The tool names, their head and the group names stay put, carrying the leaf's gutter shade on an opaque paper ground.
+
+**The Sourced Claim Rule.** Every cell about another tool is backed by a source listed under the table, and the table says when it was checked. Where something can't be confirmed, the tool gets the benefit of the doubt, and the page says so. Leggio's own row claims only what the extension does today, with its limits in notes.
 
 ### Closing
 
@@ -586,6 +622,7 @@ A full-cloth page titled "This page is out of print.", with the wordmark, a line
 - **Do** give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.
 - **Do** set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.
 - **Do** keep the demo honest: public-domain passages credited in the footer, hand-written glosses said to be hand-written, the plate labelled as an illustration.
+- **Do** source every claim the comparison makes about another tool, date it, and give the benefit of the doubt where a fact can't be confirmed.
 - **Do** show the store and contact links as pending (outlined, unlinked, "Coming soon") until `config.js` has a real value.
 - **Do** use the ease-out curve (cubic-bezier(0.23, 1, 0.32, 1)) for anything that moves, gate hover behind `(hover: hover) and (pointer: fine)`, and give every animation a reduced-motion version that drops transform and blur.
 - **Do** keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts.
@@ -595,6 +632,7 @@ A full-cloth page titled "This page is out of print.", with the wordmark, a line
 - **Don't** default to cream paper with terracotta accents. Paper stays near-white (#fbfaf6, #ffffff), and the colour lives in the five cloths.
 - **Don't** fall back to the extension landing-page template: a browser-window mockup, three feature cards, a gradient hero.
 - **Don't** let a gloss slip cover the facing page, at any width.
+- **Don't** dress the comparison up as a sales grid: no highlighted Leggio column, badges, coloured cells or cards. Leggio's row gets its quiet wash and nothing more; it stays a booktabs table on paper.
 - **Don't** make the demo, or any copy around it, claim more than the extension does. No invented features, languages, user counts, testimonials, reviews, pricing or screenshots, and no suggestion that the demo's glosses come from the live translator.
 - **Don't** make a pending button look clickable: no fill, no hover, no press, no `href`.
 - **Don't** set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.

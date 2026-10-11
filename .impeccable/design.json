@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-28T17:48:52Z",
+  "generatedAt": "2026-10-11T19:10:56Z",
   "title": "Design System: Leggio",
   "extensions": {
     "colorMeta": {
@@ -731,6 +731,10 @@
       "fine-print": {
         "displayName": "Fine print",
         "purpose": "Footer credits and copyright."
+      },
+      "table-head": {
+        "displayName": "Table Head",
+        "purpose": "Column heads of the comparison table, set at the foot of their cell."
       }
     },
     "shadows": [
@@ -1005,6 +1009,14 @@
       "description": "Reading-mode navigation: small-caps Contents title in house green over a hairline rail whose segment darkens on hover, beside the summary opened by a 2px house-green rule.",
       "html": "<div class=\"ds-doc\"><nav class=\"ds-toc\" aria-label=\"On this page\"><p class=\"ds-toc__title\">Contents</p><ol><li><a href=\"#\">The short version</a></li><li><a href=\"#\">Text you translate</a></li><li><a href=\"#\">What Leggio stores</a></li></ol></nav><section class=\"ds-summary\"><h2>The short version</h2><ul><li>Leggio translates text <strong>on your device</strong>, using the translation models built into Chrome.</li><li>Contact: <a class=\"ds-pending\">contact email coming soon</a></li></ul></section></div>",
       "css": ".ds-doc { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 48px; padding: 32px; background: var(--paper, #fbfaf6); color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); } .ds-toc__title { margin: 0; font: 700 0.9375rem/1.2 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.08em; color: var(--house, #1f4e3d); } .ds-toc ol { list-style: none; padding: 0; margin: 14px 0 0; border-left: 1px solid var(--rule, #dcd8cd); } .ds-toc a { display: block; padding: 6px 0 6px 16px; margin-left: -1px; border-left: 1px solid transparent; color: var(--ink-2, #57544c); font: 500 0.96875rem/1.35 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); text-decoration: none; transition: color 160ms ease, border-color 160ms ease; } @media (hover: hover) and (pointer: fine) { .ds-toc a:hover { color: var(--ink, #1c1b19); border-left-color: var(--house, #1f4e3d); } } .ds-toc a:focus-visible { outline: 2px solid var(--house, #1f4e3d); outline-offset: 3px; border-radius: 3px; } .ds-summary { max-width: 68ch; padding-block: clamp(20px, 3vw, 28px) clamp(24px, 3.5vw, 32px); border-top: 2px solid var(--house, #1f4e3d); border-bottom: 1px solid var(--rule, #dcd8cd); } .ds-summary h2 { margin: 0 0 0.55em; font: 700 clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem)/1.15 var(--font-text, \"Alegreya\", Georgia, serif); letter-spacing: -0.01em; } .ds-summary ul { margin: 0; padding-left: 1.2em; } .ds-summary li { font-size: 1.1875rem; line-height: 1.68; } .ds-summary li + li { margin-top: 0.45em; } .ds-summary li::marker { color: var(--house, #1f4e3d); } .ds-pending { padding: 1px 6px; border-radius: 4px; background: #fbeec9; color: #5a4306; } @media (max-width: 860px) { .ds-doc { grid-template-columns: minmax(0, 1fr); } .ds-toc ol { columns: 2; column-gap: 24px; border-left: 0; } .ds-toc a { padding-left: 0; border-left: 0; } }"
+    },
+    {
+      "name": "Comparison Table",
+      "kind": "custom",
+      "refersTo": "compare-cell",
+      "description": "The appendix table comparing Leggio with other tools: booktabs rules on paper, small-caps heads, drawn marks, lettered notes, Leggio's row in a 10% cloth-ink wash.",
+      "html": "<div class=\"ds-leaf\"><p class=\"ds-cmp-title\">Leggio and twelve other tools, as of October 2026</p><table class=\"ds-cmp\"><thead><tr class=\"ds-cmp-group\"><td></td><th colspan=\"3\"><span>Looking a word up</span></th></tr><tr class=\"ds-cmp-heads\"><th>Tool</th><th>Meaning in context</th><th>Idioms</th><th>Read aloud</th></tr></thead><tbody><tr class=\"ds-cmp-ours\"><th>Leggio<span>Chrome extension for reading</span></th><td><svg class=\"ds-mark-yes\" viewBox=\"0 0 24 24\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg></td><td><svg class=\"ds-mark-yes\" viewBox=\"0 0 24 24\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg><a class=\"ds-note-ref\" href=\"#\">b</a></td><td><svg class=\"ds-mark-yes\" viewBox=\"0 0 24 24\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg></td></tr></tbody><tbody><tr class=\"ds-cmp-section\"><th colspan=\"4\">Translators</th></tr><tr><th>Google Translate<span>Chrome extension</span></th><td><em class=\"ds-mark-part\">partly</em><a class=\"ds-note-ref\" href=\"#\">f</a></td><td><em class=\"ds-mark-part\">partly</em><a class=\"ds-note-ref\" href=\"#\">g</a></td><td><svg class=\"ds-mark-yes\" viewBox=\"0 0 24 24\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg></td></tr><tr><th>TransOver<span>Chrome extension, open source</span></th><td><em class=\"ds-mark-part\">partly</em><a class=\"ds-note-ref\" href=\"#\">f</a></td><td><em class=\"ds-mark-part\">partly</em><a class=\"ds-note-ref\" href=\"#\">g</a></td><td><svg class=\"ds-mark-no\" viewBox=\"0 0 24 24\"><path d=\"M7 12h10\"/></svg></td></tr></tbody></table></div>",
+      "css": ".ds-leaf { background: var(--paper, #fbfaf6); color: var(--ink, #1c1b19); padding: 32px; font-family: var(--font-text, Alegreya, Georgia, serif); } .ds-cmp-title { margin: 0 0 18px; text-align: center; font: 500 0.9375rem/1.3 var(--font-sc, \"Alegreya SC\", Georgia, serif); letter-spacing: 0.08em; color: var(--cloth-ink, #1f4e3d); } .ds-cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-variant-numeric: oldstyle-nums proportional-nums; } .ds-cmp th, .ds-cmp td { padding: 13px 8px; vertical-align: middle; text-align: center; background: var(--paper, #fbfaf6); } .ds-cmp thead tr:first-child > * { border-top: 1.5px solid var(--ink, #1c1b19); padding-top: 14px; } .ds-cmp-group th { padding: 0 8px 8px; font: 500 0.8125rem/1.2 var(--font-sc, \"Alegreya SC\", Georgia, serif); letter-spacing: 0.08em; color: var(--cloth-ink, #1f4e3d); } .ds-cmp-group th span { display: block; padding-bottom: 6px; border-bottom: 1px solid color-mix(in srgb, var(--cloth-ink, #1f4e3d) 45%, transparent); } .ds-cmp-heads th { padding: 0 8px 12px; vertical-align: bottom; font: 700 0.875rem/1.18 var(--font-sc, \"Alegreya SC\", Georgia, serif); letter-spacing: 0.04em; border-bottom: 1px solid var(--ink, #1c1b19); } .ds-cmp-heads th:first-child { text-align: left; font-weight: 500; color: var(--ink-2, #57544c); } .ds-cmp tbody th { text-align: left; font-weight: 700; line-height: 1.25; } .ds-cmp tbody th span { display: block; margin-top: 3px; font: 400 0.8125rem/1.3 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); color: var(--ink-2, #57544c); } .ds-cmp tbody tr + tr > * { border-top: 1px solid var(--rule, #dcd8cd); } .ds-cmp tbody:last-of-type tr:last-child > * { border-bottom: 1.5px solid var(--ink, #1c1b19); } .ds-cmp-section th { padding: 26px 8px 8px; font: 500 0.875rem/1.2 var(--font-sc, \"Alegreya SC\", Georgia, serif); letter-spacing: 0.08em; color: var(--cloth-ink, #1f4e3d); border-top: 1px solid var(--rule, #dcd8cd); } .ds-cmp-ours > * { background: color-mix(in srgb, var(--cloth-ink, #1f4e3d) 10%, var(--paper, #fbfaf6)); } .ds-cmp-ours th { color: var(--cloth-ink, #1f4e3d); font-size: 1.1875rem; } .ds-mark-yes, .ds-mark-no { display: inline-block; vertical-align: middle; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; } .ds-mark-yes { width: 22px; height: 22px; stroke-width: 2; color: var(--cloth-ink, #1f4e3d); } .ds-mark-no { width: 18px; height: 18px; stroke-width: 2.4; color: var(--ink-2, #57544c); } .ds-mark-part { font-style: italic; color: var(--ink-2, #57544c); } .ds-note-ref { margin-left: 1px; font: 700 0.75rem/0 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); vertical-align: super; color: var(--cloth-ink, #1f4e3d); text-decoration: none; } .ds-note-ref:focus-visible { outline: 2px solid var(--cloth-ink, #1f4e3d); outline-offset: 3px; border-radius: 3px; } @media (hover: hover) and (pointer: fine) { .ds-cmp tbody tr:not(.ds-cmp-section):hover > * { background: color-mix(in srgb, var(--cloth-ink, #1f4e3d) 5%, var(--paper, #fbfaf6)); } .ds-cmp tbody tr.ds-cmp-ours:hover > * { background: color-mix(in srgb, var(--cloth-ink, #1f4e3d) 12%, var(--paper, #fbfaf6)); } .ds-note-ref:hover { text-decoration: underline; } }"
     }
   ],
   "narrative": {
@@ -1083,6 +1095,11 @@
         "name": "The Honest Button Rule",
         "body": "A control that has no destination yet looks inert: outlined, no `href`, no hover, \"Coming soon\". It changes to a live, filled button only when `config.js` supplies the store URL or the contact address.",
         "section": "components"
+      },
+      {
+        "name": "The Sourced Claim Rule",
+        "body": "Every cell about another tool is backed by a source listed under the table, and the table says when it was checked. Where something can't be confirmed, the tool gets the benefit of the doubt, and the page says so. Leggio's own row claims only what the extension does today, with its limits in notes.",
+        "section": "components"
       }
     ],
     "dos": [
@@ -1094,7 +1111,8 @@
       "Do keep the demo honest: public-domain passages credited in the footer, hand-written glosses said to be hand-written, the plate labelled as an illustration.",
       "Do show the store and contact links as pending (outlined, unlinked, \"Coming soon\") until `config.js` has a real value.",
       "Do use the ease-out curve (cubic-bezier(0.23, 1, 0.32, 1)) for anything that moves, gate hover behind `(hover: hover) and (pointer: fine)`, and give every animation a reduced-motion version that drops transform and blur.",
-      "Do keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts."
+      "Do keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts.",
+      "Do source every claim the comparison makes about another tool, date it, and give the benefit of the doubt where a fact can't be confirmed."
     ],
     "donts": [
       "Don't put a coloured stripe on the side or top edge of a leaf, plate, gloss slip or any card-like container to mark category or emphasis. The rules this world does use are book furniture: gilt spine bands, the shelf plank, full-measure hairlines between colophon facts, and the rule opening the privacy summary.",
@@ -1107,7 +1125,8 @@
       "Don't stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.",
       "Don't round anything past 7px or use pill shapes. Circles are only for the numbered callouts and step discs.",
       "Don't add ambient, looping or scroll-triggered motion. Every animation answers a reader's action.",
-      "Don't add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset."
+      "Don't add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset.",
+      "Don't dress the comparison up as a sales grid: no highlighted Leggio column, badges, coloured cells or cards. Leggio's row gets its quiet wash and nothing more; it stays a booktabs table on paper."
     ]
   }
 }

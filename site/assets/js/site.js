@@ -790,3 +790,10 @@
   select(passages[0].id, { initial: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 })();
+
+/* Phones: what the comparison's columns mean starts folded, like its sources, so the table and
+   the closing stay near each other. It stays open everywhere else, and without the script. */
+(() => {
+  const fold = document.querySelector("[data-fold-narrow]");
+  if (fold && window.matchMedia("(max-width: 639px)").matches) fold.open = false;
+})();

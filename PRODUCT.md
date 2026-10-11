@@ -22,7 +22,7 @@ The founder's conviction is that reading in the target language is one of the mo
 
 ## Positioning
 
-Leggio translates **on the device**, through Chrome's built-in translation models. Text you translate is not sent to a server. It is built for learning by reading, not for replacing the original with a translation.
+Leggio translates **on the device** by default, through Chrome's built-in translation models: text you translate is not sent to a server. Learners who prefer DeepL or Google Cloud Translation can add their own key, and then their lookups go to that service. It is built for learning by reading, not for replacing the original with a translation.
 
 ## Operating Context
 
@@ -35,18 +35,20 @@ Leggio translates **on the device**, through Chrome's built-in translation model
 
 Confirmed:
 
-- Translation runs on-device using Chrome's built-in AI (Translator and Language Detector APIs). Text does not leave the browser for translation.
+- Translation runs on-device by default, using Chrome's built-in AI (Translator and Language Detector APIs); text does not leave the browser for translation. As an option, the learner can add their own DeepL or Google Cloud Translation API key, and then the text they look up goes to that service.
+- Free.
+- Interaction: select a word or phrase (on a web page, or in Leggio's own PDF reader) and press a key (T by default) to see its meaning in that sentence beside the sentence's translation; S saves it. In Chrome's own PDF viewer, copy the text and press Option+T / Alt+T.
+- Features: meaning in context; idioms recognised and explained in Italian, Spanish, French, German, Portuguese and Czech (from Wiktionary); read aloud with the computer's voices; scanned PDFs read with OCR in the browser; a word list with CSV export (for Anki, Excel or Google Sheets).
 - Stores the user's settings locally (chrome.storage on the device).
 - Stores the learner's saved words / vocabulary list locally.
-- No accounts, no backend server, no analytics.
+- No accounts, no backend server, no analytics in the extension.
+- Minimum Chrome version: 138 (desktop).
+- Public contact email: noahlee519@gmail.com (the owner's), used in the footer, the privacy policy and the comparison's "tell us" link.
 
 Open, not yet confirmed (do not invent):
 
-- The exact interaction model (select-to-translate, hover, side panel, etc.) and full feature list. These are in `LEGGIO_BRIEF.md`, which is not in this repository.
-- Supported languages and minimum Chrome version.
-- Pricing.
+- Supported languages (they follow Chrome's built-in translator, or the service whose key the learner adds).
 - Chrome Web Store URL (the listing does not exist yet).
-- Public contact email for the privacy policy (the owner will supply one).
 
 ## Brand Commitments
 
