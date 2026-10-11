@@ -4,17 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Leggio: read it in the original</title>
-  <meta name="description" content="Leggio is a Chrome extension for language learners. Select a word on a web page or in a PDF, see what it means, and keep reading in the language you're learning. Translation happens on your device.">
+  <meta name="description" content="Leggio is a free Chrome extension for language learners. Select a word on a web page or in a PDF, see what it means, and keep reading in the language you're learning. Translation happens on your device.">
   <meta name="theme-color" content="#1F4E3D">
+  <link rel="canonical" href="https://getleggio.com/">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://getleggio.com/">
+  <meta property="og:site_name" content="Leggio">
   <meta property="og:title" content="Leggio: read it in the original">
   <meta property="og:description" content="A Chrome extension for language learners. See what a word means without leaving the original. Translation happens on your device.">
-  <meta property="og:image" content="/assets/img/og.png">
+  <meta property="og:image" content="https://getleggio.com/assets/img/og.png?v=3">
+  <meta property="og:image:alt" content="Leggio: read it in the original. A shelf of five bookcloth volumes in Italian, Czech, French, Dutch and Japanese.">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+  <meta name="twitter:image" content="https://getleggio.com/assets/img/og.png?v=3">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/img/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
   <link rel="preload" href="/assets/fonts/alegreya-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/alegreya-sans-latin-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
@@ -44,15 +51,11 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <h1 id="hero-title">Read it in the original.</h1>
-          <p class="hero__lede">Leggio is a Chrome extension for language learners. Select a word on a web page or in a PDF, see what it means, and keep reading in the language you’re learning.</p>
+          <h1 id="hero-title">Read it in the original</h1>
+          <p class="hero__lede">Leggio is a free Chrome extension for language learners. Select a word and translate it with one button.</p>
           <div class="hero__actions">
             <a class="button button--primary" data-store-link data-label-live="Add to Chrome" data-label-pending="Coming soon to the Chrome Web Store">Coming soon to the Chrome Web Store</a>
           </div>
-          <p class="hero__assure">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19.5h20"/></svg>
-            Translation happens on your device. What you read stays there.
-          </p>
         </div>
 
         <div class="hero__book">
@@ -62,47 +65,73 @@
                 <span class="folio" data-folio="0">3</span>
                 <span class="runhead__text" id="book-title" data-title>Le avventure di Pinocchio</span>
               </header>
-              <p class="chapter" data-chapter>Capitolo primo</p>
+              <p class="chapter" data-chapter><span>Capitolo primo</span></p>
               <div class="passage" id="passage" role="group" aria-label="Demo passage. Use the arrow keys to move between words and Enter to see a translation." lang="it">C’era una volta… — Un re! — diranno subito i miei piccoli lettori. No, ragazzi, avete sbagliato. C’era una volta un pezzo di legno. Non era un legno di lusso, ma un semplice pezzo da catasta…</div>
               <div class="gloss-dock" id="gloss-dock"></div>
               <div class="linenos" id="linenos" aria-hidden="true"></div>
-              <p class="attribution" data-attribution>Carlo Collodi, 1883</p>
+              <p class="attribution" data-attribution><span>Carlo Collodi, 1883</span></p>
             </article>
             <div class="gutter" aria-hidden="true"></div>
             <article class="page page--facing" aria-labelledby="facing-title">
               <header class="runhead">
-                <span class="runhead__text" id="facing-title">Your glosses</span>
+                <span class="runhead__text" id="facing-title">Your words</span>
                 <span class="folio" data-folio="1">4</span>
               </header>
-              <p class="chapter">Saved words, by line</p>
+              <p class="chapter"><span>Saved words, by line</span></p>
               <ol class="notes" id="notes"></ol>
               <p class="notes__empty" id="notes-empty">Words you save appear here, next to the line they came from.</p>
+              <p class="notes__full" id="notes-full" hidden>This page holds five words. Select a saved word to remove it.</p>
             </article>
 
             <button class="dogear dogear--prev" type="button" id="turn-prev" aria-label="Turn back to the previous language"></button>
             <button class="dogear dogear--next" type="button" id="turn-next" aria-label="Turn the page to the next language"></button>
+            <svg class="drag-hint" id="drag-hint" viewBox="6 3 64 30" aria-hidden="true">
+              <defs>
+                <path id="drag-hint-shape" d="M66.8 29.6 L65.2 26.3 L63.4 23.2 L61.5 20.4 L59.4 17.9 L57.2 15.5 L54.8 13.5 L52.3 11.7 L49.8 10.1 L47.1 8.8 L44.4 7.8 L41.7 7.0 L38.9 6.4 L36.1 6.1 L33.3 6.0 L30.5 6.1 L27.8 6.4 L25.2 7.0 L22.6 7.8 L20.1 8.8 L17.8 10.1 L15.1 5.6 L8.7 19.4 L23.9 20.4 L21.2 15.9 L23.1 14.9 L25.0 14.1 L27.0 13.3 L29.1 12.7 L31.3 12.3 L33.5 12.0 L35.8 11.9 L38.2 12.0 L40.6 12.3 L43.0 12.7 L45.4 13.4 L47.8 14.3 L50.1 15.4 L52.5 16.7 L54.8 18.3 L57.1 20.2 L59.2 22.3 L61.3 24.7 L63.3 27.4 L65.2 30.4 Z"/>
+                <!-- The impression's upper wall is in shade, so the ink deepens toward the top -->
+                <linearGradient id="drag-hint-ink" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#181208" stop-opacity="0.22"/>
+                  <stop offset="1" stop-color="#181208" stop-opacity="0.07"/>
+                </linearGradient>
+              </defs>
+              <!-- the lower lip of the impression catches the light -->
+              <use class="drag-hint__lip" href="#drag-hint-shape" transform="translate(0 1.1)"/>
+              <use class="drag-hint__ink" href="#drag-hint-shape" fill="url(#drag-hint-ink)"/>
+            </svg>
 
             <div class="gloss" id="gloss" hidden>
               <div class="gloss__head">
                 <span class="gloss__word" id="gloss-word"></span>
-                <button class="gloss__close" type="button" aria-label="Close translation" id="gloss-close">
-                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
-                </button>
+                <div class="gloss__tools">
+                  <button class="gloss__tool" type="button" id="gloss-speak" aria-label="Listen" title="Listen">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11"/></svg>
+                  </button>
+                  <button class="gloss__tool" type="button" id="gloss-copy" aria-label="Copy the meaning" title="Copy the meaning">
+                    <svg class="icon icon--copy" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8.5" width="11" height="12" rx="1.6"/><path d="M15.5 5.5v-.3a1.7 1.7 0 0 0-1.7-1.7H6.2a1.7 1.7 0 0 0-1.7 1.7v9.6a1.7 1.7 0 0 0 1.7 1.7h.3"/></svg>
+                    <svg class="icon icon--copied" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+                  </button>
+                  <button class="gloss__tool gloss__close" type="button" aria-label="Close translation" title="Close (Esc)" id="gloss-close">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>
+                  </button>
+                </div>
               </div>
               <p class="gloss__meaning" id="gloss-meaning"></p>
               <p class="gloss__context"><span class="gloss__label">This sentence</span> <span id="gloss-context"></span></p>
               <button class="gloss__save" type="button" id="gloss-save">
                 <svg class="icon icon--save" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h10v17l-5-3.6-5 3.6z"/></svg>
                 <svg class="icon icon--saved" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
-                <span id="gloss-save-label">Save to facing page</span><span class="visually-hidden" id="gloss-save-hint"></span>
+                <span id="gloss-save-label">Save word</span><span class="visually-hidden" id="gloss-save-hint"></span>
               </button>
             </div>
           </div>
 
           <div class="shelf">
-            <div class="spines" role="tablist" aria-label="Demo language" id="spines"></div>
+            <div class="spines-wrap">
+              <div class="spines" role="tablist" aria-label="Demo language" id="spines"></div>
+              <p class="shelf__more">+34 more languages</p>
+            </div>
             <p class="visually-hidden" role="status" id="demo-status"></p>
-            <p class="shelf__note">Drag or swipe the page to turn to the next language, or pick a book. Select any word to see its translation. The demo’s translations are written by hand for these public-domain passages.</p>
+            <p class="shelf__note"><b class="shelf__try">Try it.</b> Select any word in the book to see what it means. Drag the page, or pick a book, to change language.</p>
           </div>
         </div>
       </div>
@@ -111,14 +140,14 @@
   <section class="leaf-section" aria-labelledby="preface-title">
     <div class="container">
       <article class="leaf">
-        <header class="runhead leaf__runhead"><span>Preface</span><span class="folio">vii</span></header>
+        <header class="runhead leaf__runhead"><span>Preface</span></header>
         <div class="preface__grid">
-          <h2 id="preface-title">You learn a language by reading it.</h2>
+          <h2 id="preface-title">You learn a language by reading it</h2>
           <div class="preface__body">
             <p>When you read a lot in a language, the same words keep turning up in different sentences, and one day you find you already know them. Getting there is slow, though. Every few lines there’s a word you don’t know, so you look it up in another tab and then hunt for your place again. After a few pages of that, it’s tempting to read a translation instead.</p>
-            <p>Leggio keeps you in the original. When a word stops you, its meaning appears right beside it, like the facing page of a bilingual edition, and the page you’re reading never changes. Save the words that matter to you, then carry on with the next line.</p>
-            <p class="preface__coda">A <i lang="it">leggio</i> is the stand that holds what you’re reading. That’s the whole job.</p>
+            <p>Leggio keeps you in the original. When a word stops you, its meaning appears right beside it. It reads the whole sentence, so a word that could mean several things gets the meaning it has there. Save the words that matter to you, then carry on with the next line.</p>
           </div>
+          <p class="preface__coda entry"><b class="entry__head" lang="it">leggìo</b> <span class="entry__ipa">/ledˈdʒio/</span> <abbr class="entry__label" lang="it" title="sostantivo maschile, masculine noun">s.m.</abbr> <span class="entry__keep">(<abbr class="entry__label" title="plural">pl.</abbr> <span lang="it">leggìi</span>)</span> <span class="entry__keep"><b class="entry__n">1</b> <i class="entry__ctx" lang="it">(per libri)</i></span> reading stand, book rest <span class="entry__keep"><b class="entry__n">2</b> <i class="entry__ctx" lang="it">(in chiesa)</i></span> lectern <span class="entry__keep"><b class="entry__n">3</b> <abbr class="entry__label" title="music">(Mus.)</abbr></span> music stand. <span class="entry__etym">[from <i lang="it">leggere</i>, to read]</span></p>
         </div>
       </article>
     </div>
@@ -127,45 +156,43 @@
   <section class="leaf-section" id="how" aria-labelledby="how-title">
     <div class="container">
       <article class="leaf">
-        <header class="runhead leaf__runhead"><span>Notes on use</span><span class="folio">viii</span></header>
+        <header class="runhead leaf__runhead"><span>Glossary</span></header>
         <h2 id="how-title">How to read with Leggio</h2>
-        <div class="howto__grid">
-          <figure class="plate" aria-label="Illustration: Leggio translating a word in a PDF and saving it">
-            <div class="plate__leaf" lang="it">
-              <header class="plate__runhead">
-                <span class="plate__file"><span class="callout" aria-hidden="true">1</span><span lang="en">PDF</span> · pinocchio_capitolo1.pdf</span>
-                <span class="folio">1</span>
-              </header>
-              <p class="plate__chapter">I.</p>
-              <p class="plate__text">Io non so come andasse, ma il fatto gli è che un bel giorno questo pezzo di legno capitò nella bottega di un vecchio <mark class="plate__hl">falegname</mark>, il quale aveva nome mastr’Antonio, se non che tutti lo chiamavano maestro Ciliegia, per via della punta del suo naso, che era sempre lustra e paonazza, come una ciliegia matura.</p>
-              <div class="minigloss" aria-hidden="true">
-                <span class="callout callout--gloss">2</span>
-                <p class="minigloss__word">falegname</p>
-                <p class="minigloss__meaning" lang="en">carpenter</p>
-                <p class="minigloss__save" lang="en">
-                  <svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
-                  Saved
-                  <span class="callout callout--save">3</span>
-                </p>
+        <ol class="steps">
+          <li class="step">
+            <figure class="plate">
+              <div class="plate__board">
+                <img class="plate__shot" src="/assets/img/plate-open-375.webp" srcset="/assets/img/plate-open-375.webp 375w, /assets/img/plate-open-750.webp 750w" sizes="(max-width: 899px) min(calc(100vw - 96px), 420px), 330px" width="375" height="400" loading="lazy" decoding="async" alt="Leggio’s reader before anything is open: Read it in the original. Open a PDF or web page in another language and press a hotkey of your choice (set to T) to see what a word or phrase means. An Open a PDF button, and a note that PDFs opened in Chrome come here automatically.">
               </div>
-            </div>
-          </figure>
-
-          <ol class="steps">
-            <li>
-              <h3>Open something worth reading.</h3>
+            </figure>
+            <div class="step__text">
+              <h3>Open something worth reading</h3>
               <p>A news article, a paper, a novel, a PDF from class. Leggio works on web pages and on PDFs in Chrome.</p>
-            </li>
-            <li>
-              <h3>Select what stops you.</h3>
+            </div>
+          </li>
+          <li class="step">
+            <figure class="plate">
+              <div class="plate__board">
+                <img class="plate__shot" src="/assets/img/plate-slip-375.webp" srcset="/assets/img/plate-slip-375.webp 375w, /assets/img/plate-slip-750.webp 750w" sizes="(max-width: 899px) min(calc(100vw - 96px), 420px), 330px" width="375" height="400" loading="lazy" decoding="async" alt="A PDF in Leggio’s reader with the word legno selected. Its slip reads: legno, wood. This sentence: C’era una volta un pezzo di legno. Once upon a time there was a piece of wood.">
+              </div>
+            </figure>
+            <div class="step__text">
+              <h3>Select what stops you</h3>
               <p>The translation appears next to the words you selected, and the page stays in the original. You read on without switching tabs.</p>
-            </li>
-            <li>
-              <h3>Keep the words worth keeping.</h3>
+            </div>
+          </li>
+          <li class="step">
+            <figure class="plate">
+              <div class="plate__board">
+                <img class="plate__shot" src="/assets/img/plate-words-375.webp" srcset="/assets/img/plate-words-375.webp 375w, /assets/img/plate-words-750.webp 750w" sizes="(max-width: 899px) min(calc(100vw - 96px), 420px), 330px" width="375" height="400" loading="lazy" decoding="async" alt="Leggio’s Your words panel: saved Italian words with their meanings, accendere light and riscaldare heat, each with the sentence it came from.">
+              </div>
+            </figure>
+            <div class="step__text">
+              <h3>Keep the words worth keeping</h3>
               <p>Save a word and it goes to your list, stored in your browser, ready when you come back to it.</p>
-            </li>
-          </ol>
-        </div>
+            </div>
+          </li>
+        </ol>
       </article>
     </div>
   </section>
@@ -173,27 +200,46 @@
   <section class="colophon" aria-labelledby="colophon-title">
     <div class="container colophon__grid">
       <div class="colophon__lead">
-        <h2 id="colophon-title">Your reading stays on your computer.</h2>
-        <p>Leggio translates with the models built into Chrome, so the words you select are translated on your own machine. The words you save are kept in your browser. There’s no account to make, no server of ours in between, and nothing tracking what you read.</p>
+        <h2 id="colophon-title">Your reading stays on your computer</h2>
+        <p>Leggio translates with the models built into Chrome, so the words you select are translated on your own machine for free, unless you add your own API key. The words you save are kept in your browser. There’s no account to make, no server of ours in between, and nothing tracking what you read.</p>
         <a class="textlink" href="/privacy/">Read the privacy policy
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
+      <div class="colophon__side">
       <dl class="colophon__facts">
-        <div><dt>Translation</dt><dd>On your device by default, with Chrome’s built-in AI</dd></div>
+        <div><dt>Translation</dt><dd>With Chrome’s built-in AI or your API key</dd></div>
         <div><dt>Saved words</dt><dd>Kept in your browser, on your computer</dd></div>
         <div><dt>Account</dt><dd>None. Install it and start reading</dd></div>
         <div><dt>Tracking</dt><dd>None in the extension. No analytics, no ads</dd></div>
       </dl>
+      <ul class="translators" aria-label="Translators Leggio can use">
+        <li class="translator">
+          <svg class="translator__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M10 3.5v3M14 3.5v3M10 17.5v3M14 17.5v3M3.5 10h3M3.5 14h3M17.5 10h3M17.5 14h3"/></svg>
+          <span class="translator__name">Chrome’s <span class="translator__line">built-in AI</span></span>
+          <span class="translator__how">On your device, free</span>
+        </li>
+        <li class="translator">
+          <svg class="translator__icon translator__icon--logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.907 4.93953 12.68543.18573a1.3577 1.3577 0 0 0-1.3709 0L3.09298 4.9565a1.3766 1.3766 0 0 0-.68639 1.18233v9.52646a1.3766 1.3766 0 0 0 .68639 1.19363l8.22157 4.75946.06223.03583 4.04856 2.3458-.01131-2.06106.0075-1.1446.0038.01885v-.38467c0-.23006.1188-.43371.29605-.56005l.264-.15086.12633-.06977h-.0075l4.80283-2.7795a1.3803 1.3803 0 0 0 .68639-1.19551V6.13505a1.3803 1.3803 0 0 0-.68642-1.19552m-9.85269 9.68863a1.4275 1.4275 0 0 1-.39976 1.3841 1.4086 1.4086 0 0 1-1.97054 0 1.4199 1.4199 0 0 1 0-2.06294 1.4086 1.4086 0 0 1 2.0422.07543l3.32822-1.91585.6864.38656zm5.77019-2.41367a1.4086 1.4086 0 0 1-1.97054 0 1.4256 1.4256 0 0 1-.3696-1.47837l-.0132.0075-3.7525-2.1723-.05657.05656a1.4086 1.4086 0 0 1-1.97053 0 1.4199 1.4199 0 0 1 0-2.06293 1.4086 1.4086 0 0 1 1.97242 0c.3941.37713.52422.91832.39033 1.40672l3.7808 2.20059.01886-.01886a1.4086 1.4086 0 0 1 1.97242 0 1.42746 1.42746 0 0 1 0 2.06105z"/></svg>
+          <span class="translator__name">DeepL <span class="translator__line">Translation</span></span>
+          <span class="translator__how">With your own API key</span>
+        </li>
+        <li class="translator">
+          <svg class="translator__icon translator__icon--logo" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.401 4.818h-9.927L10.927 0H1.599C.72 0 .002.719.002 1.599v16.275c0 .878.72 1.597 1.597 1.597h10L13.072 24H22.4c.878 0 1.597-.707 1.597-1.572V6.39c0-.865-.72-1.572-1.597-1.572zm-15.66 8.68c-2.07 0-3.75-1.68-3.75-3.75 0-2.07 1.68-3.75 3.75-3.75 1.012 0 1.86.375 2.512.976l-.99.952a2.194 2.194 0 0 0-1.522-.584c-1.305 0-2.363 1.08-2.363 2.409S5.436 12.16 6.74 12.16c1.507 0 2.13-1.08 2.19-1.808l-2.188-.002V9.066h3.51c.05.23.09.457.09.764 0 2.147-1.434 3.669-3.602 3.669zm16.757 8.93c0 .59-.492 1.072-1.097 1.072h-8.875l3.649-4.03h.005l-.74-2.302.006-.005s.568-.488 1.277-1.24c.712.771 1.63 1.699 2.818 2.805l.771-.772c-1.272-1.154-2.204-2.07-2.89-2.805.919-1.087 1.852-2.455 2.049-3.707h2.034v.002h.002v-.94h-4.532v-1.52h-1.471v1.52H14.3l-1.672-5.21.006.022h9.767c.605 0 1.097.48 1.097 1.072v16.038zm-6.484-7.311c-.536.548-.943.873-.943.873l-.008.004-1.46-4.548h4.764c-.307 1.084-.988 2.108-1.651 2.904-1.176-1.392-1.18-1.844-1.18-1.844h-1.222s.05.678 1.7 2.61z"/></svg>
+          <span class="translator__name">Google Cloud <span class="translator__line">Translation</span></span>
+          <span class="translator__how">With your own API key</span>
+        </li>
+      </ul>
+      </div>
     </div>
   </section>
 
   <section class="leaf-section compare" id="compare" aria-labelledby="compare-title">
     <div class="container">
       <article class="leaf">
-        <header class="runhead leaf__runhead"><span>Appendix</span><span class="folio">ix</span></header>
+        <header class="runhead leaf__runhead"><span>Appendix</span></header>
         <div class="compare__grid">
-          <h2 id="compare-title">Other ways to look a word up.</h2>
+          <h2 id="compare-title">Other ways to look a word up</h2>
           <div class="compare__intro">
             <p>Plenty of tools will translate a word for you. Here are twelve well-known ones beside Leggio, compared on what matters when you read in a language you’re learning: whether your reading stays on your computer, whether you get the word’s meaning in your sentence, and what it costs.</p>
             <p>Many of them do things Leggio doesn’t, like translating whole pages or Netflix subtitles. This table sticks to reading.</p>
@@ -491,8 +537,7 @@
   <section class="closing" aria-labelledby="closing-title">
     <div class="container closing__inner">
       <svg class="ornament" viewBox="0 0 120 12" aria-hidden="true"><path d="M0 6h50M70 6h50"/><path d="M60 1l5 5-5 5-5-5z"/></svg>
-      <h2 id="closing-title">Pick up the book you’ve been putting off.</h2>
-      <p>Leggio will keep the translation beside it.</p>
+      <h2 id="closing-title">Pick up the book you’ve been putting off</h2>
       <a class="button button--primary" data-store-link data-label-live="Add Leggio to Chrome" data-label-pending="Coming soon to the Chrome Web Store">Coming soon to the Chrome Web Store</a>
       <div class="shelf shelf--closing">
         <div class="spines" id="closing-spines" role="group" aria-label="Open a demo volume"></div>
@@ -515,7 +560,7 @@
         <a href="/privacy/">Privacy policy</a>
         <a data-contact data-label-live="Contact" href="mailto:noahlee519@gmail.com">Contact</a>
       </nav>
-      <p class="footer__fine">Demo passages: Carlo Collodi, <i lang="it">Le avventure di Pinocchio</i> (1883); Miguel de Cervantes, <i lang="es">Don Quijote</i> (1605); Marcel Proust, <i lang="fr">Du côté de chez Swann</i> (1913); Franz Kafka, <i lang="de">Die Verwandlung</i> (1915); Natsume Sōseki, <i lang="ja">吾輩は猫である</i> (1905). All in the public domain. Chrome is a trademark of Google LLC.</p>
+      <p class="footer__fine">Demo passages: Carlo Collodi, <i lang="it">Le avventure di Pinocchio</i> (1883); Božena Němcová, <i lang="cs">Babička</i> (1855); Marcel Proust, <i lang="fr">Du côté de chez Swann</i> (1913); Multatuli, <i lang="nl">Max Havelaar</i> (1860); Natsume Sōseki, <i lang="ja">吾輩は猫である</i> (1905). All in the public domain. Chrome is a trademark of Google LLC.</p>
       <p class="footer__fine">© <span data-year>2026</span> Leggio</p>
     </div>
   </footer>

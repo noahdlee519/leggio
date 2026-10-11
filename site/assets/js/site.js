@@ -33,32 +33,53 @@
     el.textContent = String(new Date().getFullYear());
   });
 
-  /* ---------- How-it-works plate: pin the slip under its word on wide screens ---------- */
+  /* ---------- Reveals: blocks below the fold arrive as they come into view ----------
+     Most fade up. The paper leaves grow from a little smaller to their full size, and the
+     translator plaques fade in one after another. */
 
-  const mini = $(".minigloss");
-  const miniWord = $(".plate__hl");
-  const anchorMini = () => {
-    if (!mini || !miniWord) return;
-    if (narrow.matches) {
-      mini.classList.remove("is-anchored");
-      mini.style.left = mini.style.top = "";
-      return;
-    }
-    const page = mini.parentElement;
-    const pr = page.getBoundingClientRect();
-    const wr = miniWord.getClientRects();
-    const r = wr[wr.length - 1];
-    if (!r) return;
-    const left = Math.min(Math.max(r.left - pr.left + r.width / 2 - mini.offsetWidth / 2, 12), pr.width - mini.offsetWidth - 12);
-    mini.style.left = Math.round(left) + "px";
-    mini.style.top = Math.round(r.bottom - pr.top + 12) + "px";
-    mini.classList.add("is-anchored");
-  };
-  if (mini) {
-    anchorMini();
-    if ("ResizeObserver" in window) new ResizeObserver(anchorMini).observe(mini.parentElement);
-    narrow.addEventListener("change", anchorMini);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(anchorMini);
+  const revealable = [
+    ...$$(".leaf").map((el) => [el, "grow"]),
+    ...$$(".translator").map((el) => [el, "fade"]),
+    ...$$(".leaf__runhead, .leaf h2, .preface__body > p, .preface__coda, .step > *, .colophon__lead > *, .colophon__facts > div, .closing__inner > *").map((el) => [el, ""]),
+  ];
+  if (revealable.length && "IntersectionObserver" in window) {
+    const revealer = new IntersectionObserver(
+      (entries) => {
+        let n = 0;
+        let plaques = 0;
+        entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left)
+          .forEach((entry) => {
+            const el = entry.target;
+            revealer.unobserve(el);
+            // Blocks arriving together follow one another; the plaques keep their own count
+            const delay = el.classList.contains("reveal--fade") ? plaques++ * 150 : el.classList.contains("reveal--grow") ? 0 : Math.min(n++, 4) * 90;
+            el.style.setProperty("--reveal-delay", delay + "ms");
+            el.classList.add("is-in");
+            // Once it has arrived, hand the block back to its own styles and transitions
+            setTimeout(() => {
+              el.classList.remove("reveal", "reveal--grow", "reveal--fade", "is-in");
+              el.style.removeProperty("--reveal-delay");
+            }, delay + 950);
+          });
+      },
+      { rootMargin: "0px 0px -8% 0px" }
+    );
+    // Only blocks that start below the fold; anything already in view is left alone. Measured
+    // once the type has loaded, since the fonts move everything below the hero.
+    const arm = () => {
+      const fold = window.innerHeight * 0.92;
+      revealable
+        .filter(([el]) => el.getBoundingClientRect().top > fold)
+        .forEach(([el, kind]) => {
+          el.classList.add("reveal");
+          if (kind) el.classList.add("reveal--" + kind);
+          revealer.observe(el);
+        });
+    };
+    const fontsReady = document.fonts?.ready ?? Promise.resolve();
+    Promise.race([fontsReady, new Promise((r) => setTimeout(r, 1000))]).then(arm);
   }
 
   /* ---------- The demo book ---------- */
@@ -76,6 +97,8 @@
   const linenosEl = $("#linenos");
   const notesEl = $("#notes");
   const notesEmpty = $("#notes-empty");
+  const notesFull = $("#notes-full");
+  const MAX_SAVED = 5; // keeps the facing page to one page per book
   const spinesEl = $("#spines");
   const closingSpines = $("#closing-spines");
   const status = $("#demo-status");
@@ -87,6 +110,8 @@
   const glossSaveLabel = $("#gloss-save-label");
   const glossSaveHint = $("#gloss-save-hint");
   const glossClose = $("#gloss-close");
+  const glossSpeak = $("#gloss-speak");
+  const glossCopy = $("#gloss-copy");
   const clothEls = $$("[data-sync-cloth]");
   const themeMeta = $('meta[name="theme-color"]');
 
@@ -115,10 +140,14 @@
     b.className = "spine";
     b.dataset.cloth = p.id;
     const title = document.createElement("span");
-    title.className = "spine__title";
+    title.className = "spine__title" + (p.tab.length > 8 ? " spine__title--long" : ""); // Nederlands
     title.lang = p.lang;
     title.textContent = p.tab;
-    b.append(title);
+    // The book you're reading keeps its ribbon marker hanging out of the tail
+    const ribbon = document.createElement("span");
+    ribbon.className = "spine__ribbon";
+    ribbon.setAttribute("aria-hidden", "true");
+    b.append(title, ribbon);
     return b;
   };
 
@@ -130,7 +159,17 @@
     b.setAttribute("aria-selected", "false");
     b.setAttribute("aria-controls", "spread");
     b.tabIndex = -1;
-    b.addEventListener("click", (e) => select(p.id, { mode: e.detail === 0 ? "swap" : "turn" }));
+    b.addEventListener("click", (e) => {
+      select(p.id, { mode: e.detail === 0 ? "swap" : "turn" });
+      // On phones the shelf sits under the book, and the slip open in it closes as the book
+      // changes, so the new page can end up above the screen: bring its top back into view
+      if (docked()) {
+        requestAnimationFrame(() => {
+          const top = spread.getBoundingClientRect().top;
+          if (top < 0) window.scrollTo({ top: window.scrollY + top - 16, behavior: animate() ? "smooth" : "auto" });
+        });
+      }
+    });
     spinesEl.append(b);
 
     // The same shelf at the foot of the page opens a volume in the demo
@@ -189,6 +228,21 @@
 
   const openStart = (animated) => openGloss(words.findIndex((w) => w.tok.w === current.start), { animated });
 
+  // Arriving at a volume (on load, or after a turn), the start word's gloss opens after a
+  // one-second pause, so the page is seen before the slip lands on it. A word the reader
+  // opens, or another turn, in the meantime wins. On phones the slip docks inside the page
+  // and pushes the shelf down, so there it only opens on load, never after a change of book.
+  const START_PAUSE_MS = 1000;
+  let startTimer = 0;
+  const cancelStart = () => window.clearTimeout(startTimer);
+  function scheduleStart(onLoad = false) {
+    cancelStart();
+    if (docked() && !onLoad) return;
+    startTimer = window.setTimeout(() => {
+      if (!turn && active < 0) openStart(true);
+    }, START_PAUSE_MS);
+  }
+
   // mode: "turn" plays the page turn, "swap" is a quick blur-fade (keyboard, reduced motion)
   function select(id, { initial = false, mode = "turn", dir } = {}) {
     const p = passages.find((x) => x.id === id);
@@ -197,12 +251,16 @@
     if (initial) {
       applyChrome(p, { announce: false });
       showPassage(p);
+      const opens = prepareOpening();
       requestAnimationFrame(() => {
         layoutLines();
-        openStart(false);
+        if (opens) beginOpening();
+        else scheduleStart(true);
       });
       return;
     }
+    cancelStart();
+    retireHints(); // they've found another volume; the hints have done their job
     if (mode === "turn" && animate()) {
       playTurn(dir || (indexOf(p) > indexOf(current) ? "next" : "prev"), p);
       return;
@@ -210,7 +268,7 @@
     applyChrome(p);
     if (!animate()) {
       showPassage(p);
-      requestAnimationFrame(() => openStart(false));
+      scheduleStart();
       return;
     }
     spread.classList.add("is-swapping");
@@ -218,7 +276,7 @@
       showPassage(p);
       requestAnimationFrame(() => {
         spread.classList.remove("is-swapping");
-        openStart(true);
+        scheduleStart();
       });
     }, 170);
   }
@@ -267,6 +325,8 @@
   };
 
   function beginTurn(dir, to) {
+    cancelStart();
+    retireHints();
     const from = current;
     const prevActive = active;
     closeGloss(true);
@@ -321,8 +381,7 @@
     setTurn(0);
   }
 
-  function setTurn(p) {
-    const t = turn;
+  function setTurn(p, t = turn) {
     t.p = p;
     const sign = t.dir === "next" ? -1 : 1;
     const lift = Math.sin(p * Math.PI);
@@ -366,7 +425,7 @@
     delete pageFacing.dataset.cloth;
     if (commit) {
       if (!t.chrome) applyChrome(t.to);
-      requestAnimationFrame(() => openStart(true));
+      scheduleStart();
     } else {
       showPassage(t.from);
       if (t.prevActive >= 0) openGloss(t.prevActive, { animated: false });
@@ -393,6 +452,7 @@
   let suppressClickUntil = 0;
 
   spread.addEventListener("pointerdown", (e) => {
+    stopPeek(); // the reader's hand takes over from the hint
     if (!e.isPrimary || e.button !== 0 || turn || drag) return;
     if (e.target.closest(".gloss")) return;
     drag = { id: e.pointerId, x0: e.clientX, y0: e.clientY, started: false, samples: [] };
@@ -467,15 +527,353 @@
     true
   );
 
+  /* Two fingers swiped sideways on a trackpad turn the page too. The leaf follows the swipe,
+     momentum included; when the swipe comes to rest, the page finishes turning if it got a
+     third of the way, and otherwise lays back down. One swipe turns at most one page, and
+     scrolling up and down over the book is left alone. */
+  const SWIPE_GAP_MS = 160; // a pause this long ends a swipe
+  let swipe = null;
+
+  const endSwipe = () => {
+    const s = swipe;
+    swipe = null;
+    if (!s || !s.turning || !turn) return;
+    const commit = turn.p > 0.35;
+    if (commit && !turn.chrome) {
+      applyChrome(turn.to);
+      turn.chrome = true;
+    }
+    const target = commit ? 1 : 0;
+    tweenTurn(target, Math.round(180 + Math.abs(target - turn.p) * 340), easeOut, () => endTurn(commit));
+  };
+
+  spread.addEventListener(
+    "wheel",
+    (e) => {
+      const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? spread.clientWidth : 1;
+      const dx = e.deltaX * unit;
+      if (!swipe) {
+        // The first event decides: sideways is a page turn, anything else is a scroll (or a pinch)
+        swipe = { sideways: Math.abs(dx) > Math.abs(e.deltaY * unit) && e.cancelable && !e.ctrlKey, x: 0, turning: false, done: false, timer: 0 };
+      }
+      window.clearTimeout(swipe.timer);
+      swipe.timer = window.setTimeout(endSwipe, SWIPE_GAP_MS);
+      if (!swipe.sideways) return;
+      e.preventDefault(); // no sideways scroll, and no browser back/forward swipe
+      if (swipe.done || drag || (turn && !swipe.turning) || !current) return;
+      swipe.x += dx;
+      if (!swipe.turning) {
+        if (Math.abs(swipe.x) < 6) return;
+        const dir = swipe.x > 0 ? "next" : "prev"; // fingers moving left, like dragging the page left
+        stopPeek();
+        if (!animate()) {
+          swipe.done = true;
+          select(neighbour(current, dir).id, { mode: "swap", dir });
+          return;
+        }
+        swipe.turning = true;
+        swipe.dir = dir;
+        beginTurn(dir, neighbour(current, dir));
+        swipe.travel = turn.stacked ? spread.clientWidth * 0.9 : turn.leaf.offsetWidth * 1.2;
+      }
+      const p = Math.min(1, Math.max(0, (swipe.dir === "next" ? swipe.x : -swipe.x) / swipe.travel));
+      setTurn(p);
+      if (p >= 1) {
+        // All the way over: land it, and let the rest of this swipe's momentum run out
+        swipe.turning = false;
+        swipe.done = true;
+        endTurn(true);
+      }
+    },
+    { passive: false }
+  );
+
+  /* ---------- Opening the book ----------
+     On arrival the book is closed, its cloth cover on the right, lettered with the volume's
+     title. It opens on its own, straight to the passage: the cover swings over the spine and
+     lands as the left board with the passage's page on it, uncovering the facing page. No
+     other page is ever shown. The start word's gloss follows a second later. It is the same
+     leaf a turn uses. Any input finishes it at once; it never plays with reduced motion, or
+     when the book isn't in view at load. On stacked (phone) pages the cover lifts away. */
+
+  const OPEN_AT_MS = 650; // after load: the closed book has faded in and been seen
+  const OPEN_KEYS = [[0, 1000]]; // [delay, duration] for the cover
+  const OPEN_STACKED_MS = 900;
+  let opening = null;
+  let openingEnds = 0; // when the opening will be over, so the arrow and the page-lift wait for it
+  const openingLeft = () => Math.max(0, openingEnds - performance.now());
+
+  function prepareOpening() {
+    const r = spread.getBoundingClientRect();
+    const inView = r.top < window.innerHeight * 0.8 && r.bottom > 0;
+    if (!animate() || !inView || document.hidden) return false;
+    // Closed until the leaves are built: the pages hidden, and (side by side) only the right
+    // half of the case showing, like a book lying shut
+    spread.classList.add("is-arriving", "is-shut");
+    if (!docked()) spread.classList.add("is-opening", "is-closed");
+    openingEnds = performance.now() + OPEN_AT_MS + (docked() ? OPEN_STACKED_MS : 1000) + 200;
+    return true;
+  }
+
+  const make2 = (cls, text, lang) => {
+    const d = make(cls);
+    if (text) d.textContent = text;
+    if (lang) d.lang = lang;
+    return d;
+  };
+
+  function beginOpening() {
+    const start = () => {
+      if (!spread.classList.contains("is-arriving")) return; // the visitor already skipped it
+      const [L, R] = pageBoxes();
+      const stacked = Math.abs(L.x - R.x) < 2;
+      if (!stacked && R.el !== pageFacing) return endOpening(); // vertical Japanese binds on the right
+      const overlay = make("turn turn--next turn--opening");
+      overlay.setAttribute("aria-hidden", "true");
+      overlay.inert = true;
+      const leaves = [];
+      const addLeaf = (box, front, back, backHeight) => {
+        const leaf = place(make("turn__leaf"), box);
+        leaf.style.transformOrigin = "0 50%";
+        const frontShade = make("turn__shade turn__shade--front");
+        front.append(frontShade);
+        let backShade = null;
+        if (back) {
+          backShade = make("turn__shade turn__shade--back");
+          back.append(backShade);
+          if (backHeight) {
+            back.style.bottom = "auto";
+            back.style.height = backHeight + "px";
+          }
+          leaf.append(front, back);
+        } else {
+          leaf.append(front);
+        }
+        const cast = stacked ? null : place(make("turn__cast"), R);
+        leaves.push({ leaf, frontShade, backShade, cast, stacked, dir: "next", autoplay: false, chrome: true, p: 0 });
+      };
+      const cover = make("turn__face turn__cover");
+      cover.append(make2("turn__cover-title", current.title, current.lang), make2("turn__cover-author", current.author));
+
+      if (stacked) {
+        // The whole stacked spread under one cover, over the case's margins
+        addLeaf({ x: -7, y: -7, w: spread.clientWidth + 14, h: spread.clientHeight + 17 }, cover, null);
+      } else {
+        // The cover is the case: it overhangs the page as the boards do (9px, 12px, 13px). Its
+        // inside carries the passage's own left page, set where that page lies, so it lands as
+        // the open book itself
+        const inside = make("turn__face turn__face--back turn__inside");
+        inside.append(place(snapshot(pageOriginal, current.id), { x: 12, y: 9, w: L.w, h: L.h }));
+        addLeaf({ x: R.x, y: R.y - 9, w: R.w + 12, h: R.h + 22 }, cover, inside);
+      }
+      leaves.forEach((t, i) => {
+        if (t.cast) overlay.append(t.cast);
+        overlay.append(t.leaf);
+        setTurn(0, t);
+      });
+      const order = (t, i) => {
+        const z = t.p < 0.5 ? 100 - 2 * i : 200 + 2 * i;
+        t.leaf.style.zIndex = z;
+        if (t.cast) t.cast.style.zIndex = z - 1;
+      };
+      leaves.forEach(order);
+      spread.append(overlay);
+      spread.classList.remove("is-shut");
+
+      opening = { overlay, raf: 0, width: spread.clientWidth };
+      const t0 = performance.now() + Math.max(0, OPEN_AT_MS - (performance.now() - loadedAt));
+      const keys = stacked ? [[0, OPEN_STACKED_MS]] : OPEN_KEYS;
+      const total = Math.max(...keys.map(([d, ms]) => d + ms));
+      openingEnds = t0 + total;
+      const step = (now) => {
+        if (!opening) return;
+        const at = now - t0;
+        leaves.forEach((t, i) => {
+          const [delay, ms] = keys[i];
+          const k = Math.min(1, Math.max(0, (at - delay) / ms));
+          setTurn(easeInOut(k), t);
+          order(t, i);
+        });
+        // Past upright, the cover is over the spine: the left half of the case is open
+        if (leaves[0].p >= 0.5) spread.classList.remove("is-closed");
+        if (at >= total) return endOpening();
+        opening.raf = requestAnimationFrame(step);
+      };
+      opening.raf = requestAnimationFrame(step);
+    };
+    // Measure once the type has settled, so every leaf matches the page it stands for
+    const fontsReady = document.fonts?.ready ?? Promise.resolve();
+    Promise.race([fontsReady, new Promise((r) => setTimeout(r, 1200))]).then(() => requestAnimationFrame(start));
+  }
+
+  function endOpening() {
+    if (opening) {
+      cancelAnimationFrame(opening.raf);
+      opening.overlay.remove();
+      opening = null;
+    }
+    if (!spread.classList.contains("is-arriving")) return;
+    spread.classList.remove("is-arriving", "is-shut", "is-opening", "is-closed");
+    openingEnds = performance.now();
+    scheduleStart(true);
+  }
+  const loadedAt = performance.now();
+  // The reader's hand takes over: any input, or a resize that moves the pages, finishes it
+  ["pointerdown", "keydown", "wheel", "touchstart"].forEach((type) =>
+    window.addEventListener(type, () => spread.classList.contains("is-arriving") && endOpening(), { capture: true, passive: true })
+  );
+  window.addEventListener("resize", () => {
+    if (opening && Math.abs(spread.clientWidth - opening.width) > 2) endOpening();
+  });
+
+  /* ---------- The page-turn hint ----------
+     The one motion nobody asked for, and a documented exception to the Answer-Only Motion
+     Rule: once the book has sat in view, untouched, for a few seconds, the right-hand page
+     lifts from its edge by itself, the way a thumb tests a page, and lays back down. It is
+     the same leaf a drag lifts, so it shows exactly what dragging does. It plays at most
+     twice, stops for good once the reader turns a page, gives way the moment they touch the
+     book, and never runs with reduced motion, on stacked (phone) pages or in a hidden tab. */
+
+  const PEEK_IDLE_MS = [3500, 12000]; // stillness before the first hint, then before the second
+  // [ms, turn progress, ease]: a small try, a settle, a bolder lift (0.1 is about 18°), a pause,
+  // then the page lays itself back down
+  const PEEK_KEYS = [
+    [420, 0.05, easeOut],
+    [300, 0.022, easeInOut],
+    [440, 0.1, easeOut],
+    [220, 0.1],
+    [600, 0, easeInOut],
+  ];
+  let peek = null;
+  let peekTimer = 0;
+  let peeksPlayed = 0;
+  let bookInView = false;
+
+  function schedulePeek() {
+    window.clearTimeout(peekTimer);
+    if (peeksPlayed >= PEEK_IDLE_MS.length || !bookInView || !animate() || document.hidden) return;
+    peekTimer = window.setTimeout(playPeek, PEEK_IDLE_MS[peeksPlayed] + openingLeft());
+  }
+
+  /* The drag hint's other half: a small curved arrow, blind-stamped into the paper by the
+     folded corner. It fades in a few seconds after the book comes into view (with reduced
+     motion too: it doesn't move) and fades away for good at the first turn. */
+  const dragHint = $("#drag-hint");
+  const ARROW_AFTER_MS = 2200; // after the gloss opens (1s), before the page lifts (3.5s); both count from the book's opening
+  let arrowTimer = 0;
+  let arrowRetired = false;
+
+  function scheduleArrow() {
+    if (!dragHint || arrowRetired || arrowTimer || dragHint.classList.contains("is-shown")) return;
+    arrowTimer = window.setTimeout(() => dragHint.classList.add("is-shown"), ARROW_AFTER_MS + openingLeft());
+  }
+
+  function retireHints() {
+    arrowRetired = true;
+    window.clearTimeout(arrowTimer);
+    if (dragHint) dragHint.classList.remove("is-shown");
+    retirePeek();
+  }
+
+  function retirePeek() {
+    peeksPlayed = PEEK_IDLE_MS.length;
+    window.clearTimeout(peekTimer);
+    stopPeek();
+  }
+
+  function stopPeek() {
+    if (!peek) return;
+    cancelAnimationFrame(peek.raf);
+    peek.overlay.remove();
+    spread.classList.remove("is-peeking");
+    peek = null;
+  }
+
+  function playPeek() {
+    if (peek || turn || drag || !current || spread.classList.contains("is-swapping") || spread.classList.contains("is-arriving")) return schedulePeek();
+    const [L, R] = pageBoxes();
+    // Only a right-hand facing page lifts: not stacked pages, and not the page the gloss is on
+    // (vertical Japanese binds on the right, which puts the original there)
+    if (Math.abs(L.x - R.x) < 2 || R.el !== pageFacing) return;
+    peeksPlayed++;
+
+    const overlay = make("turn turn--next");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.inert = true;
+    const leaf = place(make("turn__leaf"), R);
+    const front = make("turn__face");
+    const frontShade = make("turn__shade turn__shade--front");
+    const back = make("turn__face turn__face--back");
+    const backShade = make("turn__shade turn__shade--back");
+    const cast = place(make("turn__cast"), R);
+    // The folded corner (and the arrow stamped beside it) lift with their page
+    front.append(fill(snapshot(pageFacing, current.id)), make("dogear dogear--next"));
+    if (dragHint?.classList.contains("is-shown")) {
+      const arrow = dragHint.cloneNode(true);
+      [arrow, ...arrow.querySelectorAll("[id]")].forEach((n) => n.removeAttribute("id")); // its filter resolves to the original's
+      front.append(arrow);
+    }
+    front.append(frontShade);
+    back.append(backShade);
+    leaf.append(front, back);
+    leaf.style.transformOrigin = "0 50%";
+    overlay.append(cast, leaf);
+    spread.append(overlay);
+    spread.classList.add("is-peeking");
+    peek = { dir: "next", overlay, leaf, frontShade, backShade, cast, stacked: false, autoplay: false, chrome: true, p: 0, raf: 0 };
+
+    const t0 = performance.now();
+    const step = (now) => {
+      if (!peek) return;
+      let at = now - t0;
+      let from = 0;
+      for (const [ms, to, ease] of PEEK_KEYS) {
+        if (at < ms) {
+          setTurn(from + (to - from) * (ease ? ease(at / ms) : 1), peek);
+          peek.raf = requestAnimationFrame(step);
+          return;
+        }
+        at -= ms;
+        from = to;
+      }
+      stopPeek();
+      schedulePeek();
+    };
+    peek.raf = requestAnimationFrame(step);
+  }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        bookInView = entry.intersectionRatio >= 0.6;
+        schedulePeek();
+        if (bookInView) scheduleArrow();
+      },
+      { threshold: [0, 0.6] }
+    ).observe(spread);
+  }
+  // Any input restarts the wait: the hint only plays while the visitor is sitting still
+  ["pointerdown", "keydown", "wheel", "touchstart", "scroll"].forEach((type) =>
+    window.addEventListener(type, () => peeksPlayed < PEEK_IDLE_MS.length && schedulePeek(), { capture: true, passive: true })
+  );
+  document.addEventListener("visibilitychange", schedulePeek);
+  reduceMotion.addEventListener?.("change", () => (animate() ? schedulePeek() : retirePeek()));
+
   function renderBook() {
     const p = current;
     spread.dataset.vertical = String(!!p.vertical);
     pageOriginal.dataset.vertical = pageFacing.dataset.vertical = String(!!p.vertical);
     $("[data-title]", spread).textContent = p.title;
     $("[data-title]", spread).lang = p.lang;
-    $("[data-chapter]", spread).textContent = p.chapter;
+    // Text sits in its own spans so the pointer can tell text (text cursor) from paper (grab)
+    const inSpan = (text) => {
+      const span = document.createElement("span");
+      span.textContent = text;
+      return span;
+    };
+    $("[data-chapter]", spread).replaceChildren(inSpan(p.chapter));
     $("[data-chapter]", spread).lang = p.lang;
-    $("[data-attribution]", spread).textContent = p.author + ", " + p.year;
+    $("[data-attribution]", spread).replaceChildren(inSpan(p.author + ", " + p.year));
     $$("[data-folio]", spread).forEach((f) => (f.textContent = p.folios[Number(f.dataset.folio)]));
 
     passageEl.textContent = "";
@@ -500,7 +898,11 @@
             wrap.append(glue[0]);
             text = text.slice(glue[0].length);
           }
-          if (text) passageEl.append(document.createTextNode(text));
+          if (text) {
+            const t = inSpan(text);
+            t.className = "t";
+            passageEl.append(t);
+          }
           lastWord = null;
           return;
         }
@@ -604,6 +1006,7 @@
       notesEl.append(li);
     });
     notesEmpty.hidden = entries.length > 0;
+    notesFull.hidden = entries.length < MAX_SAVED;
     words.forEach((w, i) => w.el.classList.toggle("is-saved", saved.get(keyOf(i)) !== undefined));
   }
 
@@ -617,6 +1020,7 @@
 
   function openGloss(i, { animated = true } = {}) {
     if (i < 0 || !words[i]) return;
+    cancelStart();
     window.clearTimeout(closeTimer);
     const wasOpen = active >= 0 && !gloss.hidden;
     if (active >= 0 && words[active]) {
@@ -634,6 +1038,7 @@
     glossMeaning.textContent = tok.gloss;
     glossContext.textContent = sentence.t;
     syncSave();
+    syncTools();
 
     mountGloss();
     gloss.hidden = false;
@@ -649,6 +1054,7 @@
   }
 
   function closeGloss(instant = false) {
+    stopSpeaking();
     if (active >= 0 && words[active]) {
       words[active].el.classList.remove("is-active");
       words[active].el.setAttribute("aria-expanded", "false");
@@ -687,8 +1093,14 @@
       left: { left: wx - gap - gw, top: clampY(cy - gh / 2), fits: wx - gap - gw >= minX },
       right: { left: wx + r.width + gap, top: clampY(cy - gh / 2), fits: wx + r.width + gap <= maxX }
     };
-    const order = current.vertical ? ["left", "right", "below", "above"] : ["below", "above", "right", "left"];
-    const side = order.find((k) => sides[k].fits) || "below";
+    // Last resorts: open upward past the page top into the margin above the book, or hang below
+    // it in front of the shelf, whichever keeps the word in view
+    sides.aboveLoose = { left: sides.above.left, top: sides.above.top, fits: sides.above.top >= -56 };
+    const order = current.vertical
+      ? ["left", "right", "below", "above", "aboveLoose"]
+      : ["below", "above", "right", "left", "aboveLoose"];
+    const found = order.find((k) => sides[k].fits) || "below";
+    const side = found === "aboveLoose" ? "above" : found;
     const { left, top } = sides[side];
     const origin = {
       below: [cx - left, 0],
@@ -703,10 +1115,14 @@
   }
 
   function syncSave() {
-    const on = savedBy.get(current.id).get(keyOf(active)) !== undefined;
+    const saved = savedBy.get(current.id);
+    const on = saved.get(keyOf(active)) !== undefined;
+    const full = !on && saved.size >= MAX_SAVED;
     glossSave.classList.toggle("is-saved", on);
-    glossSaveLabel.textContent = on ? "Saved" : "Save to facing page";
-    glossSaveHint.textContent = on ? " (select to remove)" : "";
+    glossSave.classList.toggle("is-full", full);
+    glossSave.setAttribute("aria-disabled", String(full));
+    glossSaveLabel.textContent = on ? "Saved" : full ? "Page full" : "Save word";
+    glossSaveHint.textContent = on ? " (select to remove)" : full ? " (five words per book; remove one to save another)" : "";
   }
 
   glossSave.addEventListener("click", () => {
@@ -714,6 +1130,10 @@
     const saved = savedBy.get(current.id);
     const key = keyOf(active);
     const word = words[active].tok.w;
+    if (!saved.has(key) && saved.size >= MAX_SAVED) {
+      status.textContent = "The facing page holds five words. Remove one to save another.";
+      return;
+    }
     if (saved.has(key)) {
       saved.delete(key);
       renderNotes();
@@ -724,6 +1144,65 @@
       status.textContent = "Saved " + word + " to the facing page, line " + words[active].line + ".";
     }
     syncSave();
+  });
+
+  /* Listen and copy, as in the extension's slip. Listening uses only voices installed on
+     the device (never a browser's network voice), so the site still makes no requests
+     beyond itself. */
+  const LANGUAGE = { it: "Italian", cs: "Czech", fr: "French", nl: "Dutch", ja: "Japanese" };
+  const hasSpeech = "speechSynthesis" in window;
+  const localVoice = (lang) => {
+    const voices = hasSpeech ? speechSynthesis.getVoices().filter((v) => v.localService && v.lang.toLowerCase().split(/[-_]/)[0] === lang) : [];
+    return voices.find((v) => v.default) || voices[0] || null;
+  };
+  let copiedTimer = 0;
+
+  function syncTools() {
+    const lang = current.lang.split("-")[0];
+    const voice = localVoice(lang);
+    glossSpeak.setAttribute("aria-disabled", String(!voice));
+    glossSpeak.title = voice ? "Listen" : "No " + (LANGUAGE[lang] || "") + " voice on this device";
+    glossSpeak.setAttribute("aria-label", voice ? "Listen to " + glossWord.textContent : glossSpeak.title);
+    glossCopy.classList.remove("is-copied");
+    window.clearTimeout(copiedTimer);
+  }
+  // Voices load after the page in some browsers
+  if (hasSpeech) speechSynthesis.addEventListener?.("voiceschanged", () => active >= 0 && syncTools());
+
+  function stopSpeaking() {
+    if (hasSpeech) speechSynthesis.cancel();
+    glossSpeak.classList.remove("is-speaking");
+  }
+
+  glossSpeak.addEventListener("click", () => {
+    if (active < 0) return;
+    const voice = localVoice(current.lang.split("-")[0]);
+    if (!voice) {
+      status.textContent = glossSpeak.title + ".";
+      return;
+    }
+    stopSpeaking();
+    const say = new SpeechSynthesisUtterance(words[active].tok.w);
+    say.voice = voice;
+    say.lang = voice.lang;
+    say.rate = 0.9;
+    say.onend = say.onerror = () => glossSpeak.classList.remove("is-speaking");
+    glossSpeak.classList.add("is-speaking");
+    speechSynthesis.speak(say);
+  });
+
+  glossCopy.addEventListener("click", async () => {
+    if (active < 0) return;
+    const { tok } = words[active];
+    try {
+      await navigator.clipboard.writeText(tok.gloss);
+    } catch (err) {
+      return; // no clipboard access (an insecure page, or the browser refused)
+    }
+    glossCopy.classList.add("is-copied");
+    status.textContent = "Copied the meaning of " + tok.w + ".";
+    window.clearTimeout(copiedTimer);
+    copiedTimer = window.setTimeout(() => glossCopy.classList.remove("is-copied"), 1200);
   });
 
   glossClose.addEventListener("click", () => {
