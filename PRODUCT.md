@@ -22,7 +22,7 @@ The founder's conviction is that reading in the target language is one of the mo
 
 ## Positioning
 
-Leggio translates **on the device**, through Chrome's built-in translation models. Text you translate is not sent to a server. It is built for learning by reading, not for replacing the original with a translation.
+Leggio translates **on the device** by default, through Chrome's built-in translation models: text you translate is not sent to a server. Learners who prefer DeepL or Google Cloud Translation can add their own key, and then their lookups go to that service. It is built for learning by reading, not for replacing the original with a translation.
 
 ## Operating Context
 
