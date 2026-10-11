@@ -1,0 +1,41 @@
+<!--
+  Source of site/assets/img/og.png (1200x630), drawn with the site's own CSS.
+  To re-render: serve site/ on localhost:8860, open this file in Chrome at 1200x630
+  (1x), and take a screenshot. The <base> makes the stylesheet and fonts load.
+-->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><base href="http://localhost:8860/">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { position: relative; }
+  .og-copy { position: absolute; left: 80px; top: 108px; width: 560px; }
+  .og-copy .wordmark { font-size: 1.75rem; gap: 12px; }
+  .og-copy .wordmark__mark { width: 30px; height: 30px; }
+  .og-copy h1 { margin: 44px 0 0; font-size: 6.2rem; line-height: 0.98; font-weight: 800; letter-spacing: -0.022em; color: var(--on-cloth); }
+  .og-copy p { margin-top: 28px; max-width: 26ch; font-size: 1.75rem; line-height: 1.32; color: var(--on-cloth-2); }
+  .og-shelf { position: absolute; left: 760px; top: 194px; width: 360px; }
+  .og-shelf .spines { gap: 7px; padding-bottom: 8px; border-bottom-width: 4px; }
+  .og-shelf .spine { width: 58px; height: 230px; transition: none; }
+  .og-shelf .spine::before, .og-shelf .spine::after { left: 9px; right: 9px; }
+  .og-shelf .spine::before { top: 9px; } .og-shelf .spine::after { bottom: 9px; }
+  .og-shelf .spine__title { font-size: 1.3rem; }
+  .og-shelf .spine__title--long { font-size: 1.15rem; letter-spacing: 0.03em; }
+  .og-shelf .spine.is-up { transform: translateY(-22px); }
+</style></head>
+<body class="cloth" data-cloth="it">
+  <div class="og-copy">
+    <span class="wordmark"><svg class="wordmark__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.2c3-1 5.8-.6 8.5 1.1 2.7-1.7 5.5-2.1 8.5-1.1v9.4c-3-1-5.8-.6-8.5 1.1-2.7-1.7-5.5-2.1-8.5-1.1z"/><path d="M12 7.3v9.4M12 16.7V21M8.5 21h7"/></svg><span>Leggio</span></span>
+    <h1>Read it in<br>the original</h1>
+    <p>A free Chrome extension for language learners. Translation happens on your device.</p>
+  </div>
+  <div class="og-shelf">
+    <div class="spines">
+      <span class="spine is-up" data-cloth="it"><span class="spine__title" lang="it">Italiano</span></span>
+      <span class="spine" data-cloth="cs"><span class="spine__title" lang="cs">Čeština</span></span>
+      <span class="spine" data-cloth="fr"><span class="spine__title" lang="fr">Français</span></span>
+      <span class="spine" data-cloth="nl"><span class="spine__title spine__title--long" lang="nl">Nederlands</span></span>
+      <span class="spine" data-cloth="ja"><span class="spine__title" lang="ja">日本語</span></span>
+    </div>
+  </div>
+</body></html>

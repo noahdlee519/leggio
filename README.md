@@ -7,13 +7,13 @@ It's plain HTML, CSS and a little JavaScript, with no build step. Everything the
 ```
 site/                    ← the folder you deploy
   index.html             landing page
-  privacy/index.html     privacy policy  →  https://<your-domain>/privacy/
+  privacy/index.html     privacy policy  →  https://getleggio.com/privacy/
   404.html
   assets/
     css/site.css
     js/config.js         ← the two settings you edit
     js/site.js           demo + settings
-    js/passages.js       demo texts (public domain) and hand-written glosses
+    js/passages.js       demo texts (public domain) and their glosses
     fonts/               Alegreya, Alegreya SC, Alegreya Sans, Noto Serif JP subset (SIL OFL)
     img/                 favicon, touch icon, social preview
 vercel.json / netlify.toml   hosting config (publish dir + security headers)
@@ -51,7 +51,7 @@ Opening `index.html` directly from disk won't work because the site uses root-re
 
 Both configs add a strict Content-Security-Policy (`'self'` only) and long cache headers for the fonts.
 
-For the Chrome Web Store listing, the privacy policy URL is `https://<your-domain>/privacy/`.
+The site lives at **https://getleggio.com**. For the Chrome Web Store listing, the privacy policy URL is `https://getleggio.com/privacy/`. The canonical and social-preview tags in the HTML, `robots.txt` and `sitemap.xml` all use this domain, so update them if it ever changes.
 
 ## Analytics
 
@@ -83,12 +83,14 @@ The landing page's demo shows a "select a word, see its translation and the sent
 
 ## The demo
 
-The book in the hero is a working demo: pick a volume from the shelf (each language has its own cloth colour, like a series of bilingual editions), select any word, and save it to the facing page. The translations are written by hand for the demo, and the page says so. The texts are public domain:
+The book in the hero is a working demo: pick a volume from the shelf (each language has its own cloth colour, like a series of bilingual editions), select any word, and save it to the facing page. The translations are written by hand for the demo, and the texts are credited in the footer. Each book's facing page holds up to five saved words. The texts are public domain:
 
 - Carlo Collodi, *Le avventure di Pinocchio* (1883)
-- Miguel de Cervantes, *Don Quijote* (1605)
+- Božena Němcová, *Babička* (1855)
 - Marcel Proust, *Du côté de chez Swann* (1913)
-- Franz Kafka, *Die Verwandlung* (1915)
+- Multatuli, *Max Havelaar* (1860)
 - Natsume Sōseki, *吾輩は猫である* (1905), set vertically as in a Japanese book
+
+The shelf's "+34 more languages" label counts the 39 languages in Chrome's built-in Translator list (Chinese Simplified and Traditional counted separately) minus the five shown. If Leggio supports a different set, change the number in `site/index.html`.
 
 To add or edit a passage, see the format notes at the top of `passages.js`. If you add Japanese characters that aren't already on the site, regenerate the Noto Serif JP subset in `assets/fonts/` to include them.

@@ -89,16 +89,14 @@
 
 /* One cloth per language, like a series colour-coded by source language */
 [data-cloth="it"] { --cloth: #1f4e3d; --cloth-deep: #163b2e; --cloth-ink: #1f4e3d; --on-cloth: #f6f3ea; --on-cloth-2: rgb(246 243 234 / 0.8); --stamp: #e4c57e; }
-[data-cloth="es"] { --cloth: #8a1c2b; --cloth-deep: #67131f; --cloth-ink: #8a1c2b; --on-cloth: #f8f1ea; --on-cloth-2: rgb(248 241 234 / 0.82); --stamp: #efcf8c; }
+[data-cloth="cs"] { --cloth: #8a1c2b; --cloth-deep: #67131f; --cloth-ink: #8a1c2b; --on-cloth: #f8f1ea; --on-cloth-2: rgb(248 241 234 / 0.82); --stamp: #efcf8c; }
 [data-cloth="fr"] { --cloth: #1c3963; --cloth-deep: #132946; --cloth-ink: #1c3963; --on-cloth: #f3f2ee; --on-cloth-2: rgb(243 242 238 / 0.8); --stamp: #e6c987; }
-[data-cloth="de"] { --cloth: #c5962c; --cloth-deep: #a47b1d; --cloth-ink: #6f500e; --on-cloth: #1f1708; --on-cloth-2: rgb(31 23 8 / 0.93); --stamp: #2a1e07; }
+[data-cloth="nl"] { --cloth: #a84a14; --cloth-deep: #84390e; --cloth-ink: #a84a14; --on-cloth: #fbf1e6; --on-cloth-2: rgb(251 241 230 / 0.92); --stamp: #fbe6b6; }
 [data-cloth="ja"] { --cloth: #4a2c5a; --cloth-deep: #351f41; --cloth-ink: #4a2c5a; --on-cloth: #f5f0f2; --on-cloth-2: rgb(245 240 242 / 0.8); --stamp: #e8cc94; }
 
 /* Focus rings: light on cloth, cloth-ink on paper */
 .cloth, [data-sync-cloth], .footer { --ring: var(--on-cloth); }
-.leaf, .spread, .plate__leaf, .doc { --ring: var(--cloth-ink); }
-/* The German footer sits on the darker ochre board: full-strength lettering keeps it above 4.5:1 */
-[data-cloth="de"] .footer, .footer[data-cloth="de"] { --on-cloth: #140e03; --on-cloth-2: #140e03; }
+.leaf, .spread, .doc { --ring: var(--cloth-ink); }
 
 /* ---------- Base ---------- */
 
@@ -241,17 +239,25 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .button--on-paper.is-live:hover { background: var(--house-deep); }
 }
 
-/* Before the store listing exists: honest, quiet, not clickable */
+/* Before the store listing exists, a store link is a plain notice, not a button: there is
+   nothing to press yet, so nothing is shaped (or coloured) like something to press. Gilt
+   stays with the links that work. The header drops it. */
 .button.is-pending {
-  background: transparent;
-  color: var(--on-cloth);
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--on-cloth) 42%, transparent);
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  justify-content: flex-start;
+  background: none;
+  box-shadow: none;
+  color: var(--on-cloth-2);
+  font: 500 1rem/1.3 var(--font-sc);
+  letter-spacing: 0.06em;
+  text-align: left;
   cursor: default;
+  transition: color 600ms ease;
 }
-.button--on-paper.is-pending {
-  color: var(--ink);
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 30%, transparent);
-}
+.closing .button.is-pending { justify-content: center; }
+.nav .button.is-pending { display: none; }
 
 /* ---------- Header ---------- */
 
@@ -301,8 +307,9 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 @media (hover: hover) and (pointer: fine) {
   .nav__links > a:not(.button):hover { background-size: 100% 1px; }
 }
+/* On phones, once the store button is in the header, Privacy gives way: How it works stays */
 @media (max-width: 560px) {
-  .nav__links .nav__how { display: none; }
+  .nav__links:has(.is-live) a[href="/privacy/"] { display: none; }
 }
 
 /* ---------- Hero ---------- */
@@ -340,16 +347,6 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
 .hero__actions { margin-top: 36px; }
 
-.hero__assure {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 20px;
-  font: 500 1rem/1.4 var(--font-ui);
-  color: var(--on-cloth-2);
-  transition: color 600ms ease;
-}
-
 /* ---------- The book ---------- */
 
 .hero__book { position: relative; }
@@ -357,6 +354,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .spread {
   --page-pad: 34px;
   position: relative;
+  z-index: 2; /* the book and its gloss slip sit in front of the shelf */
   display: grid;
   grid-template-columns: 1fr 1fr;
   max-width: 720px;
@@ -364,10 +362,11 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   isolation: isolate;
   color: var(--ink);
   font-variant-numeric: oldstyle-nums;
-  /* stacked page edges under the spread */
+  /* the book's shadow on the cloth */
   filter: drop-shadow(0 34px 34px rgb(0 0 0 / 0.28)) drop-shadow(0 6px 10px rgb(0 0 0 / 0.18));
 }
 /* The boards of the book, in the volume's cloth */
+/* The boards: one flat colour, so the book reads apart from the woven cloth it lies on */
 .spread::before {
   content: "";
   position: absolute;
@@ -375,24 +374,12 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   z-index: -2;
   border-radius: 5px;
   background-color: var(--cloth-deep);
-  background-image: var(--cloth-tex);
-  background-blend-mode: soft-light;
   transition: background-color 600ms ease;
-}
-/* Page edges */
-.spread::after {
-  content: "";
-  position: absolute;
-  inset: auto 3px -6px;
-  height: 7px;
-  z-index: -1;
-  border-radius: 0 0 3px 3px;
-  background: repeating-linear-gradient(0deg, #f6f4ee 0 1px, #dedad0 1px 2px);
 }
 
 .page {
   position: relative;
-  min-height: 480px;
+  min-height: 436px;
   padding: 30px 30px 56px;
   background-color: var(--paper);
 }
@@ -514,7 +501,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   list-style: none;
   padding: 0;
   display: grid;
-  gap: 12px;
+  gap: 7px;
 }
 .notes li {
   position: relative;
@@ -531,12 +518,22 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   color: var(--ink-2);
 }
 .notes__word { font-weight: 700; color: var(--cloth-ink); transition: color 600ms ease; }
-.notes__meaning { display: block; color: var(--ink); }
+.notes__meaning { color: var(--ink); }
+.notes__word + .notes__meaning::before { content: " "; }
 .notes li.is-new { animation: ink-in 560ms var(--ease-out) both; }
 @keyframes ink-in {
   from { clip-path: inset(0 100% 0 0); opacity: 0.4; }
   to { clip-path: inset(0 0 0 0); opacity: 1; }
 }
+.notes__full {
+  margin-top: 12px;
+  font-style: italic;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 28ch;
+}
+.notes__full[hidden] { display: none; }
 .notes__empty {
   font-style: italic;
   font-size: 0.9375rem;
@@ -566,8 +563,49 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 /* ---------- Turning the page ---------- */
 
 .spread { touch-action: pan-y; }
-.spread.is-turning { -webkit-user-select: none; user-select: none; cursor: grabbing; }
+/* Anywhere on the book that isn't text is a handle for turning the page: an open hand over
+   the paper, a closed one while turning. Words keep the pointer, other text the text cursor. */
+.spread { cursor: grab; }
+.spread :is(.runhead__text, .folio, .chapter > span, .attribution > span, .passage .t, .passage .nobr, .notes li > span, .notes__empty, .notes__full) { cursor: text; }
+.spread .gloss { cursor: auto; }
+.spread.is-turning { -webkit-user-select: none; user-select: none; }
+.spread.is-turning,
+.spread.is-turning * { cursor: grabbing !important; } /* over whatever the pointer crosses mid-turn */
 .spread.is-turning .dogear { visibility: hidden; }
+/* The page-turn hint (see site.js): the lifting leaf carries the page and its corner, and what
+   it uncovers is the clean paper of the leaf beneath, not a second copy of the same page */
+.spread.is-peeking > .page--facing > *,
+.spread.is-peeking > .dogear--next,
+.spread.is-peeking > .drag-hint,
+.spread.is-turning > .drag-hint { visibility: hidden; }
+
+/* The drag hint's arrow: a thick curve toward the next page, blind-stamped into the paper by
+   the folded corner. A brush-weight shape (fine tail, full shaft, broad head) filled and
+   outlined in the turn's own ink at low strength. The ink deepens toward the top (the
+   impression's shaded wall) and a white copy 1px below lights its lower lip, so it reads as
+   pressed in, not printed on. Plain vector, so it stays crisp at any zoom. */
+.drag-hint {
+  position: absolute;
+  right: 52px;
+  bottom: 13px;
+  z-index: 3;
+  width: 64px;
+  height: 30px;
+  overflow: visible;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 900ms ease;
+}
+.drag-hint use {
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+}
+.drag-hint__lip {
+  fill: rgb(255 255 255 / 0.9);
+  stroke: rgb(255 255 255 / 0.9);
+}
+.drag-hint__ink { stroke: rgb(24 18 8 / 0.3); } /* its fill is the #drag-hint-ink gradient */
+.drag-hint.is-shown { opacity: 1; }
 
 .turn {
   position: absolute;
@@ -601,6 +639,51 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .turn--prev .turn__shade--front { background: linear-gradient(to right, rgb(24 18 8 / 0.42), rgb(24 18 8 / 0.1) 55%, rgb(24 18 8 / 0.04)); }
 .turn--next .turn__shade--back { background: linear-gradient(to right, rgb(24 18 8 / 0.38), rgb(24 18 8 / 0.08) 60%, transparent); }
 .turn--prev .turn__shade--back { background: linear-gradient(to left, rgb(24 18 8 / 0.38), rgb(24 18 8 / 0.08) 60%, transparent); }
+/* Opening the book on arrival (see site.js). Shut: only the right half of the case shows and
+   the pages wait; then the cover turns over the spine, straight to the passage. */
+.spread.is-closed::before { clip-path: inset(0 0 0 50%); } /* the case, right half only */
+.spread.is-shut > .page,
+.spread.is-opening > .page--original,
+.spread.is-arriving > .dogear,
+.spread.is-arriving > .drag-hint,
+.spread.is-arriving > .gloss { visibility: hidden; }
+/* The cover: the case's cloth, with the volume's title and author stamped in gilt in a double
+   rule, and a little shade where it hinges at the spine */
+.turn__cover {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 40px 36px;
+  border-radius: 2px 5px 5px 2px;
+  background-color: var(--cloth-deep);
+  color: var(--stamp);
+  text-align: center;
+}
+.turn__cover::before {
+  content: "";
+  position: absolute;
+  inset: 18px 18px 18px 22px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+  outline: 0.75px solid currentColor;
+  outline-offset: -6px;
+  opacity: 0.8;
+}
+.turn__cover-title {
+  max-width: 13ch;
+  font: 700 clamp(1.25rem, 1rem + 0.8vw, 1.625rem)/1.15 var(--font-sc);
+  letter-spacing: 0.05em;
+  text-wrap: balance;
+  filter: drop-shadow(0 1px 0 rgb(0 0 0 / 0.35));
+}
+.turn__cover-author { font: italic 400 1rem/1.3 var(--font-text); opacity: 0.85; }
+/* Its inside: the case's turn-in round the passage's left page, which lands where it lies */
+.turn__inside {
+  border-radius: 5px 2px 2px 5px;
+  background-color: var(--cloth-deep);
+}
+
 /* The shadow the lifted leaf casts on the page it uncovers */
 .turn--next .turn__cast { inset: auto; background: linear-gradient(to right, rgb(24 18 8 / 0.34), rgb(24 18 8 / 0.08) 40%, transparent 75%); }
 .turn--prev .turn__cast { inset: auto; background: linear-gradient(to left, rgb(24 18 8 / 0.34), rgb(24 18 8 / 0.08) 40%, transparent 75%); }
@@ -670,7 +753,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .page--facing[data-vertical="true"] .runhead { flex-direction: row-reverse; }
 .page[data-vertical="true"] .passage {
   writing-mode: vertical-rl;
-  height: 16.5em;
+  height: 15em;
   margin-top: 30px;
   margin-inline-start: auto;
   font-family: var(--font-jp);
@@ -729,17 +812,22 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   display: flex;
   align-items: baseline;
   gap: 8px;
-  padding-right: 30px;
+  padding-right: 98px; /* room for the three tools in the corner */
 }
 .gloss__word {
   font: 700 1.3125rem/1.2 var(--font-text);
   color: var(--cloth-ink);
 }
 .gloss__word:lang(ja) { font-family: var(--font-jp); font-weight: 600; }
-.gloss__close {
+/* Listen, copy, close: the same three tools as the extension's slip, in its top-right corner */
+.gloss__tools {
   position: absolute;
   top: 8px;
   right: 8px;
+  display: flex;
+  gap: 1px;
+}
+.gloss__tool {
   display: grid;
   place-items: center;
   width: 32px;
@@ -752,11 +840,20 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   cursor: pointer;
   transition: background-color 140ms ease, color 140ms ease, transform 160ms var(--ease-out);
 }
-.gloss__close .icon { width: 18px; height: 18px; }
-.gloss__close:active { transform: scale(0.94); }
+.gloss__tool .icon { width: 18px; height: 18px; }
+.gloss__tool:active { transform: scale(0.94); }
 @media (hover: hover) and (pointer: fine) {
-  .gloss__close:hover { background: var(--paper-2); color: var(--ink); }
+  .gloss__tool:hover { background: var(--paper-2); color: var(--ink); }
 }
+.gloss__tool.is-speaking { color: var(--cloth-ink); }
+.gloss__tool[aria-disabled="true"] { opacity: 0.4; cursor: default; }
+@media (hover: hover) and (pointer: fine) {
+  .gloss__tool[aria-disabled="true"]:hover { background: transparent; color: var(--ink-2); }
+}
+.gloss__tool .icon--copied { display: none; }
+.gloss__tool.is-copied { color: var(--cloth-ink); }
+.gloss__tool.is-copied .icon--copy { display: none; }
+.gloss__tool.is-copied .icon--copied { display: block; }
 .gloss__meaning {
   margin-top: 8px;
   font: 500 1.1875rem/1.3 var(--font-text);
@@ -804,19 +901,29 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   color: var(--cloth-ink);
   box-shadow: inset 0 0 0 1.5px var(--cloth-ink);
 }
+.gloss__save.is-full {
+  background: transparent;
+  color: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+  cursor: not-allowed;
+}
+.gloss__save.is-full:active { transform: none; }
 .gloss__save.is-saved .icon--save { display: none; }
 .gloss__save.is-saved .icon--saved { display: block; }
 .gloss__save:active { transform: scale(0.97); }
-.gloss__save:focus-visible, .gloss__close:focus-visible { outline-color: var(--cloth-ink); }
+.gloss__save:focus-visible, .gloss__tool:focus-visible { outline-color: var(--cloth-ink); }
 
 /* Spines: the language switcher, a shelf of volumes */
 .shelf {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-end;
   gap: 24px;
   max-width: 720px;
   margin: 44px auto 0;
 }
+.spines-wrap { position: relative; flex: none; }
 .spines {
   display: flex;
   align-items: flex-end;
@@ -837,10 +944,9 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   border: 0;
   border-radius: 3px 3px 1px 1px;
   background-color: var(--cloth);
-  background-image:
-    linear-gradient(90deg, rgb(0 0 0 / 0.16), rgb(255 255 255 / 0.12) 22%, rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.08) 72%, rgb(0 0 0 / 0.3)),
-    var(--cloth-tex);
-  background-blend-mode: normal, soft-light;
+  /* smooth, like leather over boards: the round of the spine, and no weave, so the volumes
+     stand apart from the woven cloth behind them */
+  background-image: linear-gradient(90deg, rgb(0 0 0 / 0.16), rgb(255 255 255 / 0.12) 22%, rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.08) 72%, rgb(0 0 0 / 0.3));
   color: var(--stamp);
   writing-mode: vertical-rl;
   cursor: pointer;
@@ -867,8 +973,25 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   font: 700 1rem/1 var(--font-sc);
   letter-spacing: 0.06em;
 }
+.spine__title--long { font-size: 0.875rem; letter-spacing: 0.03em; } /* a long name still fits the spine on phones */
 .spine__title:lang(ja) { font-family: var(--font-jp); font-weight: 600; letter-spacing: 0.12em; }
 .spine[aria-selected="true"] { transform: translateY(-16px); }
+/* A ribbon marker hangs from the tail of the book being read, into the gap its lift leaves,
+   so the chosen volume stands out even though it wears the same cloth as the page */
+.spine__ribbon {
+  position: absolute;
+  top: calc(100% + 1px); /* starts under the spine's edge, never over it */
+  left: calc(50% - 5.5px);
+  width: 11px;
+  height: 21px;
+  /* the book's shadow falls on the ribbon where it comes out from under the book */
+  background: linear-gradient(rgb(0 0 0 / 0.5), rgb(0 0 0 / 0.12) 5px, transparent 9px), currentColor;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 76%, 0 100%);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.spine[aria-selected="true"] .spine__ribbon,
+.shelf--closing .spine.is-current .spine__ribbon { opacity: 1; }
 .spine:active { transform: translateY(-2px) scale(0.98); }
 .spine[aria-selected="true"]:active { transform: translateY(-16px) scale(0.98); }
 @media (hover: hover) and (pointer: fine) {
@@ -879,11 +1002,30 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   outline-offset: 3px;
 }
 
+/* How many more volumes the real extension can open, pinned to the shelf's top right */
+.shelf__more {
+  position: absolute;
+  left: 100%;
+  top: 2px;
+  margin: 0 0 0 16px;
+  white-space: nowrap;
+  font: 700 0.9375rem/1.2 var(--font-sc);
+  letter-spacing: 0.06em;
+  color: var(--stamp);
+  transition: color 600ms ease;
+}
 .shelf__note {
-  max-width: 34ch;
+  max-width: 36ch;
   padding-bottom: 8px;
-  font: 400 0.9375rem/1.45 var(--font-ui);
-  color: var(--on-cloth-2);
+  font: 400 1.0625rem/1.45 var(--font-ui);
+  color: var(--on-cloth);
+  transition: color 600ms ease;
+}
+.shelf__try {
+  margin-right: 0.2em;
+  font: 700 1.0625rem/1 var(--font-sc);
+  letter-spacing: 0.06em;
+  color: var(--stamp);
   transition: color 600ms ease;
 }
 
@@ -905,9 +1047,14 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .preface__grid {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-rows: auto 1fr;
   gap: clamp(32px, 5vw, 80px);
   align-items: start;
 }
+/* The body runs down the right; the dictionary entry closes the left column, level with it */
+.preface__grid h2 { grid-column: 1; grid-row: 1; }
+.preface__body { grid-column: 2; grid-row: 1 / span 2; }
+.preface__coda { grid-column: 1; grid-row: 2; align-self: end; }
 .section-title,
 .leaf h2,
 .closing h2 {
@@ -923,9 +1070,37 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   line-height: 1.66;
 }
 .preface__body p + p { margin-top: 1.1em; }
-.preface__body .preface__coda {
-  font-size: clamp(1.375rem, 1.15rem + 0.7vw, 1.625rem);
-  line-height: 1.45;
+/* The coda: leggio as it stands in an Italian–English dictionary. One run-in entry
+   with a hanging indent, below a hairline, the headword in the cloth's ink. */
+.preface__coda {
+  padding: 1.05em 0 0 1.4em;
+  border-top: 1px solid var(--rule);
+  text-indent: -1.4em;
+  font-size: clamp(1.125rem, 1.04rem + 0.3vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--ink);
+}
+.entry__head {
+  font-size: 1.35em;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--cloth-ink);
+  transition: color 600ms ease;
+}
+.entry__ipa,
+.entry__etym { color: var(--ink-2); }
+.entry__label,
+.entry__ctx {
+  font-style: italic;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+/* Labels and the plural never break across lines */
+.entry__ctx,
+.entry__keep { white-space: nowrap; }
+.entry__n {
+  font-weight: 700;
+  font-variant-numeric: lining-nums;
   color: var(--cloth-ink);
   transition: color 600ms ease;
 }
@@ -933,17 +1108,28 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 /* ---------- How it works ---------- */
 
 #how h2 { max-width: 16ch; }
-.howto__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(40px, 6vw, 96px);
-  align-items: center;
-  margin-top: clamp(40px, 5vw, 64px);
-}
 
-/* A plate: a page from a PDF, tipped in on a board of the volume's cloth */
-.plate {
-  padding: clamp(18px, 3.5vw, 40px);
+/* A page of plates: each step under a real screenshot of Leggio, tipped in on a board
+   of the volume's cloth. The three share one shape and nearly one zoom, so they read
+   as a set, and the whole section fits about one screen. */
+.steps {
+  list-style: none;
+  padding: 0;
+  margin-top: clamp(40px, 5vw, 64px);
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(28px, 3.5vw, 48px);
+}
+.step {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+  counter-increment: step;
+}
+.plate { margin: 0; }
+.plate__board {
+  padding: clamp(10px, 1.4vw, 18px);
   border-radius: 4px;
   background-color: var(--cloth);
   background-image: var(--cloth-tex);
@@ -951,105 +1137,24 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12), inset 0 10px 24px -14px rgb(0 0 0 / 0.5);
   transition: background-color 600ms ease;
 }
-.plate__leaf {
-  position: relative;
-  padding: 22px clamp(20px, 4vw, 44px) 40px;
+.plate__shot {
+  display: block;
+  width: 100%;
+  height: auto;
   border-radius: 2px;
   background: var(--paper-bright);
-  color: #202020;
-  font-size: 1.0625rem;
-  line-height: 1.62;
-  box-shadow: 0 2px 0 #e6e3da, 0 18px 30px -18px rgb(0 0 0 / 0.55);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.1), 0 2px 0 rgb(0 0 0 / 0.06), 0 18px 30px -18px rgb(0 0 0 / 0.6);
 }
-.plate__runhead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
-  font: 500 0.875rem/1.2 var(--font-ui);
-  color: var(--ink-2);
-}
-.plate__file { display: inline-flex; align-items: center; gap: 10px; min-width: 0; }
-.plate__runhead .folio { font-family: var(--font-text); }
-.plate__chapter {
-  text-align: center;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-.plate__hl {
-  padding: 0 2px;
-  border-radius: 3px;
-  background: color-mix(in srgb, var(--cloth) 17%, transparent);
-  color: inherit;
-  text-decoration: underline 1.5px var(--cloth-ink);
-  text-underline-offset: 0.24em;
-}
-.callout {
-  display: inline-grid;
-  place-items: center;
-  flex: none;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--cloth-ink);
-  color: #f6f3ea;
-  font: 700 0.875rem/1 var(--font-ui);
-  font-variant-numeric: lining-nums;
-  box-shadow: 0 0 0 3px var(--paper-bright);
-  transition: background-color 600ms ease;
-}
-.callout--gloss {
-  position: absolute;
-  top: -13px;
-  left: -13px;
-}
-.minigloss {
-  position: relative;
-  width: 220px;
-  margin: 18px 0 0;
-  padding: 14px 14px 12px;
-  border-radius: 7px;
-  background: var(--paper-bright);
-  box-shadow: 0 0 0 1px rgb(28 27 25 / 0.08), 0 4px 10px -2px rgb(28 27 25 / 0.14), 0 22px 44px -14px rgb(28 27 25 / 0.4);
-  font-size: 0.9375rem;
-  line-height: 1.35;
-}
-.minigloss.is-anchored { position: absolute; margin: 0; z-index: 2; }
-.minigloss__word { font-weight: 700; font-size: 1.125rem; color: var(--cloth-ink); }
-.minigloss__meaning { margin-top: 2px; font-weight: 500; font-size: 1.0625rem; }
-.minigloss__save {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  padding: 6px 10px;
-  border-radius: 5px;
-  box-shadow: inset 0 0 0 1.5px var(--cloth-ink);
-  color: var(--cloth-ink);
-  font: 700 0.8125rem/1 var(--font-ui);
-}
-.minigloss__save .icon { width: 15px; height: 15px; }
-.callout--save { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); }
 
-.steps {
-  list-style: none;
-  padding: 0;
-  counter-reset: step;
-  display: grid;
-  gap: clamp(28px, 3.5vw, 40px);
-}
-.steps li {
+.step__text {
   position: relative;
   padding-left: 48px;
-  counter-increment: step;
 }
-.steps li::before {
+.step__text::before {
   content: counter(step);
   position: absolute;
   left: 0;
-  top: 0.1em;
+  top: 0.15em;
   display: grid;
   place-items: center;
   width: 30px;
@@ -1068,7 +1173,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 }
 .steps p {
   margin-top: 8px;
-  max-width: 42ch;
+  max-width: 38ch;
   font-size: 1.125rem;
   line-height: 1.58;
   color: var(--ink-2);
@@ -1113,6 +1218,10 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .textlink:hover .icon { transform: translateX(3px); }
   .textlink:hover { text-decoration: underline; }
 }
+.colophon__side {
+  display: grid;
+  gap: clamp(40px, 5vw, 64px);
+}
 .colophon__facts {
   border-top: 1px solid color-mix(in srgb, var(--stamp) 60%, transparent);
 }
@@ -1132,6 +1241,56 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   font-size: 1.1875rem;
   line-height: 1.45;
   color: var(--on-cloth);
+}
+
+/* The translators Leggio can use, as gilt-framed plaques under the facts: on the device by
+   default, or DeepL or Google Cloud Translation with the reader's own key. Set in the
+   site's own letters, not the services' logos. */
+.translators {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.translator {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 6px;
+  padding: 22px 14px 20px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  outline: 0.75px solid currentColor;
+  outline-offset: -6px;
+  color: var(--stamp);
+  text-align: center;
+  filter: drop-shadow(0 1px 0 rgb(0 0 0 / 0.35));
+  transition: color 600ms ease;
+}
+.translator__icon {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 6px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* The services' own marks (one-colour, from Simple Icons), in the plaque's gilt */
+.translator__icon--logo { width: 30px; height: 30px; margin-block: 2px 8px; fill: currentColor; stroke: none; }
+.translator__name {
+  font: 700 1rem/1.25 var(--font-sc);
+  letter-spacing: 0.03em;
+}
+.translator__line { display: block; } /* every name takes two lines, so the plaques match */
+.translator__how {
+  font: italic 400 0.9375rem/1.35 var(--font-text);
+  text-wrap: balance;
+  color: var(--on-cloth-2);
+  transition: color 600ms ease;
 }
 
 /* ---------- Appendix: compared with other tools ---------- */
@@ -1565,22 +1724,86 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .notfound p { margin-top: 18px; font-size: 1.25rem; color: var(--on-cloth-2); max-width: 40ch; }
 .notfound .textlink { margin-top: 28px; }
 
+/* ---------- Arrival and reveals ---------- */
+
+/* On open, the type and the book settle onto a cloth that is already there.
+   Pure CSS, so nothing waits on script, and every element ends fully visible. */
+@keyframes settle {
+  from { opacity: 0; transform: translateY(var(--settle-rise, 10px)); }
+}
+.site-header > .nav,
+.hero__copy > *,
+.hero__book,
+.doc-hero .container > *,
+.doc,
+.notfound > * {
+  animation: settle 760ms var(--ease-out) var(--settle-delay, 0ms) backwards;
+}
+.site-header > .nav { --settle-rise: 0px; animation-duration: 600ms; }
+.hero__copy > :nth-child(1), .doc-hero .container > :nth-child(1), .notfound > :nth-child(2) { --settle-delay: 80ms; }
+.hero__copy > :nth-child(2), .doc-hero .container > :nth-child(2), .notfound > :nth-child(3) { --settle-delay: 160ms; }
+.hero__copy > :nth-child(3), .doc, .notfound > :nth-child(4) { --settle-delay: 240ms; }
+/* The book lands just before its first gloss opens (one second in) */
+.hero__book { --settle-delay: 160ms; --settle-rise: 16px; animation-duration: 800ms; }
+
+/* Further down, each block fades up as it comes into view. site.js adds .reveal only
+   to blocks that start below the fold, then .is-in, then hands them back. */
+.reveal { opacity: 0; transform: translateY(18px); }
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+/* The paper leaves grow from a little smaller into their place; the translator plaques
+   fade in one after another (site.js counts them off, 150ms apart) */
+.reveal.reveal--grow { transform: scale(0.94); transform-origin: 50% 0; }
+.reveal.reveal--grow.is-in {
+  transform: none;
+  transition: opacity 420ms var(--ease-out), transform 650ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.reveal--fade { transform: translateY(8px); }
+.reveal.reveal--fade.is-in {
+  transform: none;
+  transition: opacity 520ms ease, transform 620ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+@media print {
+  .reveal { opacity: 1; transform: none; }
+}
+
 /* ---------- Responsive ---------- */
+
+@media (min-width: 900px) {
+  /* Plate, heading and description share rows across the three steps, so the
+     descriptions start level even when one heading takes two lines */
+  .steps { grid-template-rows: auto auto auto; row-gap: 0; }
+  .step { grid-row: span 3; grid-template-rows: subgrid; gap: 0; }
+  .step .plate { margin-bottom: 22px; }
+  .step__text { display: grid; grid-row: span 2; grid-template-rows: subgrid; }
+}
+
+@media (max-width: 899px) {
+  /* The plates stack, each still above its step */
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .plate { max-width: 420px; }
+}
 
 @media (max-width: 1099px) {
   /* A rule after the tool names and their heads, for when the table scrolls under them */
   .compare tbody th[scope="row"],
   .compare thead tr > :first-child { box-shadow: inset -1px 0 0 var(--rule); }
+  .compare__grid,
+  .compare__apparatus { grid-template-columns: minmax(0, 1fr); }
   .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 56px; }
   .hero__copy { max-width: 40rem; }
   .hero__lede { max-width: 44ch; }
   .preface__grid,
-  .howto__grid,
-  .colophon__grid,
-  .compare__grid,
-  .compare__apparatus { grid-template-columns: minmax(0, 1fr); }
+  .colophon__grid { grid-template-columns: minmax(0, 1fr); }
+  .preface__grid { grid-template-rows: none; }
+  .preface__grid > * { grid-column: auto; grid-row: auto; }
   .preface__grid h2 { max-width: 18ch; }
-  .howto__grid .plate { max-width: 720px; }
 }
 
 @media (max-width: 860px) {
@@ -1604,7 +1827,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .page--facing,
   .page--facing[data-vertical="true"] {
     order: 2;
-    padding: 24px 22px 28px 22px;
+    padding: 24px 22px 60px 22px; /* clears the folded corners */
     border-radius: 0 0 3px 3px;
     background-image: linear-gradient(to bottom, rgb(40 30 10 / 0.12), transparent 36px);
   }
@@ -1623,6 +1846,9 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .spines { justify-content: space-between; gap: 4px; }
   .spine { flex: 1 1 0; width: auto; max-width: 64px; height: 118px; }
   .shelf__note { max-width: none; }
+  .shelf__more { position: static; margin: 12px 0 0; text-align: right; }
+  .shelf--closing { width: 100%; } /* as wide as the hero's shelf, so its volumes match */
+  .shelf.shelf--closing { margin-top: 64px; } /* clear of the notice above, with the lifted spine */
 
   .leaf { border-radius: 2px; }
   .compare__table { margin-inline: calc(-1 * clamp(22px, 6vw, 88px)); }
@@ -1644,25 +1870,39 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
     background-repeat: no-repeat;
   }
   .compare__section th span { background-color: var(--paper); }
-  .minigloss { width: auto; max-width: 260px; }
-  .callout--save { right: -38px; }
   .colophon__facts > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  /* On phones each plaque is a row: its mark, then its name over how it's used */
+  .translators { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .translator {
+    grid-template-columns: 30px minmax(0, 1fr);
+    justify-items: start;
+    column-gap: 16px;
+    row-gap: 2px;
+    padding: 16px 18px;
+    text-align: left;
+  }
+  .translator__icon { grid-row: span 2; margin: 0; align-self: center; }
+  .translator__line { display: inline; }
   .footer__grid { grid-template-columns: minmax(0, 1fr); }
   .button { width: 100%; }
   .nav .button { width: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cloth, .spread::before, .wordmark, .hero h1, .hero__lede, .hero__assure, .chapter, .notes__word, .shelf__note, .spines, .footer, .plate, .callout, .steps li::before, .ornament { transition-duration: 1ms; }
+  .compare__fold summary .icon { transition: none; }
+  .cloth, .spread::before, .wordmark, .hero h1, .hero__lede, .chapter, .notes__word, .shelf__note, .spines, .footer, .plate__board, .step__text::before, .entry__head, .entry__n, .translator, .translator__how, .ornament { transition-duration: 1ms; }
   .gloss, .gloss.is-open { transform: none; filter: none; transition: opacity 120ms ease; }
   .spine, .spine[aria-selected="true"], .spine:not([aria-selected="true"]):hover { transition: none; }
   .notes li.is-new { animation: fade-in 200ms ease both; }
-  .button.is-live:active, .gloss__close:active, .gloss__save:active, .spine:active, .spine[aria-selected="true"]:active { transform: none; }
+  .button.is-live:active, .gloss__tool:active, .gloss__save:active, .spine:active, .spine[aria-selected="true"]:active { transform: none; }
   .spine[aria-selected="true"], .shelf--closing .spine.is-current { transform: translateY(-16px); }
   .textlink:hover .icon { transform: none; }
-  .compare__fold summary .icon { transition: none; }
   .nav__links > a:not(.button) { transition: none; }
   .spread.is-swapping .passage, .spread.is-swapping .notes { filter: none; }
   .dogear::before, .dogear::after { transition: none; }
+  .drag-hint { transition-duration: 200ms; }
+  .site-header > .nav, .hero__copy > *, .hero__book, .doc-hero .container > *, .doc, .notfound > * { --settle-rise: 0px; animation-duration: 400ms; }
+  .reveal, .reveal.reveal--grow, .reveal.reveal--fade { transform: none; }
+  .reveal.is-in, .reveal.reveal--grow.is-in, .reveal.reveal--fade.is-in { transition: opacity 400ms ease; transition-delay: var(--reveal-delay, 0ms); }
 }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }

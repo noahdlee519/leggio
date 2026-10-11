@@ -246,7 +246,7 @@
           "#feedc6"
         ]
       },
-      "cloth-es": {
+      "cloth-cs": {
         "role": "primary",
         "displayName": "Carmine Cloth",
         "canonical": "#8a1c2b",
@@ -262,7 +262,7 @@
           "#ffe8e8"
         ]
       },
-      "cloth-es-deep": {
+      "cloth-cs-deep": {
         "role": "primary",
         "displayName": "Carmine Board",
         "canonical": "#67131f",
@@ -278,7 +278,7 @@
           "#ffe8e8"
         ]
       },
-      "cloth-es-ink": {
+      "cloth-cs-ink": {
         "role": "primary",
         "displayName": "Carmine Ink",
         "canonical": "#8a1c2b",
@@ -294,7 +294,7 @@
           "#ffe8e8"
         ]
       },
-      "on-cloth-es": {
+      "on-cloth-cs": {
         "role": "neutral",
         "displayName": "Lettering on Carmine",
         "canonical": "#f8f1ea",
@@ -310,7 +310,7 @@
           "#f4ede6"
         ]
       },
-      "on-cloth-es-2": {
+      "on-cloth-cs-2": {
         "role": "neutral",
         "displayName": "Secondary Lettering on Carmine",
         "canonical": "rgb(248 241 234 / 0.82)",
@@ -327,7 +327,7 @@
         ],
         "note": "Translucent lettering; ramp built from its opaque base."
       },
-      "stamp-es": {
+      "stamp-cs": {
         "role": "secondary",
         "displayName": "Gilt on Carmine",
         "canonical": "#efcf8c",
@@ -440,10 +440,10 @@
           "#ffedc4"
         ]
       },
-      "cloth-de": {
+      "cloth-nl": {
         "role": "primary",
-        "displayName": "Ochre Cloth",
-        "canonical": "#c5962c",
+        "displayName": "Burnt Orange Cloth",
+        "canonical": "#a84a14",
         "oklch": "oklch(70.0% 0.129 83.2)",
         "tonalRamp": [
           "#110a00",
@@ -456,26 +456,26 @@
           "#ffecca"
         ]
       },
-      "cloth-de-deep": {
+      "cloth-nl-deep": {
         "role": "primary",
-        "displayName": "Ochre Board",
-        "canonical": "#a47b1d",
+        "displayName": "Burnt Orange Board",
+        "canonical": "#84390e",
         "oklch": "oklch(60.8% 0.116 82.9)",
         "tonalRamp": [
           "#110a00",
           "#322201",
           "#563d01",
           "#7d5b05",
-          "#a47b1d",
+          "#84390e",
           "#c89e47",
           "#eec26d",
           "#ffecca"
         ]
       },
-      "cloth-de-ink": {
+      "cloth-nl-ink": {
         "role": "primary",
-        "displayName": "Umber (German cloth-ink)",
-        "canonical": "#6f500e",
+        "displayName": "Burnt Orange (Dutch cloth-ink)",
+        "canonical": "#a84a14",
         "oklch": "oklch(45.3% 0.088 80.7)",
         "tonalRamp": [
           "#110a00",
@@ -488,10 +488,10 @@
           "#ffeccd"
         ]
       },
-      "on-cloth-de": {
+      "on-cloth-nl": {
         "role": "neutral",
-        "displayName": "Lamp Black (German lettering)",
-        "canonical": "#1f1708",
+        "displayName": "Cream (Dutch lettering)",
+        "canonical": "#fbf1e6",
         "oklch": "oklch(21.0% 0.029 82.0)",
         "tonalRamp": [
           "#110a00",
@@ -504,10 +504,10 @@
           "#f8edd9"
         ]
       },
-      "on-cloth-de-2": {
+      "on-cloth-nl-2": {
         "role": "neutral",
-        "displayName": "Secondary Lettering on Ochre",
-        "canonical": "rgb(31 23 8 / 0.93)",
+        "displayName": "Secondary Lettering on Burnt Orange",
+        "canonical": "rgb(251 241 230 / 0.92)",
         "oklch": "oklch(21.0% 0.029 82.0)",
         "tonalRamp": [
           "#110a00",
@@ -521,10 +521,10 @@
         ],
         "note": "Translucent lettering; ramp built from its opaque base."
       },
-      "stamp-de": {
+      "stamp-nl": {
         "role": "secondary",
-        "displayName": "Blind Stamp (German)",
-        "canonical": "#2a1e07",
+        "displayName": "Pale Gilt (Dutch)",
+        "canonical": "#fbe6b6",
         "oklch": "oklch(24.4% 0.041 81.3)",
         "tonalRamp": [
           "#120a00",
@@ -638,7 +638,7 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Hero headline only (\"Read it in the original.\")."
+        "purpose": "Hero headline only (\"Read it in the original\")."
       },
       "display-closing": {
         "displayName": "Display, closing",
@@ -967,7 +967,7 @@
       "kind": "custom",
       "refersTo": "gloss-slip",
       "description": "The paper slip laid beside a selected word: headword, meaning, the sentence in English, and the save button (unsaved and saved).",
-      "html": "<div class=\"ds-desk\"><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">lettori</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">readers</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> “A king!” my little readers will say at once.</p><button class=\"ds-gloss__save\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10v17l-5-3.6-5 3.6z\"/></svg>Save to facing page</button></div><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">ragazzi</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">children, kids</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> No, children, you’ve got it wrong.</p><button class=\"ds-gloss__save is-saved\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg>Saved</button></div></div>",
+      "html": "<div class=\"ds-desk\"><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">lettori</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">readers</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> “A king!” my little readers will say at once.</p><button class=\"ds-gloss__save\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 3.5h10v17l-5-3.6-5 3.6z\"/></svg>Save word</button></div><div class=\"ds-gloss\"><div class=\"ds-gloss__head\"><span class=\"ds-gloss__word\" lang=\"it\">ragazzi</span><button class=\"ds-gloss__close\" type=\"button\" aria-label=\"Close translation\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.5 6.5l11 11M17.5 6.5l-11 11\"/></svg></button></div><p class=\"ds-gloss__meaning\">children, kids</p><p class=\"ds-gloss__context\"><span class=\"ds-gloss__label\">This sentence</span> No, children, you’ve got it wrong.</p><button class=\"ds-gloss__save is-saved\" type=\"button\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12.5l4.5 4.5L19 7\"/></svg>Saved</button></div></div>",
       "css": ".ds-desk { display: flex; flex-wrap: wrap; gap: 24px; padding: 28px; background: var(--paper, #fbfaf6); } .ds-gloss { position: relative; width: min(284px, 100%); padding: 15px 16px 14px; border-radius: 7px; background: var(--paper-bright, #ffffff); color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); box-shadow: 0 0 0 1px rgb(28 27 25 / 0.08), 0 4px 10px -2px rgb(28 27 25 / 0.14), 0 22px 44px -14px rgb(28 27 25 / 0.4); } .ds-gloss p { margin: 0; } .ds-gloss__head { display: flex; align-items: baseline; gap: 8px; padding-right: 30px; } .ds-gloss__word { font: 700 1.3125rem/1.2 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--cloth-ink, #1f4e3d); } .ds-gloss__close { position: absolute; top: 8px; right: 8px; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: var(--ink-2, #57544c); cursor: pointer; transition: background-color 140ms ease, color 140ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-gloss__close:active { transform: scale(0.94); } @media (hover: hover) and (pointer: fine) { .ds-gloss__close:hover { background: var(--paper-2, #eeede8); color: var(--ink, #1c1b19); } } .ds-icon { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; } .ds-gloss__meaning { margin-top: 8px !important; font: 500 1.1875rem/1.3 var(--font-text, \"Alegreya\", Georgia, serif); } .ds-gloss__context { margin-top: 12px !important; padding-top: 10px; border-top: 1px solid var(--rule, #dcd8cd); font: 400 0.9375rem/1.45 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--ink-2, #57544c); } .ds-gloss__label { font: 500 0.8125rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--ink, #1c1b19); margin-right: 4px; } .ds-gloss__save { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; margin-top: 14px; padding: 8px 14px 8px 12px; border: 0; border-radius: 6px; background: var(--cloth, #1f4e3d); color: var(--on-cloth, #f6f3ea); font: 700 0.9375rem/1 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease, color 200ms ease, box-shadow 200ms ease; } .ds-gloss__save:active { transform: scale(0.97); } .ds-gloss__save.is-saved { background: transparent; color: var(--cloth-ink, #1f4e3d); box-shadow: inset 0 0 0 1.5px var(--cloth-ink, #1f4e3d); } .ds-gloss__save:focus-visible, .ds-gloss__close:focus-visible { outline: 2px solid var(--cloth-ink, #1f4e3d); outline-offset: 3px; }"
     },
     {
@@ -975,15 +975,15 @@
       "kind": "custom",
       "refersTo": "spine",
       "description": "The language switcher: five clothbound spines on a plank, each in its own language's cloth with gilt bands; the open volume stands 16px proud.",
-      "html": "<div class=\"ds-cloth\"><div class=\"ds-spines\" role=\"tablist\" aria-label=\"Demo language\"><button class=\"ds-spine ds-spine--it\" role=\"tab\" aria-selected=\"true\"><span>Italiano</span></button><button class=\"ds-spine ds-spine--es\" role=\"tab\" aria-selected=\"false\"><span>Español</span></button><button class=\"ds-spine ds-spine--fr\" role=\"tab\" aria-selected=\"false\"><span>Français</span></button><button class=\"ds-spine ds-spine--de\" role=\"tab\" aria-selected=\"false\"><span>Deutsch</span></button><button class=\"ds-spine ds-spine--ja\" role=\"tab\" aria-selected=\"false\"><span lang=\"ja\">日本語</span></button></div></div>",
-      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-spines { display: inline-flex; align-items: flex-end; gap: 5px; padding: 20px 0 6px; border-bottom: 3px solid color-mix(in srgb, var(--cloth-deep, #163b2e) 80%, black); } .ds-spine { --c: #1f4e3d; --s: #e4c57e; position: relative; display: flex; align-items: center; justify-content: center; width: 46px; height: 132px; padding: 16px 0; border: 0; border-radius: 3px 3px 1px 1px; background-color: var(--c); background-image: linear-gradient(90deg, rgb(0 0 0 / 0.16), rgb(255 255 255 / 0.12) 22%, rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.08) 72%, rgb(0 0 0 / 0.3)), var(--cloth-tex, none); background-blend-mode: normal, soft-light; color: var(--s); writing-mode: vertical-rl; cursor: pointer; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2), 0 8px 16px -8px rgb(0 0 0 / 0.55); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-spine span { font: 700 1rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; } .ds-spine span:lang(ja) { font-family: var(--font-jp, 'Hiragino Mincho ProN', 'Yu Mincho', serif); font-weight: 600; letter-spacing: 0.12em; } .ds-spine::before, .ds-spine::after { content: ''; position: absolute; left: 7px; right: 7px; height: 0; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; padding-top: 2px; opacity: 0.85; } .ds-spine::before { top: 7px; } .ds-spine::after { bottom: 7px; } .ds-spine--it { --c: #1f4e3d; --s: #e4c57e; } .ds-spine--es { --c: #8a1c2b; --s: #efcf8c; } .ds-spine--fr { --c: #1c3963; --s: #e6c987; } .ds-spine--de { --c: #c5962c; --s: #2a1e07; } .ds-spine--ja { --c: #4a2c5a; --s: #e8cc94; } .ds-spine[aria-selected='true'] { transform: translateY(-16px); } .ds-spine:active { transform: translateY(-2px) scale(0.98); } @media (hover: hover) and (pointer: fine) { .ds-spine:not([aria-selected='true']):hover { transform: translateY(-6px); } } .ds-spine:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; } @media (prefers-reduced-motion: reduce) { .ds-spine { transition: none; } }"
+      "html": "<div class=\"ds-cloth\"><div class=\"ds-spines\" role=\"tablist\" aria-label=\"Demo language\"><button class=\"ds-spine ds-spine--it\" role=\"tab\" aria-selected=\"true\"><span>Italiano</span></button><button class=\"ds-spine ds-spine--cs\" role=\"tab\" aria-selected=\"false\"><span>Čeština</span></button><button class=\"ds-spine ds-spine--fr\" role=\"tab\" aria-selected=\"false\"><span>Français</span></button><button class=\"ds-spine ds-spine--nl\" role=\"tab\" aria-selected=\"false\"><span>Nederlands</span></button><button class=\"ds-spine ds-spine--ja\" role=\"tab\" aria-selected=\"false\"><span lang=\"ja\">日本語</span></button></div></div>",
+      "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-spines { display: inline-flex; align-items: flex-end; gap: 5px; padding: 20px 0 6px; border-bottom: 3px solid color-mix(in srgb, var(--cloth-deep, #163b2e) 80%, black); } .ds-spine { --c: #1f4e3d; --s: #e4c57e; position: relative; display: flex; align-items: center; justify-content: center; width: 46px; height: 132px; padding: 16px 0; border: 0; border-radius: 3px 3px 1px 1px; background-color: var(--c); background-image: linear-gradient(90deg, rgb(0 0 0 / 0.16), rgb(255 255 255 / 0.12) 22%, rgb(255 255 255 / 0) 48%, rgb(0 0 0 / 0.08) 72%, rgb(0 0 0 / 0.3)), var(--cloth-tex, none); background-blend-mode: normal, soft-light; color: var(--s); writing-mode: vertical-rl; cursor: pointer; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2), 0 8px 16px -8px rgb(0 0 0 / 0.55); transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-spine span { font: 700 1rem/1 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; } .ds-spine span:lang(ja) { font-family: var(--font-jp, 'Hiragino Mincho ProN', 'Yu Mincho', serif); font-weight: 600; letter-spacing: 0.12em; } .ds-spine::before, .ds-spine::after { content: ''; position: absolute; left: 7px; right: 7px; height: 0; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; padding-top: 2px; opacity: 0.85; } .ds-spine::before { top: 7px; } .ds-spine::after { bottom: 7px; } .ds-spine--it { --c: #1f4e3d; --s: #e4c57e; } .ds-spine--cs { --c: #8a1c2b; --s: #efcf8c; } .ds-spine--fr { --c: #1c3963; --s: #e6c987; } .ds-spine--nl { --c: #a84a14; --s: #fbe6b6; } .ds-spine--ja { --c: #4a2c5a; --s: #e8cc94; } .ds-spine[aria-selected='true'] { transform: translateY(-16px); } .ds-spine:active { transform: translateY(-2px) scale(0.98); } @media (hover: hover) and (pointer: fine) { .ds-spine:not([aria-selected='true']):hover { transform: translateY(-6px); } } .ds-spine:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; } @media (prefers-reduced-motion: reduce) { .ds-spine { transition: none; } }"
     },
     {
       "name": "Open Spread",
       "kind": "custom",
       "refersTo": "page",
       "description": "The bilingual edition: original page with running head, chapter line, selectable words and attribution; facing page collecting saved words by line; cloth boards and page edges beneath.",
-      "html": "<div class=\"ds-cloth\"><div class=\"ds-spread\"><article class=\"ds-page ds-page--original\"><header class=\"ds-runhead\"><span>3</span><span>Le avventure di Pinocchio</span></header><p class=\"ds-chapter\">Capitolo primo</p><p class=\"ds-passage\" lang=\"it\">C’era una volta… — Un re! — diranno subito i miei piccoli <span class=\"ds-w is-active\">lettori</span>. No, <span class=\"ds-w is-saved\">ragazzi</span>, avete sbagliato.</p><p class=\"ds-attribution\">Carlo Collodi, 1883</p></article><article class=\"ds-page ds-page--facing\"><header class=\"ds-runhead\"><span>Your glosses</span><span>4</span></header><p class=\"ds-chapter\">Saved words, by line</p><ol class=\"ds-notes\"><li><span class=\"ds-notes__line\">l. 3</span><span class=\"ds-notes__word\" lang=\"it\">ragazzi</span><span class=\"ds-notes__meaning\">children, kids</span></li></ol></article></div></div>",
+      "html": "<div class=\"ds-cloth\"><div class=\"ds-spread\"><article class=\"ds-page ds-page--original\"><header class=\"ds-runhead\"><span>3</span><span>Le avventure di Pinocchio</span></header><p class=\"ds-chapter\">Capitolo primo</p><p class=\"ds-passage\" lang=\"it\">C’era una volta… — Un re! — diranno subito i miei piccoli <span class=\"ds-w is-active\">lettori</span>. No, <span class=\"ds-w is-saved\">ragazzi</span>, avete sbagliato.</p><p class=\"ds-attribution\">Carlo Collodi, 1883</p></article><article class=\"ds-page ds-page--facing\"><header class=\"ds-runhead\"><span>Your words</span><span>4</span></header><p class=\"ds-chapter\">Saved words, by line</p><ol class=\"ds-notes\"><li><span class=\"ds-notes__line\">l. 3</span><span class=\"ds-notes__word\" lang=\"it\">ragazzi</span><span class=\"ds-notes__meaning\">children, kids</span></li></ol></article></div></div>",
       "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-cloth .ds-spread { margin: 16px; } .ds-spread { position: relative; display: grid; grid-template-columns: 1fr 1fr; max-width: 720px; isolation: isolate; color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); font-variant-numeric: oldstyle-nums; filter: drop-shadow(0 34px 34px rgb(0 0 0 / 0.28)) drop-shadow(0 6px 10px rgb(0 0 0 / 0.18)); } .ds-spread::before { content: ''; position: absolute; inset: -9px -12px -13px; z-index: -2; border-radius: 5px; background-color: var(--cloth-deep, #163b2e); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; } .ds-spread::after { content: ''; position: absolute; inset: auto 3px -6px; height: 7px; z-index: -1; border-radius: 0 0 3px 3px; background: repeating-linear-gradient(0deg, #f6f4ee 0 1px, #dedad0 1px 2px); } .ds-page { position: relative; min-height: 300px; padding: 30px 30px 56px; background-color: var(--paper, #fbfaf6); } .ds-page p, .ds-page ol { margin: 0; } .ds-page--original { padding-left: 52px; padding-right: 28px; border-radius: 3px 0 0 3px; background-image: linear-gradient(to left, rgb(40 30 10 / 0.12), rgb(40 30 10 / 0.03) 26px, transparent 60px); box-shadow: 1px 0 0 rgb(40 30 10 / 0.18); } .ds-page--facing { padding-left: 30px; padding-right: 40px; border-radius: 0 3px 3px 0; background-image: linear-gradient(to right, rgb(40 30 10 / 0.14), rgb(40 30 10 / 0.03) 26px, transparent 60px); } .ds-runhead { display: flex; justify-content: space-between; gap: 12px; font: 500 0.8125rem/1.2 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--ink-2, #57544c); } .ds-chapter { margin: 26px 0 18px !important; font: 500 0.9375rem/1.3 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.08em; text-align: center; color: var(--cloth-ink, #1f4e3d); } .ds-passage { font-size: 1.125rem; line-height: 1.62; } .ds-w { padding: 0 0.04em; border-radius: 3px; text-decoration: underline 1.5px transparent; text-underline-offset: 0.24em; } .ds-w.is-saved { text-decoration-style: dotted; text-decoration-color: var(--cloth-ink, #1f4e3d); } .ds-w.is-active { background: color-mix(in srgb, var(--cloth, #1f4e3d) 17%, transparent); text-decoration-style: solid; text-decoration-color: var(--cloth-ink, #1f4e3d); } .ds-attribution { position: absolute; left: 52px; right: 28px; bottom: 22px; font: italic 400 0.875rem/1.3 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--ink-2, #57544c); } .ds-notes { list-style: none; padding: 0; display: grid; gap: 12px; } .ds-notes li { position: relative; padding-left: 2.9em; font-size: 1rem; line-height: 1.42; animation: ds-ink-in 560ms cubic-bezier(0.23, 1, 0.32, 1) both; } .ds-notes__line { position: absolute; left: 0; top: 0.12em; font: 400 0.8125rem/1.4 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--ink-2, #57544c); } .ds-notes__word { font-weight: 700; color: var(--cloth-ink, #1f4e3d); } .ds-notes__meaning { display: block; } @keyframes ds-ink-in { from { clip-path: inset(0 100% 0 0); opacity: 0.4; } to { clip-path: inset(0 0 0 0); opacity: 1; } } @media (prefers-reduced-motion: reduce) { .ds-notes li { animation: none; } } @media (max-width: 639px) { .ds-spread { grid-template-columns: minmax(0, 1fr); } .ds-page--original { border-radius: 3px 3px 0 0; box-shadow: 0 1px 0 rgb(40 30 10 / 0.18); } .ds-page--facing { border-radius: 0 0 3px 3px; } }"
     },
     {
@@ -991,7 +991,7 @@
       "kind": "card",
       "refersTo": "leaf",
       "description": "A paper page laid on the cloth: running head across the measure with a roman folio, then a heavy Alegreya headline and reading text.",
-      "html": "<div class=\"ds-cloth\"><article class=\"ds-leaf\"><header class=\"ds-leaf__runhead\"><span>Preface</span><span>vii</span></header><h2 class=\"ds-leaf__title\">You learn a language by reading it.</h2><p class=\"ds-leaf__body\">Drills teach you the rules. Reading teaches you the language: how words sit together, which ones keep coming back, what a sentence sounds like when someone meant it.</p><p class=\"ds-leaf__coda\">A <i lang=\"it\">leggio</i> is the stand that holds what you’re reading.</p></article></div>",
+      "html": "<div class=\"ds-cloth\"><article class=\"ds-leaf\"><header class=\"ds-leaf__runhead\"><span>Preface</span><span>vii</span></header><h2 class=\"ds-leaf__title\">You learn a language by reading it</h2><p class=\"ds-leaf__body\">Drills teach you the rules. Reading teaches you the language: how words sit together, which ones keep coming back, what a sentence sounds like when someone meant it.</p><p class=\"ds-leaf__coda\">A <i lang=\"it\">leggio</i> is the stand that holds what you’re reading.</p></article></div>",
       "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-leaf { position: relative; padding: clamp(24px, 3.5vw, 36px) clamp(22px, 6vw, 88px) clamp(56px, 8vw, 104px); border-radius: 3px; background-color: var(--paper, #fbfaf6); background-image: linear-gradient(to right, rgb(40 30 10 / 0.1), rgb(40 30 10 / 0.02) 30px, transparent 72px); color: var(--ink, #1c1b19); font-family: var(--font-text, \"Alegreya\", Georgia, serif); box-shadow: 0 1px 0 #e4e1d8, 0 2px 0 var(--paper, #fbfaf6), 0 3px 0 #dedad0, 0 30px 50px -28px rgb(0 0 0 / 0.5), 0 8px 16px -8px rgb(0 0 0 / 0.25); } .ds-leaf__runhead { display: flex; justify-content: space-between; margin-bottom: clamp(48px, 7vw, 96px); font: 500 0.8125rem/1.2 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--ink-2, #57544c); } .ds-leaf__title { margin: 0; max-width: 16ch; font: 800 clamp(2.25rem, 1.3rem + 2.8vw, 3.75rem)/1.02 var(--font-text, \"Alegreya\", Georgia, serif); letter-spacing: -0.02em; text-wrap: balance; } .ds-leaf__body { margin: 28px 0 0; max-width: 60ch; font-size: clamp(1.1875rem, 1.05rem + 0.4vw, 1.3125rem); line-height: 1.66; } .ds-leaf__coda { margin: 1.1em 0 0; font-size: clamp(1.375rem, 1.15rem + 0.7vw, 1.625rem); line-height: 1.45; color: var(--cloth-ink, #1f4e3d); }"
     },
     {
@@ -999,7 +999,7 @@
       "kind": "custom",
       "refersTo": "colophon-term",
       "description": "The privacy promise as a definition list on cloth: gilt small-caps terms, on-cloth values, gilt hairlines between rows, and a gilt text link.",
-      "html": "<div class=\"ds-cloth\"><dl class=\"ds-facts\"><div><dt>Translation</dt><dd>On your device, with Chrome’s built-in AI</dd></div><div><dt>Saved words</dt><dd>Kept in your browser, on your computer</dd></div><div><dt>Account</dt><dd>None. Install it and start reading</dd></div></dl><a class=\"ds-textlink\" href=\"#\">Read the privacy policy <svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a></div>",
+      "html": "<div class=\"ds-cloth\"><dl class=\"ds-facts\"><div><dt>Translation</dt><dd>With Chrome’s built-in AI or your API key</dd></div><div><dt>Saved words</dt><dd>Kept in your browser, on your computer</dd></div><div><dt>Account</dt><dd>None. Install it and start reading</dd></div></dl><a class=\"ds-textlink\" href=\"#\">Read the privacy policy <svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a></div>",
       "css": ".ds-cloth { background-color: var(--cloth, #1f4e3d); background-image: var(--cloth-tex, none); background-blend-mode: soft-light; color: var(--on-cloth, #f6f3ea); padding: 32px; } .ds-facts { margin: 0; border-top: 1px solid color-mix(in srgb, var(--stamp, #e4c57e) 60%, transparent); } .ds-facts > div { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 16px; padding-block: 20px; border-bottom: 1px solid color-mix(in srgb, var(--stamp, #e4c57e) 35%, transparent); } .ds-facts dt { font: 700 1rem/1.5 var(--font-sc, \"Alegreya SC\", \"Alegreya\", Georgia, serif); letter-spacing: 0.06em; color: var(--stamp, #e4c57e); } .ds-facts dd { margin: 0; font: 400 1.1875rem/1.45 var(--font-text, \"Alegreya\", Georgia, serif); color: var(--on-cloth, #f6f3ea); } .ds-textlink { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; padding-block: 6px; color: var(--stamp, #e4c57e); font: 700 1.0625rem/1 var(--font-ui, \"Alegreya Sans\", system-ui, sans-serif); text-decoration: none; } .ds-icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); } @media (hover: hover) and (pointer: fine) { .ds-textlink:hover { text-decoration: underline; } .ds-textlink:hover .ds-icon { transform: translateX(3px); } } .ds-textlink:focus-visible { outline: 2px solid var(--on-cloth, #f6f3ea); outline-offset: 3px; border-radius: 3px; } @media (max-width: 639px) { .ds-facts > div { grid-template-columns: minmax(0, 1fr); gap: 4px; } }"
     },
     {
@@ -1021,19 +1021,19 @@
   ],
   "narrative": {
     "northStar": "The Parallel-Text Edition",
-    "overview": "Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and \"notes on use\" leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt (or blind-stamped, on the ochre German volume). The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.\n\nThe page is composed from book furniture rather than web components. The language switcher is a shelf of spines. Saved words go to the facing page, keyed by line number. Privacy is a colophon of plain facts. The ornament that closes the page is a printer's rule with a lozenge. Nothing is a card, and nothing is a feature grid. Density is low and readerly: long measures of 34 to 68ch, generous leaf margins, one idea per surface.\n\nThe world refuses two defaults by name: the browser-extension landing page (browser-window mockup, three feature cards, gradient hero) and the cream-paper-and-serif bookish default. The paper here is near-white, and the colour lives in the cloth.",
+    "overview": "Leggio is dressed as a clothbound bilingual series: each source language is a volume in its own bookcloth, and the site wears the cloth of whichever volume is open. The cloth is saturated, woven and full-bleed. It owns the page. Paper appears only as physical pages laid on it: the open spread in the hero, the preface and glossary leaves, the tipped-in plate, the gloss slips. Lettering on the cloth is blocked in gilt. The reading texts are real public-domain openings, set like an edition, with running heads, folios, chapter lines and margin line numbers.\n\nThe page is composed from book furniture rather than web components. The language switcher is a shelf of spines. Saved words go to the facing page, keyed by line number. Privacy is a colophon of plain facts. The ornament that closes the page is a printer's rule with a lozenge. Nothing is a card, and nothing is a feature grid. Density is low and readerly: long measures of 34 to 68ch, generous leaf margins, one idea per surface.\n\nThe world refuses two defaults by name: the browser-extension landing page (browser-window mockup, three feature cards, gradient hero) and the cream-paper-and-serif bookish default. The paper here is near-white, and the colour lives in the cloth.",
     "keyCharacteristics": [
       "Five language cloths, one per volume; the whole page recolours when the reader picks a spine.",
       "Woven cloth texture built from SVG turbulence, luminance-only, blended over a flat cloth colour.",
       "Near-white paper pages with gutter shade, stacked page edges and real page furniture.",
       "Three members of one type family: Alegreya to read, Alegreya SC for page furniture, Alegreya Sans for controls. A Noto Serif JP subset covers the Japanese.",
       "Every word in the demo is a button; its gloss is a paper slip that never covers the facing page.",
-      "Honest states: the demo credits its hand-written glosses, and store and contact links stay visibly pending until they exist."
+      "Honest states: the demo credits its public-domain texts in the footer, and the store link stays visibly pending until it exists."
     ],
     "rules": [
       {
         "name": "The Answer-Only Motion Rule",
-        "body": "Every animation responds to a reader's action (choosing a volume, a word, a save). Nothing moves on its own, on load or on scroll.",
+        "body": "Every animation responds to a reader's action (choosing a volume, a word, a save). Nothing moves on its own except, at the owner's request, the arrival fade on open (type and book settle onto the cloth), the one-time fade-up of blocks scrolling into view, and the page-turn hint: after 3.5s of stillness the right-hand page lifts a little and lays back down, at most twice, never after the reader turns a page, never with reduced motion or on stacked pages.",
         "section": "overview"
       },
       {
@@ -1043,12 +1043,12 @@
       },
       {
         "name": "The Cloth-Ink Rule",
-        "body": "Cloth colour set on paper always goes through `--cloth-ink`, never `--cloth`. For four volumes the two are the same. Ochre (#c5962c) is too light to read on paper, so its cloth-ink is umber (#6f500e).",
+        "body": "Cloth colour set on paper always goes through `--cloth-ink`, never `--cloth`. Today all five are dark enough to read on paper, so the two are the same; a lighter cloth would need a darker ink.",
         "section": "colors"
       },
       {
-        "name": "The Ochre Exception",
-        "body": "German is the one light cloth, so its lettering and stamp invert to near-black (#1f1708, #2a1e07): a blind stamp instead of gilt. Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.",
+        "name": "The Orange Margin",
+        "body": "Burnt orange is the lightest cloth, so it runs closest to the line: its lettering is #fbf1e6 (5.2:1), its secondary lettering is held at 92% rather than 80% to stay above 4.5:1, and its gilt is paler (#fbe6b6, 4.7:1). Any new cloth must declare all six properties and pass contrast for lettering on both its cloth and its deep.",
         "section": "colors"
       },
       {
@@ -1058,7 +1058,7 @@
       },
       {
         "name": "The Oldstyle Rule",
-        "body": "Numerals are oldstyle everywhere text is read: body, folios, line numbers. Lining numerals appear only inside the circular callouts and step discs, where they must centre.",
+        "body": "Numerals are oldstyle everywhere text is read: body, folios, line numbers. Lining numerals appear only inside the circular step discs, where they must centre.",
         "section": "typography"
       },
       {
@@ -1083,7 +1083,7 @@
       },
       {
         "name": "The Seven-Pixel Ceiling Rule",
-        "body": "No corner is rounder than a slip of paper (7px). Pills and soft rounded cards don't exist here. Full circles are only for numbered callouts.",
+        "body": "No corner is rounder than a slip of paper (7px). Pills and soft rounded cards don't exist here. Full circles are only for the step discs.",
         "section": "shapes"
       },
       {
@@ -1105,13 +1105,13 @@
     "dos": [
       "Do let the cloth own every full-bleed surface on the landing page and the 404 (hero, colophon, closing, footer), and put paper only on objects laid on it: spread pages, leaves, the plate leaf, gloss slips.",
       "Do colour anything cloth-coloured through `--cloth`, `--cloth-deep`, `--cloth-ink`, `--on-cloth`, `--on-cloth-2` and `--stamp`, so one `data-cloth` change recolours it with the rest of the page.",
-      "Do use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, callouts, focus rings on paper). Ochre's cloth-ink is umber (#6f500e) for a reason.",
+      "Do use cloth-ink for cloth colour on paper (headwords, chapter lines, underlines, step discs, focus rings on paper).",
       "Do give every page its furniture: a running head with a folio, a centred small-caps chapter line, line numbers every fifth line, and gutter shade toward the binding.",
       "Do set Japanese vertically, bound on the right, with the JP subset face, and keep closing punctuation on its word.",
-      "Do keep the demo honest: public-domain passages credited in the footer, hand-written glosses said to be hand-written, the plate labelled as an illustration.",
+      "Do keep the demo honest: public-domain passages credited in the footer, glosses limited to what on-device translation gives (word, translation, sentence translation), the plate labelled as an illustration.",
       "Do show the store and contact links as pending (outlined, unlinked, \"Coming soon\") until `config.js` has a real value.",
       "Do use the ease-out curve (cubic-bezier(0.23, 1, 0.32, 1)) for anything that moves, gate hover behind `(hover: hover) and (pointer: fine)`, and give every animation a reduced-motion version that drops transform and blur.",
-      "Do keep numerals oldstyle in running text, folios and line references, and lining only inside the round callouts.",
+      "Do keep numerals oldstyle in running text, folios and line references, and lining only inside the round step discs.",
       "Do source every claim the comparison makes about another tool, date it, and give the benefit of the doubt where a fact can't be confirmed."
     ],
     "donts": [
@@ -1121,10 +1121,10 @@
       "Don't let a gloss slip cover the facing page, at any width.",
       "Don't make the demo, or any copy around it, claim more than the extension does. No invented features, languages, user counts, testimonials, reviews, pricing or screenshots, and no suggestion that the demo's glosses come from the live translator.",
       "Don't make a pending button look clickable: no fill, no hover, no press, no `href`.",
-      "Don't set the ochre cloth colour (#c5962c) as text on paper, or use light lettering on the ochre cloth.",
+      "Don't brighten the orange cloth toward a flag orange: below about #a84a14 light lettering on it falls under 4.5:1.",
       "Don't stack a small-caps label directly above a headline as a kicker. Small caps are running heads, chapter lines, terms, spine titles and the wordmark.",
-      "Don't round anything past 7px or use pill shapes. Circles are only for the numbered callouts and step discs.",
-      "Don't add ambient, looping or scroll-triggered motion. Every animation answers a reader's action.",
+      "Don't round anything past 7px or use pill shapes. Circles are only for the step discs.",
+      "Don't add ambient or looping motion, or scroll-triggered motion beyond the one reveal. Every other animation answers a reader's action, except the bounded page-turn hint.",
       "Don't add a font family or a third-party font request. Everything is self-hosted Alegreya, Alegreya SC, Alegreya Sans and the Noto Serif JP subset.",
       "Don't dress the comparison up as a sales grid: no highlighted Leggio column, badges, coloured cells or cards. Leggio's row gets its quiet wash and nothing more; it stays a booktabs table on paper."
     ]

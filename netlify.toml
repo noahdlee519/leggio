@@ -13,3 +13,13 @@
   for = "/assets/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[redirects]]
+  from = "/install/*"
+  to = "https://chromewebstore.google.com/detail/leggio/daehfmnbiigjkpmjldpjeleepoidmfdl"
+  status = 302
+
+[[redirects]]
+  from = "/download/*"
+  to = "https://chromewebstore.google.com/detail/leggio/daehfmnbiigjkpmjldpjeleepoidmfdl"
+  status = 302
