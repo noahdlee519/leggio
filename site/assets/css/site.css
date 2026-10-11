@@ -1151,6 +1151,8 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
 .compare__table { margin-top: clamp(48px, 6vw, 80px); }
 .compare__scroll {
+  /* Positioned, so the visually hidden labels in the cells scroll and clip with the table */
+  position: relative;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scrollbar-color: var(--cloth-ink) var(--paper-2);
@@ -1167,8 +1169,10 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   border-spacing: 0;
   font-variant-numeric: oldstyle-nums proportional-nums;
 }
-.compare caption {
+/* The table's caption, set outside the scrolling box so it stays whole on phones */
+.compare__caption {
   margin-bottom: 22px;
+  text-align: center;
   font: 500 0.9375rem/1.3 var(--font-sc);
   letter-spacing: 0.08em;
   color: var(--cloth-ink);
@@ -1229,7 +1233,6 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   padding-left: 12px;
   font-weight: 700;
   line-height: 1.25;
-  box-shadow: inset -1px 0 0 var(--rule);
 }
 .compare__kind {
   display: block;
@@ -1248,6 +1251,8 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   transition: color 600ms ease;
 }
 .compare tbody tr.compare__section + tr > * { border-top: 0; }
+/* The group's name stays in view while the table scrolls sideways */
+.compare__section th span { position: sticky; left: 12px; }
 
 /* Leggio's own row: a wash of the cloth, like a word you've selected */
 .compare__ours > * { background-color: color-mix(in srgb, var(--cloth-ink) 7%, var(--paper)); }
@@ -1266,6 +1271,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   line-height: 1.2;
   color: var(--ink-2);
 }
+.compare td:nth-child(2) { min-width: 7.25rem; }
 .compare__price {
   display: block;
   font: 500 0.9375rem/1.3 var(--font-ui);
@@ -1370,7 +1376,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .compare__sources summary .icon { width: 18px; height: 18px; color: var(--cloth-ink); transition: transform 200ms var(--ease-out); }
 .compare__sources[open] summary .icon { transform: rotate(90deg); }
 .compare__sources dl { margin-top: 8px; }
-.compare__sources dl div { padding-block: 6px; border-top: 1px solid var(--rule); }
+.compare__sources dl div { padding-block: 8px; border-top: 1px solid var(--rule); }
 .compare__sources dt { font-weight: 700; color: var(--ink); }
 .compare__sources a {
   color: var(--cloth-ink);
@@ -1560,6 +1566,8 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1099px) {
+  /* A rule after the tool names, for when the table scrolls under them */
+  .compare tbody th[scope="row"] { box-shadow: inset -1px 0 0 var(--rule); }
   .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 56px; }
   .hero__copy { max-width: 40rem; }
   .hero__lede { max-width: 44ch; }
@@ -1615,10 +1623,19 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
   .leaf { border-radius: 2px; }
   .compare__table { margin-inline: calc(-1 * clamp(22px, 6vw, 88px)); }
-  .compare__table caption { padding-inline: 22px; text-align: left; }
+  .compare__caption { padding-inline: 22px; text-align: left; }
   .compare__hint { display: block; padding: 0 22px 12px; font: 400 0.875rem/1.4 var(--font-ui); color: var(--ink-2); }
   .compare tbody th[scope="row"] { width: 8.75rem; min-width: 8.75rem; padding-left: 22px; }
   .compare thead tr > :first-child { padding-left: 22px; }
+  .compare__section th { padding-left: 22px; }
+  .compare__section th span { left: 22px; }
+  /* The leaf's gutter shade, carried on behind the tool names that stay put */
+  .compare tbody th[scope="row"],
+  .compare thead tr > :first-child,
+  .compare__section th {
+    background-image: linear-gradient(to right, rgb(40 30 10 / 0.1), rgb(40 30 10 / 0.02) 30px, transparent 72px);
+    background-repeat: no-repeat;
+  }
   .minigloss { width: auto; max-width: 260px; }
   .callout--save { right: -38px; }
   .colophon__facts > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
