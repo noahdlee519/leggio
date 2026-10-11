@@ -1255,7 +1255,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .compare__section th span { position: sticky; left: 12px; }
 
 /* Leggio's own row: a wash of the cloth, like a word you've selected */
-.compare__ours > * { background-color: color-mix(in srgb, var(--cloth-ink) 7%, var(--paper)); }
+.compare .compare__ours > * { background-color: color-mix(in srgb, var(--cloth-ink) 10%, var(--paper)); }
 .compare__ours th[scope="row"] { color: var(--cloth-ink); font-size: 1.1875rem; }
 
 .compare td { text-align: center; color: var(--ink); }
@@ -1264,7 +1264,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .mark--yes { color: var(--cloth-ink); transition: color 600ms ease; }
 .mark--yes .icon { stroke-width: 2; }
 .mark--no { color: var(--ink-2); }
-.mark--no .icon { width: 16px; height: 16px; }
+.mark--no .icon { width: 18px; height: 18px; stroke-width: 2.4; }
 .mark--part {
   font-style: italic;
   font-size: 1rem;
@@ -1297,7 +1297,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 
 @media (hover: hover) and (pointer: fine) {
   .compare tbody tr:not(.compare__section):hover > * { background-color: color-mix(in srgb, var(--cloth-ink) 5%, var(--paper)); }
-  .compare tbody tr.compare__ours:hover > * { background-color: color-mix(in srgb, var(--cloth-ink) 9%, var(--paper)); }
+  .compare tbody tr.compare__ours:hover > * { background-color: color-mix(in srgb, var(--cloth-ink) 12%, var(--paper)); }
   .note-ref:hover { text-decoration: underline; }
 }
 
@@ -1361,7 +1361,8 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .compare__notes li:target > b { text-decoration: underline; text-underline-offset: 0.2em; }
 .compare__notes i { font-family: var(--font-text); font-size: 1.0625rem; }
 .compare__sources { margin-top: 26px; font-size: 0.875rem; line-height: 1.55; color: var(--ink-2); }
-.compare__sources summary {
+.compare__defs summary { margin-bottom: 6px; }
+.compare__fold summary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1372,9 +1373,9 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   cursor: pointer;
   list-style: none;
 }
-.compare__sources summary::-webkit-details-marker { display: none; }
-.compare__sources summary .icon { width: 18px; height: 18px; color: var(--cloth-ink); transition: transform 200ms var(--ease-out); }
-.compare__sources[open] summary .icon { transform: rotate(90deg); }
+.compare__fold summary::-webkit-details-marker { display: none; }
+.compare__fold summary .icon { width: 18px; height: 18px; color: var(--cloth-ink); transition: transform 200ms var(--ease-out), color 600ms ease; }
+.compare__fold[open] summary .icon { transform: rotate(90deg); }
 .compare__sources dl { margin-top: 8px; }
 .compare__sources dl div { padding-block: 8px; border-top: 1px solid var(--rule); }
 .compare__sources dt { font-weight: 700; color: var(--ink); }
@@ -1566,8 +1567,9 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1099px) {
-  /* A rule after the tool names, for when the table scrolls under them */
-  .compare tbody th[scope="row"] { box-shadow: inset -1px 0 0 var(--rule); }
+  /* A rule after the tool names and their heads, for when the table scrolls under them */
+  .compare tbody th[scope="row"],
+  .compare thead tr > :first-child { box-shadow: inset -1px 0 0 var(--rule); }
   .hero__grid { grid-template-columns: minmax(0, 1fr); gap: 56px; }
   .hero__copy { max-width: 40rem; }
   .hero__lede { max-width: 44ch; }
@@ -1627,15 +1629,20 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .compare__hint { display: block; padding: 0 22px 12px; font: 400 0.875rem/1.4 var(--font-ui); color: var(--ink-2); }
   .compare tbody th[scope="row"] { width: 8.75rem; min-width: 8.75rem; padding-left: 22px; }
   .compare thead tr > :first-child { padding-left: 22px; }
-  .compare__section th { padding-left: 22px; }
-  .compare__section th span { left: 22px; }
-  /* The leaf's gutter shade, carried on behind the tool names that stay put */
+  .compare__section th { padding: 0; }
+  .compare__section th span {
+    left: 0;
+    display: inline-block;
+    padding: 26px 12px 8px 22px;
+  }
+  /* The leaf's gutter shade, carried on behind everything that stays put */
   .compare tbody th[scope="row"],
   .compare thead tr > :first-child,
-  .compare__section th {
+  .compare__section th span {
     background-image: linear-gradient(to right, rgb(40 30 10 / 0.1), rgb(40 30 10 / 0.02) 30px, transparent 72px);
     background-repeat: no-repeat;
   }
+  .compare__section th span { background-color: var(--paper); }
   .minigloss { width: auto; max-width: 260px; }
   .callout--save { right: -38px; }
   .colophon__facts > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
@@ -1652,7 +1659,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   .button.is-live:active, .gloss__close:active, .gloss__save:active, .spine:active, .spine[aria-selected="true"]:active { transform: none; }
   .spine[aria-selected="true"], .shelf--closing .spine.is-current { transform: translateY(-16px); }
   .textlink:hover .icon { transform: none; }
-  .compare__sources summary .icon { transition: none; }
+  .compare__fold summary .icon { transition: none; }
   .nav__links > a:not(.button) { transition: none; }
   .spread.is-swapping .passage, .spread.is-swapping .notes { filter: none; }
   .dogear::before, .dogear::after { transition: none; }
