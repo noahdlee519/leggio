@@ -970,10 +970,10 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .spine::before { top: 7px; }
 .spine::after { bottom: 7px; }
 .spine__title {
-  font: 700 1rem/1 var(--font-sc);
+  font: 700 0.8125rem/1 var(--font-sc);
   letter-spacing: 0.06em;
 }
-.spine__title--long { font-size: 0.875rem; letter-spacing: 0.03em; } /* a long name still fits the spine on phones */
+.spine__title--long { font-size: 0.75rem; letter-spacing: 0.03em; } /* a long name keeps clear of the bands */
 .spine__title:lang(ja) { font-family: var(--font-jp); font-weight: 600; letter-spacing: 0.12em; }
 .spine[aria-selected="true"] { transform: translateY(-16px); }
 /* A ribbon marker hangs from the tail of the book being read, into the gap its lift leaves,
@@ -1400,7 +1400,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 .mark--yes { color: var(--cloth-ink); transition: color 600ms ease; }
 .mark--yes .icon { stroke-width: 2; }
 .mark--no { color: var(--ink-2); }
-.mark--no .icon { width: 18px; height: 18px; stroke-width: 2.4; }
+.mark--no .icon { width: 18px; height: 18px; stroke-width: 2.2; }
 .mark--part {
   font-style: italic;
   font-size: 1rem;
