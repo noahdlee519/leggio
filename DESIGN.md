@@ -441,7 +441,7 @@ Headings use `text-wrap: balance` and paragraphs use `text-wrap: pretty`.
 **Breakpoints.**
 - **1099px:** every two-column grid becomes one column. The hero copy is capped at 40rem and the plate at 720px.
 - **860px:** the privacy policy drops its sticky contents column. The contents become a two-column list above the text, without the rail.
-- **639px (phones):** the spread stacks, original page above facing page, and the gutter turns horizontal. The gloss slip docks inside the original page. Spines stretch to share the shelf (max 64px wide, 118px tall); the closing shelf spans the full width too, so its volumes match the hero's. Colophon facts stack. Every button goes full width except the nav button. The comparison table runs to the leaf's edges and scrolls sideways, with the tool names, their head and the group names held in place.
+- **639px (phones):** the spread stacks, original page above facing page, and the gutter turns horizontal. The gloss slip docks inside the original page. Spines stretch to share the shelf (max 64px wide, 118px tall); the closing shelf spans the full width too, so its volumes match the hero's. Colophon facts stack. Every button goes full width except the nav button. The comparison table runs to the leaf's edges and scrolls sideways, with the tool names and their head held in place.
 - **560px:** once the store button is live in the nav, "Privacy" leaves it; "How it works" stays. (While pending, the nav has no store button, so both links fit.)
 - **Hover:** all hover styling is behind `(hover: hover) and (pointer: fine)`.
 
@@ -576,6 +576,7 @@ Paper pages laid on the cloth: the preface, the glossary ("How to read with Legg
 - **Board:** each screenshot is tipped in on a board of the volume's cloth: weave, 4px radius, recessed inset shadow, clamp(10px, 1.4vw, 18px) padding. The screenshot has a 2px radius, a hairline and a tipped-in drop shadow.
 - **Steps:** a counter list; each step is a 30px cloth-ink disc, a title-step heading and a 1.125rem pencil description (max 38ch), under its plate.
 - **Layout:** three columns (gap clamp(28px, 3.5vw, 48px)) so the section fits about one screen. Plate, heading and description share rows across the three (CSS subgrid), so the descriptions start level even when a heading wraps. Below 900px they stack, each plate at most 420px wide.
+- **Also in Leggio:** under the steps, after a Hairline rule (clamp(48px, 6vw, 72px) above, clamp(28px, 3.5vw, 40px) below), a small-caps "Also in Leggio" title in ink (Alegreya SC 700, 1rem) over three glossary entries on the steps' three columns: the term in Alegreya 700 cloth-ink (clamp 1.1875–1.3125rem), its definition in pencil under it. They name what the plates can't show: idioms, scanned books, hearing a word. One column below 900px.
 
 ### Colophon
 
@@ -590,11 +591,11 @@ A table from the back of a book: Leggio beside other tools, on a leaf with the r
 - **Opening:** a headline and one paragraph on the preface's 5/7 grid. The table has no visible title: a visually hidden `<caption>` names it for assistive technology, and the notes say when it was checked.
 - **Rules:** booktabs. A 1.5px ink rule above the heads and below the last row, a 1px ink rule under the heads, and Hairline rules between rows. No vertical rules, except the 1px Hairline after the tool names wherever the table may scroll (1099px and below).
 - **Heads:** one row of column heads in table-head type, set at the foot of their cell, centred, with no group heads above them.
-- **Rows:** grouped under small-caps group lines in cloth-ink ("Translators", "Tools for learners"). Each tool name sits over a line saying what kind of tool it is. Leggio's row comes first, in a 10% wash of cloth-ink on paper, with its name in cloth-ink: the same idea as a selected word, quieter. Hover (fine pointers) washes a row at 5%.
+- **Rows:** one group, with no group lines between kinds of tool. Each tool name sits over a line saying what kind of tool it is. Leggio's row comes first, in a 10% wash of cloth-ink on paper, with its name in cloth-ink: the same idea as a selected word, quieter. Hover (fine pointers) washes a row at 5%.
 - **Cells:** a drawn check in cloth-ink for yes, a drawn cross in pencil for no, and "partly" in Alegreya italic in pencil. Each mark carries visually hidden text ("Yes", "No"). Note references are book-style footnote marks, no more than a few: \*, then †, in order of appearance, in Alegreya cloth-ink set just above the line after the head or mark they qualify ("Price\*"). The marked cell or head points to its note with `aria-describedby`; the mark itself is hidden from assistive technology.
 - **Price:** "Free" in bold cloth-ink; otherwise the plan in ink over the lowest monthly price in pencil, shown only when the maker's own pricing page or app store listing gives it.
 - **Under the table:** at most five notes, in one column (max 46rem) of Alegreya Sans in pencil. The footnotes come first, each with its mark hanging in the bullet's place; then the plain notes, with cloth-ink bullets: how prices were taken, Leggio's limits, what "partly" means, and when the facts were checked, with a link to report changes. Then the sources, folded in a disclosure that opens with a cloth-ink chevron turning 90°. No key, no column definitions, no lettered references.
-- **Phones:** the table bleeds to the leaf's edges and scrolls sideways inside a focusable region with a "Scroll sideways" hint above it. The tool names, their head and the group names stay put, carrying the leaf's gutter shade on an opaque paper ground.
+- **Phones:** the table bleeds to the leaf's edges and scrolls sideways inside a focusable region with a "Scroll sideways" hint above it. The tool names and their head stay put, carrying the leaf's gutter shade on an opaque paper ground.
 
 **The Sourced Claim Rule.** Every cell about another tool is backed by a source listed under the table, and the table says when it was checked. Where something can't be confirmed, the tool gets the benefit of the doubt, and the page says so. Leggio's own row claims only what the extension does today, with its limits in notes.
 
