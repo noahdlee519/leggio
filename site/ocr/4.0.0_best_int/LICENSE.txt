@@ -1,0 +1,5 @@
+The files in this folder are Tesseract OCR language data (LSTM models), from
+https://github.com/tesseract-ocr/tessdata_best, available under the Apache License 2.0
+(https://www.apache.org/licenses/LICENSE-2.0). They were converted to integer models and
+published on npm as @tesseract.js-data/<lang>@1.0.0 by the Tesseract.js project
+(https://github.com/naptha/tessdata, MIT). Fetched by scripts/fetch-ocr-data.mjs.
