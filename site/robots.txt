@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# Text recognition data the Leggio extension downloads; nothing to index.
+Disallow: /ocr/
 
 Sitemap: https://getleggio.com/sitemap.xml
