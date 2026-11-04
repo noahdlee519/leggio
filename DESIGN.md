@@ -576,7 +576,7 @@ Paper pages laid on the cloth: the preface, the glossary ("How to read with Legg
 - **Board:** each screenshot is tipped in on a board of the volume's cloth: weave, 4px radius, recessed inset shadow, clamp(10px, 1.4vw, 18px) padding. The screenshot has a 2px radius, a hairline and a tipped-in drop shadow.
 - **Steps:** a counter list; each step is a 30px cloth-ink disc, a title-step heading and a 1.125rem pencil description (max 38ch), under its plate.
 - **Layout:** three columns (gap clamp(28px, 3.5vw, 48px)) so the section fits about one screen. Plate, heading and description share rows across the three (CSS subgrid), so the descriptions start level even when a heading wraps. Below 900px they stack, each plate at most 420px wide.
-- **Also in Leggio:** under the steps, after a Hairline rule (clamp(48px, 6vw, 72px) above, clamp(28px, 3.5vw, 40px) below), a small-caps "Also in Leggio" title in ink (Alegreya SC 700, 1rem) over three glossary entries on the steps' three columns: the term in Alegreya 700 cloth-ink (clamp 1.1875–1.3125rem), its definition in pencil under it. They name what the plates can't show: idioms, scanned books, hearing a word. One column below 900px.
+- **Also in Leggio:** under the steps, after a Hairline rule (clamp(48px, 6vw, 72px) above, clamp(28px, 3.5vw, 40px) below), a small-caps "Also in Leggio" title in ink (Alegreya SC 700, 1rem) over four glossary entries, two by two: the term in Alegreya 700 cloth-ink (clamp 1.1875–1.3125rem), its definition in pencil under it. They name what the plates can't show: idioms, the reader's search box, scanned books, hearing a word. One column below 900px.
 
 ### Colophon
 
