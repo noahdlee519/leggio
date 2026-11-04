@@ -1171,7 +1171,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   line-height: 1.2;
   font-weight: 700;
 }
-/* Three more things Leggio does, set like glossary entries under the steps */
+/* More things Leggio does, set like glossary entries under the steps, two by two */
 .extras {
   margin-top: clamp(48px, 6vw, 72px);
   padding-top: clamp(28px, 3.5vw, 40px);
@@ -1184,8 +1184,8 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
 }
 .extras__list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(28px, 3.5vw, 48px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 36px) clamp(28px, 3.5vw, 48px);
   margin: 18px 0 0;
 }
 .extras__list dt {
@@ -1194,6 +1194,7 @@ a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px
   transition: color 600ms ease;
 }
 .extras__list dd {
+  max-width: 46ch;
   margin: 6px 0 0;
   color: var(--ink-2);
 }
